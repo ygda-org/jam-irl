@@ -16,16 +16,23 @@ func _ready() -> void:
 			print("Started game instance on port " + str(NetworkInfo.port))
 			return
 		NetworkInfo.State.Alice:
-			peer.create_client(NetworkInfo.get_address_with_port())
-			multiplayer.multiplayer_peer = peer
-			print("Connected to server at address " + str(NetworkInfo.get_address_with_port()))
+			connect_client()
 			return
 		NetworkInfo.State.Bob:
-			peer.create_client(NetworkInfo.get_address_with_port())
-			multiplayer.multiplayer_peer = peer
-			print("Connected to server at address " + str(NetworkInfo.get_address_with_port()))
+			connect_client()
 			return
-			
+
+func connect_client():
+	var address: String = NetworkInfo.get_address_with_port()
+	var res: Error =peer.create_client(address)
+	if res != OK:
+		print("Failed to connect client to address " + address)
+	else:
+		print("Successfully connected to address " + address)
+	
+	multiplayer.multiplayer_peer = peer
+	
+
 func _new_player(id: int):
 	print("New player joined with id of " + str(id))
 	
