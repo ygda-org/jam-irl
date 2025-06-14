@@ -13,13 +13,14 @@ func _ready() -> void:
 			multiplayer.multiplayer_peer = peer
 			multiplayer.peer_connected.connect(_new_player)
 			multiplayer.peer_disconnected.connect(_disconnect_player)
+			print("Started game instance on port " + str(NetworkInfo.port))
 			return
 		NetworkInfo.State.Alice:
-			peer.create_client(NetworkInfo.get_address())
+			peer.create_client(NetworkInfo.get_address_with_port())
 			multiplayer.multiplayer_peer = peer
 			return
 		NetworkInfo.State.Bob:
-			peer.create_client(NetworkInfo.get_address())
+			peer.create_client(NetworkInfo.get_address_with_port())
 			multiplayer.multiplayer_peer = peer
 			return
 			

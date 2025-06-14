@@ -7,11 +7,11 @@ enum State {
 }
 
 @export var address: String = "localhost"
-@export var port: int = 9999 # 9999 is default test port, 10000-19999 are actual game instance ports
+@export var port: int = 9999 # 9999 is default game instance port, docker container binds it to port 10000-19999 on host machine
 @export var state: State = State.Server
 
-func get_address(tls: bool = false) -> String:
-	var protocol: String = ["ws://", "ws://"][int(tls)]
+func get_address_with_port(tls: bool = false) -> String:
+	var protocol: String = ["ws://", "wss://"][int(tls)]
 	
 	return protocol + address + ":" + str(port)
 
