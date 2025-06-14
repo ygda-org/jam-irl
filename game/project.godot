@@ -10,7 +10,7 @@ config_version=5
 
 [application]
 
-config/name="New Game Project"
+config/name="JamIRL"
 run/main_scene="uid://di360h4q2r2we"
 config/features=PackedStringArray("4.4", "Forward Plus")
 config/icon="res://icon.svg"
@@ -19,3 +19,7 @@ config/icon="res://icon.svg"
 
 SceneSwitcher="*res://globals/scene_switcher.gd"
 NetworkInfo="*res://globals/network_info.gd"
+
+[rendering]
+
+textures/vram_compression/import_etc2_astc=true
