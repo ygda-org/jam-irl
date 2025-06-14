@@ -18,10 +18,12 @@ func _ready() -> void:
 		NetworkInfo.State.Alice:
 			peer.create_client(NetworkInfo.get_address_with_port())
 			multiplayer.multiplayer_peer = peer
+			print("Connected to server at address " + str(NetworkInfo.get_address_with_port()))
 			return
 		NetworkInfo.State.Bob:
 			peer.create_client(NetworkInfo.get_address_with_port())
 			multiplayer.multiplayer_peer = peer
+			print("Connected to server at address " + str(NetworkInfo.get_address_with_port()))
 			return
 			
 func _new_player(id: int):
