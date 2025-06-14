@@ -20,6 +20,11 @@ config/icon="res://icon.svg"
 SceneSwitcher="*res://globals/scene_switcher.gd"
 NetworkInfo="*res://globals/network_info.gd"
 
+[display]
+
+window/size/viewport_width=960
+window/size/viewport_height=600
+
 [rendering]
 
 textures/vram_compression/import_etc2_astc=true
