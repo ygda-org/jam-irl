@@ -14,12 +14,13 @@ offset_right = 81.0
 offset_bottom = -75.0
 placeholder_text = "Address..."
 
-[node name="RoomID" type="TextEdit" parent="."]
+[node name="Code" type="TextEdit" parent="."]
 offset_left = -95.0
 offset_top = -9.0
 offset_right = 80.0
 offset_bottom = 33.0
-placeholder_text = "Room ID..."
+placeholder_text = "Code...
+"
 
 [node name="Port" type="TextEdit" parent="."]
 offset_left = -94.0

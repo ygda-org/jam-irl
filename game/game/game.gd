@@ -7,20 +7,24 @@ var peer: WebSocketMultiplayerPeer = WebSocketMultiplayerPeer.new()
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	match NetworkInfo.state:
-		NetworkInfo.State.Server:
-			peer.create_server(NetworkInfo.port)
-			multiplayer.multiplayer_peer = peer
-			multiplayer.peer_connected.connect(_new_player)
-			multiplayer.peer_disconnected.connect(_disconnect_player)
-			print("Started game instance on port " + str(NetworkInfo.port))
-			return
-		NetworkInfo.State.Alice:
-			connect_client()
-			return
-		NetworkInfo.State.Bob:
-			connect_client()
-			return
+	if NetworkInfo.is_server():
+		connect_server()
+	else:
+		connect_client()
+
+
+func connect_server():
+	var res: Error = peer.create_server(NetworkInfo.port)
+	if res != OK:
+		print("Failed to start game instance on port " + str(NetworkInfo.port))
+		get_tree().quit(1)
+		return 
+	else:
+		print("Started game instance on port " + str(NetworkInfo.port))
+
+	multiplayer.multiplayer_peer = peer
+	multiplayer.peer_connected.connect(_new_player)
+	multiplayer.peer_disconnected.connect(_disconnect_player)
 
 func connect_client():
 	var address: String = NetworkInfo.get_address_with_port()
@@ -31,7 +35,7 @@ func connect_client():
 		print("Successfully connected to address " + address)
 	
 	multiplayer.multiplayer_peer = peer
-	
+
 
 func _new_player(id: int):
 	print("New player joined with id of " + str(id))
