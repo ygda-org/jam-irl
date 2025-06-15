@@ -50,4 +50,4 @@ RUN chmod +x /app/project.x86_64
 EXPOSE 8080
 
 # Command to run the server
-CMD ["./project.x86_64", "--server", "--port", "8080", "--headless"] 
+CMD ["./project.x86_64", "--server", "--headless"] 

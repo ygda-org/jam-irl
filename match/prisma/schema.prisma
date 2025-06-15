@@ -1,0 +1,41 @@
+datasource db {
+  provider = "mongodb"
+  url      = env("MONGODB_URI")
+}
+
+generator client {
+  provider = "prisma-client-py"
+}
+
+model User {
+  id        String   @id @default(auto()) @map("_id") @db.ObjectId
+  username  String   @unique
+
+  matchIds String[] @db.ObjectId
+  matches Match[] @relation("match-players",fields: [matchIds], references: [id])
+
+  createdMatches Match[] @relation("match-creator")
+} 
+
+enum MatchStatus {
+    CREATED
+    STARTED
+    FINISHED
+}
+
+model Match {
+    id        String   @id @default(auto()) @map("_id") @db.ObjectId
+    
+    status    MatchStatus
+    creatorId String @db.ObjectId
+    creator User @relation("match-creator", fields: [creatorId], references: [id])
+
+    playerIds String[] @db.ObjectId
+    players User[] @relation("match-players",fields: [playerIds], references: [id])
+
+    gsiUrl String
+
+    createdAt DateTime @default(now())
+    startedAt DateTime?
+    finishedAt DateTime?
+}
