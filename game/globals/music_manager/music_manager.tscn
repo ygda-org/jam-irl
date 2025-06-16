@@ -1,0 +1,25 @@
+[gd_scene load_steps=6 format=3 uid="uid://cw5k3vo7iq1an"]
+
+[ext_resource type="Script" uid="uid://cf3bh3ubrb64p" path="res://globals/music_manager/music_manager.gd" id="1_ryqep"]
+[ext_resource type="Script" uid="uid://duqc28b55o1yp" path="res://globals/music_manager/sound_effect_settings.gd" id="2_5cosf"]
+[ext_resource type="AudioStream" uid="uid://dre618ygm4st7" path="res://ASSETS/MUSIC/Game_Jamming__Lobby.mp3" id="3_rv6ga"]
+
+[sub_resource type="Resource" id="Resource_xuqxi"]
+script = ExtResource("2_5cosf")
+label = 0
+stream = ExtResource("3_rv6ga")
+volume = 1.0
+pitch = 1.0
+metadata/_custom_type_script = "uid://duqc28b55o1yp"
+
+[sub_resource type="Resource" id="Resource_37t8a"]
+script = ExtResource("2_5cosf")
+label = 1
+stream = ExtResource("3_rv6ga")
+volume = 1.0
+pitch = 2.0
+metadata/_custom_type_script = "uid://duqc28b55o1yp"
+
+[node name="MusicManager" type="Node2D"]
+script = ExtResource("1_ryqep")
+sound_effect_settings = Array[ExtResource("2_5cosf")]([SubResource("Resource_xuqxi"), SubResource("Resource_37t8a")])
