@@ -1,18 +1,20 @@
 extends Node2D
 
-
-@onready var camera_2d: Camera2D = $Camera2D
+const time_till_timout: float = 3.0
+const ServerDataObject = preload("res://game/server_data.gd")
 
 var peer: WebSocketMultiplayerPeer = WebSocketMultiplayerPeer.new()
+var server_data: ServerData = null
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	if NetworkInfo.is_server():
+		server_data = ServerDataObject.new()
 		connect_server()
 	else:
 		connect_client()
 
-
+## Server functions
 func connect_server():
 	var res: Error = peer.create_server(NetworkInfo.port)
 	if res != OK:
@@ -25,20 +27,82 @@ func connect_server():
 	multiplayer.multiplayer_peer = peer
 	multiplayer.peer_connected.connect(_new_player)
 	multiplayer.peer_disconnected.connect(_disconnect_player)
-
-func connect_client():
-	var address: String = NetworkInfo.get_address_with_port()
-	var res: Error =peer.create_client(address)
-	if res != OK:
-		print("Failed to connect client to address " + address)
-	else:
-		print("Successfully connected to address " + address)
 	
-	multiplayer.multiplayer_peer = peer
-
+	%LobbyUI.get_debug_label().text = "Game Instance running on port " + str(NetworkInfo.port)
 
 func _new_player(id: int):
-	print("New player joined with id of " + str(id))
+	if not server_data.add_peer(id): # Server is full, 2 players are already present
+		peer.disconnect_peer(id, true)
+		print("Client tried connected, server was full.")
+		return
+	
+	print("New player joined with id of " + str(id)  + ". Asking for room code.")
+	rpc_id(id, "request_room_code")
+	await get_tree().create_timer(3).timeout
+	
+	if server_data.peer_exists(id) and not server_data.is_verified(id):
+		# Client took to long to give room code, kick them
+		# An attacker could spam timeout a room and not let anybody in.
+		print("Peer with id of " + str(id) + " timed out. Kicking them.")
+		server_data.remove_peer(id)
+		peer.disconnect_peer(id)
 	
 func _disconnect_player(id: int):
 	print("Player " + str(id) + " disconnected.")
+
+func update_debug_client_list() -> void:
+	%LobbyUI.get_debug_client_list_label().text = str(server_data.id_to_client_data.keys())
+
+@rpc("any_peer")
+func send_room_code(code: String):
+	if not NetworkInfo.is_server():
+		return
+	
+	var sender_id: int = multiplayer.get_remote_sender_id()
+	if server_data.is_verified(sender_id):
+		print("Verified client tried verifying again.")
+		return
+	
+	if NetworkInfo.code == code:
+		server_data.verify_peer(sender_id)
+		print("Successfully verified peer with id of " + str(sender_id))
+		rpc_id(sender_id, "verify_verification")
+	else:
+		print("Kicking out peer with id of " + str(sender_id) + " for invalid code.")
+		server_data.remove_peer(sender_id)
+		peer.disconnect_peer(sender_id)
+	
+	update_debug_client_list()
+###
+
+## Client Functions
+func connect_client():
+	var address: String = NetworkInfo.get_address_with_port()
+	var res: Error = peer.create_client(address)
+	if res != OK:
+		SceneSwitcher.start_menu_with_error("Failed to connect client at address " + address)
+		return
+	else:
+		print("Successfully connected to address " + address)
+	
+	multiplayer.server_disconnected.connect(_disconnected)
+	multiplayer.connection_failed.connect(_disconnected) # TODO: Use another more descriptive _disconnected for connection_failed.
+	multiplayer.multiplayer_peer = peer
+	
+	%LobbyUI.get_debug_label().text = "Connected to address " + address
+
+func _disconnected() -> void:
+	SceneSwitcher.start_menu_with_error("Disconnected from server.")
+
+@rpc("authority")
+func request_room_code():
+	if NetworkInfo.is_server():
+		return
+	
+	rpc("send_room_code", NetworkInfo.code)
+
+@rpc("authority")
+func verify_verification() -> void:
+	%LobbyUI.get_debug_label().text = "Verified at address " + NetworkInfo.get_address_with_port()
+
+###

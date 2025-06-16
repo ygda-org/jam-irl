@@ -1,8 +1,7 @@
 extends Node
 
 enum State {
-	Alice,
-	Bob,
+	Client,
 	Server
 }
 
