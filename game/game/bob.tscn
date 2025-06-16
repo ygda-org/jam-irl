@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=3 uid="uid://dve2acpc4jq2b"]
+[gd_scene load_steps=15 format=3 uid="uid://dnfl7m5gxhq71"]
 
 [ext_resource type="Texture2D" uid="uid://c04xtt0fdbnd" path="res://ASSETS/bobidle.png" id="1_ib7g1"]
 [ext_resource type="Texture2D" uid="uid://ccpav20ymjwgy" path="res://ASSETS/bobrun.png" id="2_2b7oc"]
@@ -19,25 +19,29 @@ region = Rect2(60, 0, 30, 50)
 atlas = ExtResource("1_ib7g1")
 region = Rect2(0, 50, 30, 50)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_niue5"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_ib7g1"]
 atlas = ExtResource("2_2b7oc")
 region = Rect2(0, 0, 30, 50)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_dbwjr"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_2b7oc"]
 atlas = ExtResource("2_2b7oc")
 region = Rect2(30, 0, 30, 50)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_8yyd8"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_niue5"]
 atlas = ExtResource("2_2b7oc")
 region = Rect2(60, 0, 30, 50)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_njo1d"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_dbwjr"]
 atlas = ExtResource("2_2b7oc")
 region = Rect2(0, 50, 30, 50)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_ktqwd"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_8yyd8"]
 atlas = ExtResource("2_2b7oc")
 region = Rect2(30, 50, 30, 50)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_njo1d"]
+atlas = ExtResource("2_2b7oc")
+region = Rect2(60, 50, 30, 50)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_ifr8f"]
 animations = [{
@@ -60,6 +64,12 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
+"texture": SubResource("AtlasTexture_ib7g1")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_2b7oc")
+}, {
+"duration": 1.0,
 "texture": SubResource("AtlasTexture_niue5")
 }, {
 "duration": 1.0,
@@ -70,9 +80,6 @@ animations = [{
 }, {
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_njo1d")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_ktqwd")
 }],
 "loop": true,
 "name": &"run",
@@ -86,7 +93,7 @@ size = Vector2(26, 32)
 
 [node name="Anim" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_ifr8f")
-animation = &"idle"
+animation = &"run"
 autoplay = "idle"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
