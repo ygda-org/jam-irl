@@ -8,33 +8,33 @@ script = ExtResource("1_jwbto")
 [node name="Camera2D" type="Camera2D" parent="."]
 
 [node name="Address" type="TextEdit" parent="."]
-offset_left = -94.0
-offset_top = -117.0
-offset_right = 81.0
-offset_bottom = -75.0
+offset_left = -459.0
+offset_top = -277.0
+offset_right = -284.0
+offset_bottom = -235.0
 placeholder_text = "Address..."
 
 [node name="Code" type="TextEdit" parent="."]
-offset_left = -95.0
-offset_top = -9.0
-offset_right = 80.0
-offset_bottom = 33.0
+offset_left = -460.0
+offset_top = -169.0
+offset_right = -285.0
+offset_bottom = -127.0
 placeholder_text = "Code...
 "
 
 [node name="Port" type="TextEdit" parent="."]
-offset_left = -94.0
-offset_top = -63.0
-offset_right = 81.0
-offset_bottom = -21.0
+offset_left = -459.0
+offset_top = -223.0
+offset_right = -284.0
+offset_bottom = -181.0
 placeholder_text = "Port..."
 
-[node name="Button" type="Button" parent="."]
-offset_left = -93.0
-offset_top = 55.0
-offset_right = 80.0
-offset_bottom = 96.0
-text = "Connect"
+[node name="DebugClient" type="Button" parent="."]
+offset_left = -458.0
+offset_top = -105.0
+offset_right = -285.0
+offset_bottom = -64.0
+text = "Debug Client"
 
 [node name="Debug Server" type="Button" parent="."]
 offset_left = -464.0
@@ -43,5 +43,15 @@ offset_right = -291.0
 offset_bottom = 256.0
 text = "Debug Server"
 
-[connection signal="pressed" from="Button" to="." method="_on_button_pressed"]
+[node name="NewRoom" type="Button" parent="."]
+offset_left = -96.0
+offset_top = -23.0
+offset_right = 92.0
+offset_bottom = 28.0
+text = "New Room"
+
+[node name="UserIDRequest" type="HTTPRequest" parent="."]
+unique_name_in_owner = true
+
+[connection signal="pressed" from="DebugClient" to="." method="_on_button_pressed"]
 [connection signal="pressed" from="Debug Server" to="." method="_on_debug_server_pressed"]
