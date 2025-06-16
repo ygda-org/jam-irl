@@ -2,7 +2,8 @@ from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 import uvicorn
 from dotenv import load_dotenv
-from api import router, prisma
+from api import router
+from lib.db import prisma
 
 # Load environment variables
 load_dotenv()
@@ -31,7 +32,7 @@ async def startup():
 
 @app.on_event("shutdown")
 async def shutdown():
-    await prisma.disconnect()    
+    await prisma.disconnect()
 
 if __name__ == "__main__":
     uvicorn.run(app, host="0.0.0.0", port=8000) 
