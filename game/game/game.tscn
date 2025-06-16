@@ -1,8 +1,22 @@
-[gd_scene load_steps=2 format=3 uid="uid://3q5hbx8do2mj"]
+[gd_scene load_steps=3 format=3 uid="uid://3q5hbx8do2mj"]
 
 [ext_resource type="Script" uid="uid://1wsrlba7lprx" path="res://game/game.gd" id="1_l1rk1"]
+[ext_resource type="PackedScene" uid="uid://xuaexscyabkr" path="res://game/lobby_ui/lobby_ui.tscn" id="2_vasa2"]
 
 [node name="Game" type="Node2D"]
 script = ExtResource("1_l1rk1")
 
 [node name="Camera2D" type="Camera2D" parent="."]
+unique_name_in_owner = true
+
+[node name="LobbyUI" parent="." instance=ExtResource("2_vasa2")]
+unique_name_in_owner = true
+
+[node name="DebugEndGame" type="Button" parent="."]
+offset_left = -445.0
+offset_top = 225.0
+offset_right = -269.0
+offset_bottom = 269.0
+text = "Debug End Game"
+
+[connection signal="pressed" from="DebugEndGame" to="." method="_on_debug_end_game_pressed"]

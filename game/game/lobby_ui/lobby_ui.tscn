@@ -1,0 +1,23 @@
+[gd_scene load_steps=2 format=3 uid="uid://xuaexscyabkr"]
+
+[ext_resource type="Script" uid="uid://dqhwuktq4if3c" path="res://game/lobby_ui/lobby_ui.gd" id="1_c5e1p"]
+
+[node name="LobbyUI" type="CanvasLayer"]
+script = ExtResource("1_c5e1p")
+
+[node name="DebugLabel" type="Label" parent="."]
+unique_name_in_owner = true
+offset_left = 29.0
+offset_top = 36.0
+offset_right = 408.0
+offset_bottom = 118.0
+text = "<DebugLabel>
+"
+
+[node name="DebugClientListLabel" type="Label" parent="."]
+unique_name_in_owner = true
+offset_left = 29.0
+offset_top = 111.0
+offset_right = 170.0
+offset_bottom = 134.0
+text = "No clients connected"
