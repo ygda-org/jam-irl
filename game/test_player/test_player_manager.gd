@@ -14,6 +14,7 @@ func _process(delta: float) -> void:
 	input_vector = Input.get_vector("ui_left","ui_right","ui_up","ui_down")
 	$Label.text = "INPUT_VECTOR: " + str(input_vector)
 	main_parent.rpc("send_client_input", input_vector)
+	main_parent.send_client_input(input_vector)
 	if Input.is_action_just_pressed("ui_left"):
 		MusicManager.clear_all_audio()
 		MusicManager.create_audio(SoundEffectSettings.SOUND_EFFECT_LABEL.LOBBYJAM_A)
