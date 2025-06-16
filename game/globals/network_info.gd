@@ -18,15 +18,13 @@ enum State {
 
 ## Client info:
 @export var user_id: String = "none"
-@export var address_with_port: String = "localhost:9999"
 @export var match_id: String = ""
+@export var address_with_port: String = "ws://localhost:9999"
 ##
 
 
 func get_address_with_protocol(tls: bool = false) -> String:
-	var protocol: String = ["ws://", "wss://"][int(tls)]
-	
-	return protocol + address_with_port
+	return address_with_port
 
 func is_server() -> bool:
 	return state == State.Server

@@ -28,7 +28,7 @@ func _ready() -> void:
 			return
 		
 		var json = await HttpWrapper.request(%AwaitableHTTP, "/user/", HTTPClient.METHOD_POST)
-		if json: 
+		if json:
 			json = json as Dictionary
 			NetworkInfo.user_id = json["userId"]
 			GlobalLog.client_log("Retrieved userID %s from matchmaking server." % NetworkInfo.user_id)
@@ -54,6 +54,9 @@ func _on_create_match_pressed() -> void:
 		var code = res["match"]["code"]
 		var gsiUrl = res["match"]["gsiUrl"]
 		GlobalLog.client_log("Created match with code %s and GSI URL %s" % [code, gsiUrl])
+		NetworkInfo.address_with_port = gsiUrl
+		NetworkInfo.code = code
+		SceneSwitcher.goto_scene("res://game/game.tscn")
 	else:
 		GlobalLog.client_log("Failed to create match.")
 
@@ -67,5 +70,8 @@ func _on_join_match_pressed() -> void:
 		res = res as Dictionary
 		var gsiUrl = res["match"]["gsiUrl"]
 		GlobalLog.client_log("Joined match with GSI URL %s" % gsiUrl)
+		NetworkInfo.code = joinCode.text
+		NetworkInfo.address_with_port = gsiUrl
+		SceneSwitcher.goto_scene("res://game/game.tscn")
 	else:
 		GlobalLog.client_log("Failed to join match.")
