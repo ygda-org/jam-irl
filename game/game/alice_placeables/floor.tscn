@@ -16,6 +16,7 @@ animations = [{
 [node name="Floor" type="Node2D"]
 
 [node name="Anim" type="AnimatedSprite2D" parent="."]
+position = Vector2(25, 25)
 sprite_frames = SubResource("SpriteFrames_uh5ns")
 animation = &"floor"
 autoplay = "floor"
