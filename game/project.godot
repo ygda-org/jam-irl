@@ -24,7 +24,7 @@ GlobalLog="*res://globals/global_log.gd"
 [display]
 
 window/size/viewport_width=960
-window/size/viewport_height=600
+window/size/viewport_height=540
 window/stretch/mode="viewport"
 
 [rendering]
