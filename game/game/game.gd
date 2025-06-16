@@ -99,6 +99,7 @@ func connect_client():
 	multiplayer.multiplayer_peer = peer
 	
 	%LobbyUI.get_debug_label().text = "Connected to address " + address
+	
 
 func _disconnected() -> void:
 	SceneSwitcher.start_menu_with_error("Disconnected from server.")
