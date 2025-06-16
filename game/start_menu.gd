@@ -16,22 +16,15 @@ func _ready() -> void:
 		
 		SceneSwitcher.goto_scene("res://game/game.tscn")
 	else: # If it's a user, request an ID
-		%UserIDRequest.request_completed.connect(on_userid_request_completed)
 		var headers = ["Content-Type: applications/json"]
-		%UserIDRequest.request(NetworkInfo.match_making_address + "/user", headers, HTTPClient.METHOD_POST)
+		var user_request_res = await %AwaitableHTTP.async_request(NetworkInfo.match_making_address + "/user/", headers, HTTPClient.METHOD_POST)
+		if user_request_res.success() and user_request_res.status_ok():
+			var json = user_request_res.body_as_json()
+			NetworkInfo.user_id = json["userId"]
+			GlobalLog.client_log("Got userID %s from matchmaking server." % NetworkInfo.user_id)
+		else:
+			GlobalLog.client_log("Failed to get userID from matchmaking server.")
 
-func on_userid_request_completed(result, response_code, headers, body) -> void:
-	print(str(response_code))
-	print(str(result))
-	print(str(headers))
-	print(str(body))
-	if response_code == 200:
-		var json = JSON.parse_string(body.get_string_from_utf8())
-		NetworkInfo.user_id = json["userID"]
-		GlobalLog.client_log("Received user id from matchmaking server: " + NetworkInfo.user_id)
-	else:
-		GlobalLog.client_log("Failed to request for a userid from matchmaking server.")
-		
 
 func _on_button_pressed() -> void:
 	NetworkInfo.state = NetworkInfo.State.Client
