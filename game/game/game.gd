@@ -86,7 +86,7 @@ func debug_end_game():
 
 ## Client Functions
 func connect_client():
-	var address: String = NetworkInfo.get_address_with_port()
+	var address: String = NetworkInfo.get_address_with_protocol()
 	var res: Error = peer.create_client(address)
 	if res != OK:
 		SceneSwitcher.start_menu_with_error("Failed to connect client at address " + address)
@@ -113,7 +113,7 @@ func request_room_code():
 
 @rpc("authority")
 func verify_verification() -> void:
-	%LobbyUI.get_debug_label().text = "Verified at address " + NetworkInfo.get_address_with_port()
+	%LobbyUI.get_debug_label().text = "Verified at address " + NetworkInfo.get_address_with_protocol()
 
 ###
 
