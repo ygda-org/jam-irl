@@ -16,8 +16,8 @@ func request(http_node, path: String, method: int, body = null):
 		headers.append("Content-Type: application/json")
 
 	var json = JSON.stringify(body) if body else ""
-	var user_request_res = await http_node.async_request(NetworkInfo.match_making_address + path, headers, method, json)
-	if user_request_res.success() and user_request_res.status_ok():
-		return user_request_res.body_as_json()
-	
+	var res = await http_node.async_request(NetworkInfo.match_making_address + path, headers, method, json)
+	if res.success() and res.status_ok():
+		return res.body_as_json()
+
 	return null
