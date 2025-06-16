@@ -19,8 +19,4 @@ offset_right = -269.0
 offset_bottom = 269.0
 text = "Debug End Game"
 
-[node name="MultiplayerSpawner" type="MultiplayerSpawner" parent="."]
-_spawnable_scenes = PackedStringArray("uid://d0t87viedndd1")
-spawn_path = NodePath("..")
-
 [connection signal="pressed" from="DebugEndGame" to="." method="_on_debug_end_game_pressed"]
