@@ -1,6 +1,6 @@
 [gd_scene load_steps=3 format=3 uid="uid://di360h4q2r2we"]
 
-[ext_resource type="Script" uid="uid://bi38rubq5nsh5" path="res://start_menu.gd" id="1_jwbto"]
+[ext_resource type="Script" uid="uid://ced3oeh5brbta" path="res://start_menu.gd" id="1_jwbto"]
 [ext_resource type="Script" uid="uid://it2fdbjm2lvp" path="res://addons/awaitable_http_request/awaitable_http_request.gd" id="2_ia0g5"]
 
 [node name="Node2D" type="Node2D"]
@@ -8,52 +8,84 @@ script = ExtResource("1_jwbto")
 
 [node name="Camera2D" type="Camera2D" parent="."]
 
-[node name="Address" type="TextEdit" parent="."]
-offset_left = -459.0
-offset_top = -277.0
-offset_right = -284.0
-offset_bottom = -235.0
+[node name="Debug Menu" type="Panel" parent="."]
+offset_left = -257.0
+offset_top = -149.0
+offset_right = -68.0
+offset_bottom = 139.0
+size_flags_horizontal = 4
+size_flags_vertical = 4
+
+[node name="Address" type="TextEdit" parent="Debug Menu"]
+offset_left = 8.0
+offset_top = 9.0
+offset_right = 183.0
+offset_bottom = 51.0
 placeholder_text = "Address..."
 
-[node name="Code" type="TextEdit" parent="."]
-offset_left = -460.0
-offset_top = -169.0
-offset_right = -285.0
-offset_bottom = -127.0
+[node name="Code" type="TextEdit" parent="Debug Menu"]
+offset_left = 7.0
+offset_top = 117.0
+offset_right = 182.0
+offset_bottom = 159.0
 placeholder_text = "Code...
 "
 
-[node name="Port" type="TextEdit" parent="."]
-offset_left = -459.0
-offset_top = -223.0
-offset_right = -284.0
-offset_bottom = -181.0
+[node name="Port" type="TextEdit" parent="Debug Menu"]
+offset_left = 8.0
+offset_top = 63.0
+offset_right = 183.0
+offset_bottom = 105.0
 placeholder_text = "Port..."
 
-[node name="DebugClient" type="Button" parent="."]
-offset_left = -458.0
-offset_top = -105.0
-offset_right = -285.0
-offset_bottom = -64.0
+[node name="DebugClient" type="Button" parent="Debug Menu"]
+offset_left = 9.0
+offset_top = 181.0
+offset_right = 182.0
+offset_bottom = 222.0
 text = "Debug Client"
 
-[node name="Debug Server" type="Button" parent="."]
-offset_left = -464.0
-offset_top = 215.0
-offset_right = -291.0
-offset_bottom = 256.0
+[node name="Debug Server" type="Button" parent="Debug Menu"]
+offset_left = 8.0
+offset_top = 236.0
+offset_right = 181.0
+offset_bottom = 277.0
 text = "Debug Server"
 
-[node name="NewRoom" type="Button" parent="."]
-offset_left = -96.0
-offset_top = -23.0
-offset_right = 92.0
-offset_bottom = 28.0
-text = "New Room"
+[node name="CreateMatch" type="Button" parent="."]
+offset_left = 77.0
+offset_top = 45.0
+offset_right = 265.0
+offset_bottom = 96.0
+text = "Create Match"
+
+[node name="Control" type="Panel" parent="."]
+offset_left = 66.0
+offset_top = -98.0
+offset_right = 283.0
+offset_bottom = 31.0
+
+[node name="Code" type="TextEdit" parent="Control"]
+offset_left = 11.0
+offset_top = 10.0
+offset_right = 199.0
+offset_bottom = 52.0
+placeholder_text = "Code...
+"
+
+[node name="JoinMatch" type="Button" parent="Control"]
+offset_left = 11.0
+offset_top = 63.0
+offset_right = 199.0
+offset_bottom = 114.0
+text = "Join Match
+"
 
 [node name="AwaitableHTTP" type="HTTPRequest" parent="."]
 unique_name_in_owner = true
 script = ExtResource("2_ia0g5")
 
-[connection signal="pressed" from="DebugClient" to="." method="_on_button_pressed"]
-[connection signal="pressed" from="Debug Server" to="." method="_on_debug_server_pressed"]
+[connection signal="pressed" from="Debug Menu/DebugClient" to="." method="_on_button_pressed"]
+[connection signal="pressed" from="Debug Menu/Debug Server" to="." method="_on_debug_server_pressed"]
+[connection signal="pressed" from="CreateMatch" to="." method="_on_create_match_pressed"]
+[connection signal="pressed" from="Control/JoinMatch" to="." method="_on_join_match_pressed"]

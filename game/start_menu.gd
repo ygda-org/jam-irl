@@ -3,11 +3,13 @@ extends Node2D
 @onready var address: TextEdit = $Address
 @onready var port: TextEdit = $Port
 @onready var code: TextEdit = $Code
+@onready var joinCode: TextEdit = $Control/Code
 
 func _ready() -> void:
 	var args: = OS.get_cmdline_args()
 	
 	if args.has("--server"): # If it's a server, begin
+		NetworkInfo.state = NetworkInfo.State.Server
 		if args.has("--port"):
 			NetworkInfo.port = int(args[args.find("--port") + 1])
 		
@@ -16,15 +18,13 @@ func _ready() -> void:
 		
 		SceneSwitcher.goto_scene("res://game/game.tscn")
 	else: # If it's a user, request an ID
-		var headers = ["Content-Type: applications/json"]
-		var user_request_res = await %AwaitableHTTP.async_request(NetworkInfo.match_making_address + "/user/", headers, HTTPClient.METHOD_POST)
-		if user_request_res.success() and user_request_res.status_ok():
-			var json = user_request_res.body_as_json()
+		NetworkInfo.state = NetworkInfo.State.Client
+		var json = await HttpWrapper.request(%AwaitableHTTP, "/user/", HTTPClient.METHOD_POST)
+		if json: 
 			NetworkInfo.user_id = json["userId"]
-			GlobalLog.client_log("Got userID %s from matchmaking server." % NetworkInfo.user_id)
+			GlobalLog.client_log("Retrieved userID %s from matchmaking server." % NetworkInfo.user_id)
 		else:
 			GlobalLog.client_log("Failed to get userID from matchmaking server.")
-
 
 func _on_button_pressed() -> void:
 	NetworkInfo.state = NetworkInfo.State.Client
@@ -34,6 +34,12 @@ func _on_button_pressed() -> void:
 	SceneSwitcher.goto_scene("res://game/game.tscn")
 
 func _on_debug_server_pressed() -> void:
-	
 	SceneSwitcher.goto_scene("res://game/game.tscn")
-	
+
+func _on_create_match_pressed() -> void:
+	GlobalLog.client_log("Creating match...")
+	pass
+
+func _on_join_match_pressed() -> void:
+	GlobalLog.client_log("Joining match...")
+	pass

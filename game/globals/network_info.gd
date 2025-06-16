@@ -26,3 +26,6 @@ func get_address_with_port(tls: bool = false) -> String:
 
 func is_server() -> bool:
 	return state == State.Server
+
+func is_client() -> bool:
+	return state == State.Client
