@@ -2,6 +2,8 @@ extends Node2D
 
 @export var input_vector = Vector2(0,0)
 
+@onready var main_parent = find_parent("SyncGame")
+
 func _ready() -> void:
 	if NetworkInfo.is_server():
 		GlobalLog.server_log("Server Player Manager Spawned-Error?")
@@ -11,3 +13,5 @@ func _ready() -> void:
 func _process(delta: float) -> void:
 	input_vector = Input.get_vector("ui_left","ui_right","ui_up","ui_down")
 	$Label.text = "INPUT_VECTOR: " + str(input_vector)
+	main_parent.rpc("send_client_input", input_vector)
+	
