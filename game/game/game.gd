@@ -120,7 +120,7 @@ func verify_verification() -> void:
 
 func _on_debug_end_game_pressed() -> void:
 	if NetworkInfo.is_server():
-		GlobalLog.client_log("Ending game instance! Goodbye!")
+		GlobalLog.server_log("Ending game instance! Goodbye!")
 		get_tree().quit(0)
 	else:
 		rpc("debug_end_game")

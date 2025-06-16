@@ -17,6 +17,7 @@ size_flags_horizontal = 4
 size_flags_vertical = 4
 
 [node name="Address" type="TextEdit" parent="Debug Menu"]
+layout_mode = 0
 offset_left = 8.0
 offset_top = 9.0
 offset_right = 183.0
@@ -24,6 +25,7 @@ offset_bottom = 51.0
 placeholder_text = "Address..."
 
 [node name="Code" type="TextEdit" parent="Debug Menu"]
+layout_mode = 0
 offset_left = 7.0
 offset_top = 117.0
 offset_right = 182.0
@@ -32,6 +34,7 @@ placeholder_text = "Code...
 "
 
 [node name="Port" type="TextEdit" parent="Debug Menu"]
+layout_mode = 0
 offset_left = 8.0
 offset_top = 63.0
 offset_right = 183.0
@@ -39,6 +42,7 @@ offset_bottom = 105.0
 placeholder_text = "Port..."
 
 [node name="DebugClient" type="Button" parent="Debug Menu"]
+layout_mode = 0
 offset_left = 9.0
 offset_top = 181.0
 offset_right = 182.0
@@ -46,6 +50,7 @@ offset_bottom = 222.0
 text = "Debug Client"
 
 [node name="Debug Server" type="Button" parent="Debug Menu"]
+layout_mode = 0
 offset_left = 8.0
 offset_top = 236.0
 offset_right = 181.0
@@ -66,6 +71,7 @@ offset_right = 283.0
 offset_bottom = 31.0
 
 [node name="Code" type="TextEdit" parent="Control"]
+layout_mode = 0
 offset_left = 11.0
 offset_top = 10.0
 offset_right = 199.0
@@ -74,6 +80,7 @@ placeholder_text = "Code...
 "
 
 [node name="JoinMatch" type="Button" parent="Control"]
+layout_mode = 0
 offset_left = 11.0
 offset_top = 63.0
 offset_right = 199.0

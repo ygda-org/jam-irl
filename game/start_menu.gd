@@ -1,8 +1,9 @@
 extends Node2D
 
-@onready var address: TextEdit = $Address
-@onready var port: TextEdit = $Port
-@onready var code: TextEdit = $Code
+@onready var address: TextEdit = $"Debug Menu/Address"
+@onready var code: TextEdit = $"Debug Menu/Code"
+@onready var port: TextEdit = $"Debug Menu/Port"
+
 @onready var joinCode: TextEdit = $Control/Code
 
 func _ready() -> void:
@@ -34,6 +35,7 @@ func _on_button_pressed() -> void:
 	SceneSwitcher.goto_scene("res://game/game.tscn")
 
 func _on_debug_server_pressed() -> void:
+	NetworkInfo.state = NetworkInfo.State.Server
 	SceneSwitcher.goto_scene("res://game/game.tscn")
 
 func _on_create_match_pressed() -> void:
