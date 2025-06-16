@@ -18,11 +18,11 @@ func _ready() -> void:
 func connect_server():
 	var res: Error = peer.create_server(NetworkInfo.port)
 	if res != OK:
-		print("Failed to start game instance on port " + str(NetworkInfo.port))
+		GlobalLog.server_log("Failed to start game instance on port " + str(NetworkInfo.port))
 		get_tree().quit(1)
 		return 
 	else:
-		print("Started game instance on port " + str(NetworkInfo.port))
+		GlobalLog.server_log("Started game instance on port " + str(NetworkInfo.port))
 
 	multiplayer.multiplayer_peer = peer
 	multiplayer.peer_connected.connect(_new_player)
@@ -33,22 +33,22 @@ func connect_server():
 func _new_player(id: int):
 	if not server_data.add_peer(id): # Server is full, 2 players are already present
 		peer.disconnect_peer(id, true)
-		print("Client tried connected, server was full.")
+		GlobalLog.server_log("Client tried connected, server was full.")
 		return
 	
-	print("New player joined with id of " + str(id)  + ". Asking for room code.")
+	GlobalLog.server_log("New player joined with id of " + str(id)  + ". Asking for room code.")
 	rpc_id(id, "request_room_code")
 	await get_tree().create_timer(3).timeout
 	
 	if server_data.peer_exists(id) and not server_data.is_verified(id):
 		# Client took to long to give room code, kick them
 		# An attacker could spam timeout a room and not let anybody in.
-		print("Peer with id of " + str(id) + " timed out. Kicking them.")
+		GlobalLog.server_log("Peer with id of " + str(id) + " timed out. Kicking them.")
 		server_data.remove_peer(id)
 		peer.disconnect_peer(id)
 	
 func _disconnect_player(id: int):
-	print("Player " + str(id) + " disconnected.")
+	GlobalLog.server_log("Player " + str(id) + " disconnected.")
 
 func update_debug_client_list() -> void:
 	%LobbyUI.get_debug_client_list_label().text = str(server_data.id_to_client_data.keys())
@@ -60,15 +60,15 @@ func send_room_code(code: String):
 	
 	var sender_id: int = multiplayer.get_remote_sender_id()
 	if server_data.is_verified(sender_id):
-		print("Verified client tried verifying again.")
+		GlobalLog.server_log("Verified client tried verifying again.")
 		return
 	
 	if NetworkInfo.code == code:
 		server_data.verify_peer(sender_id)
-		print("Successfully verified peer with id of " + str(sender_id))
+		GlobalLog.server_log("Successfully verified peer with id of " + str(sender_id))
 		rpc_id(sender_id, "verify_verification")
 	else:
-		print("Kicking out peer with id of " + str(sender_id) + " for invalid code.")
+		GlobalLog.server_log("Kicking out peer with id of " + str(sender_id) + " for invalid code.")
 		server_data.remove_peer(sender_id)
 		peer.disconnect_peer(sender_id)
 	
@@ -79,7 +79,7 @@ func debug_end_game():
 	if not NetworkInfo.is_server():
 		return
 	
-	print("Ending game instance! Goodbye!")
+	GlobalLog.server_log("Ending game instance! Goodbye!")
 	get_tree().quit(0)
 
 ###
@@ -92,7 +92,7 @@ func connect_client():
 		SceneSwitcher.start_menu_with_error("Failed to connect client at address " + address)
 		return
 	else:
-		print("Successfully connected to address " + address)
+		GlobalLog.client_log("Successfully connected to address " + address)
 	
 	multiplayer.server_disconnected.connect(_disconnected)
 	multiplayer.connection_failed.connect(_disconnected) # TODO: Use another more descriptive _disconnected for connection_failed.
@@ -119,7 +119,7 @@ func verify_verification() -> void:
 
 func _on_debug_end_game_pressed() -> void:
 	if NetworkInfo.is_server():
-		print("Ending game instance! Goodbye!")
+		GlobalLog.client_log("Ending game instance! Goodbye!")
 		get_tree().quit(0)
 	else:
 		rpc("debug_end_game")

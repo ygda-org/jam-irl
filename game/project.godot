@@ -19,6 +19,7 @@ config/icon="res://icon.svg"
 
 SceneSwitcher="*res://globals/scene_switcher.gd"
 NetworkInfo="*res://globals/network_info.gd"
+GlobalLog="*res://logger/global_log.gd"
 
 [display]
 
