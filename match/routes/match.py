@@ -157,6 +157,7 @@ async def join_match(request: MatchJoinRequest):
     updated_match = await prisma.match.update(
         where={"id": match.id},
         data={
+            "status": "STARTED",
             "playerIds": {
                 "push": request.userId
             }
@@ -181,7 +182,7 @@ async def end_match(request: MatchEndRequest):
     match = await prisma.match.find_unique(
         where={
             "id": request.matchId,
-            "status": "CREATED"
+            "status": {"not": "FINISHED"}
         },
         include={
             "creator": True,
