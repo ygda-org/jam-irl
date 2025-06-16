@@ -1,0 +1,21 @@
+[gd_scene load_steps=3 format=3 uid="uid://c7sbem2l8i13m"]
+
+[ext_resource type="Texture2D" uid="uid://bk2rqpin2idcc" path="res://ASSETS/placeables/floor.png" id="1_suabq"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_uh5ns"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_suabq")
+}],
+"loop": false,
+"name": &"floor",
+"speed": 0.0
+}]
+
+[node name="Floor" type="Node2D"]
+
+[node name="Anim" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_uh5ns")
+animation = &"floor"
+autoplay = "floor"
