@@ -1,0 +1,14 @@
+[gd_scene load_steps=3 format=3 uid="uid://d0t87viedndd1"]
+
+[ext_resource type="Script" uid="uid://drepcphshi5l5" path="res://test_player/test_player_manager.gd" id="1_xsiam"]
+
+[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_ocxql"]
+properties/0/path = NodePath(".:input_vector")
+properties/0/spawn = true
+properties/0/replication_mode = 1
+
+[node name="TestPlayer2" type="Node2D"]
+script = ExtResource("1_xsiam")
+
+[node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
+replication_config = SubResource("SceneReplicationConfig_ocxql")
