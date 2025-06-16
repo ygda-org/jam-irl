@@ -7,22 +7,25 @@ enum State {
 
 ## Match making server info:
 @export var match_making_address = "http://localhost:8000"
-
-###
-
-## Game instance info:
-@export var user_id: String = "none"
-
-@export var state: State = State.Server
-@export var port: int = 9999 # 9999 is default game instance port, docker container binds it to port 10000-19999 on host machine
-@export var code: String = "default"
-@export var address: String = "localhost"
 ##
 
-func get_address_with_port(tls: bool = false) -> String:
+@export var state: State = State.Server
+
+## Game instance info:
+@export var port: int = 9999 # 9999 is default game instance port, docker container binds it to port 10000-19999 on host machine
+@export var code: String = "default"
+##
+
+## Client info:
+@export var user_id: String = "none"
+@export var address_with_port: String = "localhost:9999"
+##
+
+
+func get_address_with_protocol(tls: bool = false) -> String:
 	var protocol: String = ["ws://", "wss://"][int(tls)]
 	
-	return protocol + address + ":" + str(port)
+	return protocol + address_with_port
 
 func is_server() -> bool:
 	return state == State.Server

@@ -20,7 +20,11 @@ func _ready() -> void:
 		SceneSwitcher.goto_scene("res://game/game.tscn")
 	else: # If it's a user, request an ID
 		NetworkInfo.state = NetworkInfo.State.Client
-		var json: Dictionary = await HttpWrapper.request(%AwaitableHTTP, "/user/", HTTPClient.METHOD_POST)
+		
+		if NetworkInfo.user_id != "none": # If the client already has a userid, don't request a new one
+			return
+		
+		var json = await HttpWrapper.request(%AwaitableHTTP, "/user/", HTTPClient.METHOD_POST)
 		if json: 
 			NetworkInfo.user_id = json["userId"]
 			GlobalLog.client_log("Retrieved userID %s from matchmaking server." % NetworkInfo.user_id)
@@ -29,8 +33,7 @@ func _ready() -> void:
 
 func _on_button_pressed() -> void:
 	NetworkInfo.state = NetworkInfo.State.Client
-	NetworkInfo.address = address.text
-	NetworkInfo.port = int(port.text)
+	NetworkInfo.address_with_port = address.text + ":" + port.text
 	NetworkInfo.code = code.text
 	SceneSwitcher.goto_scene("res://game/game.tscn")
 

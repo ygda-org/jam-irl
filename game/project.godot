@@ -20,6 +20,7 @@ config/icon="res://icon.svg"
 SceneSwitcher="*res://globals/scene_switcher.gd"
 NetworkInfo="*res://globals/network_info.gd"
 GlobalLog="*res://globals/global_log.gd"
+MusicManager="*res://globals/music_manager/music_manager.tscn"
 HttpWrapper="*res://globals/http_wrapper.gd"
 
 [display]
@@ -27,6 +28,14 @@ HttpWrapper="*res://globals/http_wrapper.gd"
 window/size/viewport_width=960
 window/size/viewport_height=540
 window/stretch/mode="viewport"
+
+[input]
+
+LeftClick={
+"deadzone": 0.2,
+"events": [Object(InputEventMouseButton,"resource_local_to_scene":false,"resource_name":"","device":-1,"window_id":0,"alt_pressed":false,"shift_pressed":false,"ctrl_pressed":false,"meta_pressed":false,"button_mask":1,"position":Vector2(596, 42),"global_position":Vector2(615, 138),"factor":1.0,"button_index":1,"canceled":false,"pressed":true,"double_click":false,"script":null)
+]
+}
 
 [rendering]
 
