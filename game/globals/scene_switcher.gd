@@ -20,6 +20,9 @@ func _deferred_goto_scene(path):
 	get_tree().current_scene = current_scene
 
 func start_menu_with_error(msg: String = "Failed to connect to server.") -> void:
-	print(msg)
+	if NetworkInfo.is_server():
+		GlobalLog.server_log(msg)
+	else:
+		GlobalLog.client_log(msg)
 	# TODO: display the error message in the main menu scene
 	goto_scene("res://start_menu.tscn")
