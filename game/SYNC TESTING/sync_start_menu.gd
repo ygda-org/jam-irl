@@ -1,13 +1,16 @@
 extends Node2D
 
-@onready var address: TextEdit = $Address
-@onready var port: TextEdit = $Port
-@onready var code: TextEdit = $Code
+@onready var address: TextEdit = $"Debug Menu/Address"
+@onready var code: TextEdit = $"Debug Menu/Code"
+@onready var port: TextEdit = $"Debug Menu/Port"
+
+@onready var joinCode: TextEdit = $Control/Code
 
 func _ready() -> void:
 	var args: = OS.get_cmdline_args()
 	
 	if args.has("--server"): # If it's a server, begin
+		NetworkInfo.state = NetworkInfo.State.Server
 		if args.has("--port"):
 			NetworkInfo.port = int(args[args.find("--port") + 1])
 		
@@ -16,31 +19,49 @@ func _ready() -> void:
 		
 		SceneSwitcher.goto_scene("res://SYNC TESTING/sync_game.tscn")
 	else: # If it's a user, request an ID
-		%UserIDRequest.request_completed.connect(on_userid_request_completed)
-		var headers = ["Content-Type: applications/json"]
-		%UserIDRequest.request(NetworkInfo.match_making_address + "/user", headers, HTTPClient.METHOD_POST)
-
-func on_userid_request_completed(result, response_code, headers, body) -> void:
-	print(str(response_code))
-	print(str(result))
-	print(str(headers))
-	print(str(body))
-	if response_code == 200:
-		var json = JSON.parse_string(body.get_string_from_utf8())
-		NetworkInfo.user_id = json["userID"]
-		GlobalLog.client_log("Received user id from matchmaking server: " + NetworkInfo.user_id)
-	else:
-		GlobalLog.client_log("Failed to request for a userid from matchmaking server.")
+		NetworkInfo.state = NetworkInfo.State.Client
 		
+		if NetworkInfo.user_id != "none": # If the client already has a userid, don't request a new one
+			return
+		
+		var json = await HttpWrapper.request(%AwaitableHTTP, "/user/", HTTPClient.METHOD_POST)
+		if json: 
+			NetworkInfo.user_id = json["userId"]
+			GlobalLog.client_log("Retrieved userID %s from matchmaking server." % NetworkInfo.user_id)
+		else:
+			GlobalLog.client_log("Failed to get userID from matchmaking server.")
 
 func _on_button_pressed() -> void:
 	NetworkInfo.state = NetworkInfo.State.Client
-	NetworkInfo.address = address.text
-	NetworkInfo.port = int(port.text)
+	NetworkInfo.address_with_port = address.text + ":" + port.text
 	NetworkInfo.code = code.text
 	SceneSwitcher.goto_scene("res://SYNC TESTING/sync_game.tscn")
 
 func _on_debug_server_pressed() -> void:
-	
+	NetworkInfo.state = NetworkInfo.State.Server
 	SceneSwitcher.goto_scene("res://SYNC TESTING/sync_game.tscn")
-	
+
+func _on_create_match_pressed() -> void:
+	var res = await HttpWrapper.request(%AwaitableHTTP, "/match/create", HTTPClient.METHOD_POST, {
+		"userId": NetworkInfo.user_id,
+	})
+	if res:
+		res = res as Dictionary
+		var code = res["match"]["code"]
+		var gsiUrl = res["match"]["gsiUrl"]
+		GlobalLog.client_log("Created match with code %s and GSI URL %s" % [code, gsiUrl])
+	else:
+		GlobalLog.client_log("Failed to create match.")
+
+func _on_join_match_pressed() -> void:
+	GlobalLog.client_log("Joining match...")
+	var res = await HttpWrapper.request(%AwaitableHTTP, "/match/join", HTTPClient.METHOD_POST, {
+		"userId": NetworkInfo.user_id,
+		"code": joinCode.text
+	})
+	if res:
+		res = res as Dictionary
+		var gsiUrl = res["match"]["gsiUrl"]
+		GlobalLog.client_log("Joined match with GSI URL %s" % gsiUrl)
+	else:
+		GlobalLog.client_log("Failed to join match.")

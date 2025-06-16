@@ -87,7 +87,7 @@ func debug_end_game():
 
 ## Client Functions
 func connect_client():
-	var address: String = NetworkInfo.get_address_with_port()
+	var address: String = NetworkInfo.get_address_with_protocol()
 	var res: Error = peer.create_client(address)
 	if res != OK:
 		SceneSwitcher.start_menu_with_error("Failed to connect client at address " + address)
@@ -98,16 +98,18 @@ func connect_client():
 	multiplayer.server_disconnected.connect(_disconnected)
 	multiplayer.connection_failed.connect(_disconnected) # TODO: Use another more descriptive _disconnected for connection_failed.
 	multiplayer.multiplayer_peer = peer
+	
 	%LobbyUI.get_debug_label().text = "Connected to address " + address
 	var manager = TEST_PLAYER_MANAGER.instantiate()
 	call_deferred("add_child",manager)
 
+func _disconnected() -> void:
+	SceneSwitcher.start_menu_with_error("Disconnected from server.")
+
 @rpc("any_peer")
 func send_client_input(input : Variant):
 	$Label.text = str(input)
-
-func _disconnected() -> void:
-	SceneSwitcher.start_menu_with_error("Disconnected from server.")
+	$SyncBob.interpret_input(input)
 
 @rpc("authority")
 func request_room_code():
@@ -118,22 +120,15 @@ func request_room_code():
 
 @rpc("authority")
 func verify_verification() -> void:
-	%LobbyUI.get_debug_label().text = "Verified at address " + NetworkInfo.get_address_with_port()
+	%LobbyUI.get_debug_label().text = "Verified at address " + NetworkInfo.get_address_with_protocol()
 
 ###
 
 
 func _on_debug_end_game_pressed() -> void:
 	if NetworkInfo.is_server():
-		GlobalLog.client_log("Ending game instance! Goodbye!")
+		GlobalLog.server_log("Ending game instance! Goodbye!")
 		get_tree().quit(0)
 	else:
 		rpc("debug_end_game")
 		
-
-
-func _on_multiplayer_spawner_spawned(node: Node) -> void:
-	if NetworkInfo.is_server():
-		GlobalLog.server_log("Spawner has spawned: " + str(node))
-	else:
-		GlobalLog.client_log("Spawner has spawned: " + str(node))
