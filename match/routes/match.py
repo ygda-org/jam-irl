@@ -2,15 +2,10 @@ from fastapi import APIRouter, HTTPException
 from pydantic import BaseModel
 import random
 import string
-import docker
-import asyncio
-import re
-from typing import List
 from lib.db import prisma
-import os
+from lib.gsi import start_gsi, kill_gsi
 
 router = APIRouter()
-docker_client = docker.from_env()
 
 class MatchCreateRequest(BaseModel):
     userId: str
@@ -20,121 +15,72 @@ class MatchJoinRequest(BaseModel):
     code: str
 
 class MatchEndRequest(BaseModel):
-    userId: str
+    code: str
     matchId: str
-
-def get_used_ports() -> List[int]:
-    """Get list of ports currently in use by GIS containers"""
-    containers = docker_client.containers.list(filters={"name": "gis-"})
-    used_ports = []
-    for container in containers:
-        # Extract port from container name (gis-XXXX)
-        match = re.search(r'gis-(\d+)', container.name)
-        if match:
-            used_ports.append(int(match.group(1)))
-    return used_ports
-
-def get_available_port() -> int:
-    """Find an available port for a new GIS container"""
-    used_ports = get_used_ports()
-    used_ports.sort()
-    
-    port = 10000
-    if port not in used_ports:
-        return port
-
-    for i in range(1, len(used_ports)):
-        if used_ports[i] - used_ports[i-1] > 1:
-            return used_ports[i-1] + 1
-
-    if used_ports[-1] < 10100-1:
-        return used_ports[-1] + 1
-    else:
-        raise Exception("No available ports in range 10000-10100")
 
 def generate_match_code() -> str:
     """Generate a random 6-character code for the match"""
     return ''.join(random.choices(string.ascii_uppercase + string.digits, k=6))
 
-async def start_gis_container(port: int, code: str, match_id: str) -> str:
-    """Start a new GIS container and return its websocket URL"""
-    container_name = f"gis-{port}"
-    
-    # Start the container with port forwarding and code
-    container = docker_client.containers.run(
-        os.getenv("GIS_IMAGE"),  # Use the image built from the Dockerfile
-        name=container_name,
-        detach=True,
-        ports={'9999': port},
-        command=["./project.x86_64", "--server", "--headless", "--code", code, "--match-id", match_id]
-    )
-    
-    # Return the websocket URL
-    return f"ws://localhost:{port}"
-
-async def stop_gis_container(port: int):
-    container = docker_client.containers.get(f"gis-{port}")
-    container.stop()
-    container.remove(force=True)
-
 @router.post("/create")
 async def create_match(request: MatchCreateRequest):
-    # Verify user exists
-    user = await prisma.user.find_unique(where={"id": request.userId})
-    if not user:
-        raise HTTPException(status_code=404, detail="User not found")
+    try: 
+        # Verify user exists
+        user = await prisma.user.find_unique(where={"id": request.userId})
+        if not user:
+            raise HTTPException(status_code=404, detail="User not found")
 
-    # Generate match code and get available port
-    match_code = generate_match_code()
-    port = get_available_port()
-    
-    try:
-        # Create a new match
-        match = await prisma.match.create(
-            data={
-                "status": "CREATED",
-                "creator": {
-                    "connect": {
-                        "id": request.userId
-                    }
-                },
-                "players": {
-                    "connect": [{
-                        "id": request.userId
-                    }]
-                },
-                "gsiUrl": "",
-                "code": match_code
-            }
-        )
-
-        gsi_url = await start_gis_container(port, match_code, match.id)
-
-        match = await prisma.match.update(
-            where={"id": match.id},
-            data={"gsiUrl": gsi_url}
-        )
-
-        # Update user's matchIds
-        await prisma.user.update(
-            where={"id": request.userId},
-            data={
-                "matchIds": {
-                    "push": match.id
-                }
-            }
-        )
-
-        return {"match": match}
-    except Exception as e:
-        # If anything fails, try to clean up the container
+        # Generate match code and get available port
+       
         try:
-            container = docker_client.containers.get(f"gis-{port}")
-            container.stop()
-            container.remove()
-        except:
-            pass
-        raise HTTPException(status_code=500, detail=f"Failed to create match: {str(e)}")
+            match_code = generate_match_code()
+
+            match = await prisma.match.create(
+                data={
+                    "status": "CREATED",
+                    "creator": {
+                        "connect": {
+                            "id": request.userId
+                        }
+                    },
+                    "players": {
+                        "connect": [{
+                            "id": request.userId
+                        }]
+                    },
+                    "gsiUrl": "",
+                    "code": match_code
+                }
+            )
+
+            gsi_url = await start_gsi(match_code, match.id)
+
+            match = await prisma.match.update(
+                where={"id": match.id},
+                data={"gsiUrl": gsi_url}
+            )
+
+            # Update user's matchIds
+            await prisma.user.update(
+                where={"id": request.userId},
+                data={
+                    "matchIds": {
+                        "push": match.id
+                    }
+                }
+            )
+
+            return {"match": match}
+        except Exception as e:
+            # If anything fails, try to clean up the container
+            try:
+                await kill_gsi(port)
+            except:
+                pass
+            raise HTTPException(status_code=500, detail=f"Failed to create match: {str(e)}")
+    except Exception as e:
+        print(str(e))
+        raise HTTPException(status_code=500, detail=str(e))
 
 @router.post("/join")
 async def join_match(request: MatchJoinRequest):
@@ -202,7 +148,7 @@ async def end_match(request: MatchEndRequest):
 
     try:
         port = int(match.gsiUrl.split(":")[2])
-        await stop_gis_container(port)
+        await kill_gsi(port)
 
         match = await prisma.match.update(
             where={"id": request.matchId},

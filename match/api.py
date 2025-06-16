@@ -1,6 +1,7 @@
 from fastapi import APIRouter
 from routes import user, match
 from lib.db import prisma
+from lib.gsi import get_used_ports
 
 router = APIRouter()
 
@@ -16,6 +17,8 @@ async def health_check():
                 "status": {"not": "FINISHED"}
             },
         )
+
+        used_ports = get_used_ports()
     except Exception as e:
         return {
             "status": "unhealthy",
@@ -24,8 +27,10 @@ async def health_check():
     
     return {
         "status": "healthy",
+        "ports": used_ports,
         "matches": [
             {
+                "id": m.id,
                 "code": m.code,
                 "gsiUrl": m.gsiUrl
             }
