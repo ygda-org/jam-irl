@@ -73,6 +73,15 @@ func send_room_code(code: String):
 		peer.disconnect_peer(sender_id)
 	
 	update_debug_client_list()
+
+@rpc("any_peer")
+func debug_end_game():
+	if not NetworkInfo.is_server():
+		return
+	
+	print("Ending game instance! Goodbye!")
+	get_tree().quit(0)
+
 ###
 
 ## Client Functions
@@ -106,3 +115,12 @@ func verify_verification() -> void:
 	%LobbyUI.get_debug_label().text = "Verified at address " + NetworkInfo.get_address_with_port()
 
 ###
+
+
+func _on_debug_end_game_pressed() -> void:
+	if NetworkInfo.is_server():
+		print("Ending game instance! Goodbye!")
+		get_tree().quit(0)
+	else:
+		rpc("debug_end_game")
+		

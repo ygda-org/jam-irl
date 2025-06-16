@@ -11,3 +11,12 @@ unique_name_in_owner = true
 
 [node name="LobbyUI" parent="." instance=ExtResource("2_vasa2")]
 unique_name_in_owner = true
+
+[node name="DebugEndGame" type="Button" parent="."]
+offset_left = -445.0
+offset_top = 225.0
+offset_right = -269.0
+offset_bottom = 269.0
+text = "Debug End Game"
+
+[connection signal="pressed" from="DebugEndGame" to="." method="_on_debug_end_game_pressed"]
