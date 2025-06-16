@@ -1,9 +1,10 @@
-from fastapi import FastAPI
+from fastapi import FastAPI, Request
 from fastapi.middleware.cors import CORSMiddleware
 import uvicorn
 from dotenv import load_dotenv
 from api import router
 from lib.db import prisma
+from lib.error_middleware import ErrorLoggingMiddleware
 
 # Load environment variables
 load_dotenv()
@@ -11,8 +12,12 @@ load_dotenv()
 app = FastAPI(
     title="YGDA Jam-IRL API",
     description="YGDA Jam-IRL API",
-    version="v0.0.1"
+    version="v0.0.1",
+    debug=True  # Enable debug mode to get stack traces
 )
+
+# Add error logging middleware FIRST
+app.add_middleware(ErrorLoggingMiddleware)
 
 # Configure CORS
 app.add_middleware(
@@ -22,6 +27,7 @@ app.add_middleware(
     allow_methods=["*"],  # Allows all methods
     allow_headers=["*"],  # Allows all headers
 )
+
 
 # Include the API router
 app.include_router(router)
