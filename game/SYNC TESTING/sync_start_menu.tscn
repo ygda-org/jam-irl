@@ -1,0 +1,57 @@
+[gd_scene load_steps=2 format=3 uid="uid://cq0uwy6y1vq73"]
+
+[ext_resource type="Script" uid="uid://dcdgjg0jip08c" path="res://SYNC TESTING/sync_start_menu.gd" id="1_235dn"]
+
+[node name="SyncStartMenu" type="Node2D"]
+script = ExtResource("1_235dn")
+
+[node name="Camera2D" type="Camera2D" parent="."]
+
+[node name="Address" type="TextEdit" parent="."]
+offset_left = -459.0
+offset_top = -277.0
+offset_right = -284.0
+offset_bottom = -235.0
+placeholder_text = "Address..."
+
+[node name="Code" type="TextEdit" parent="."]
+offset_left = -460.0
+offset_top = -169.0
+offset_right = -285.0
+offset_bottom = -127.0
+placeholder_text = "Code...
+"
+
+[node name="Port" type="TextEdit" parent="."]
+offset_left = -459.0
+offset_top = -223.0
+offset_right = -284.0
+offset_bottom = -181.0
+placeholder_text = "Port..."
+
+[node name="DebugClient" type="Button" parent="."]
+offset_left = -458.0
+offset_top = -105.0
+offset_right = -285.0
+offset_bottom = -64.0
+text = "Debug Client"
+
+[node name="Debug Server" type="Button" parent="."]
+offset_left = -464.0
+offset_top = 215.0
+offset_right = -291.0
+offset_bottom = 256.0
+text = "Debug Server"
+
+[node name="NewRoom" type="Button" parent="."]
+offset_left = -96.0
+offset_top = -23.0
+offset_right = 92.0
+offset_bottom = 28.0
+text = "New Room"
+
+[node name="UserIDRequest" type="HTTPRequest" parent="."]
+unique_name_in_owner = true
+
+[connection signal="pressed" from="DebugClient" to="." method="_on_button_pressed"]
+[connection signal="pressed" from="Debug Server" to="." method="_on_debug_server_pressed"]
