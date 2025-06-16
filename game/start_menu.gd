@@ -26,6 +26,7 @@ func _ready() -> void:
 		
 		var json = await HttpWrapper.request(%AwaitableHTTP, "/user/", HTTPClient.METHOD_POST)
 		if json: 
+			json = json as Dictionary
 			NetworkInfo.user_id = json["userId"]
 			GlobalLog.client_log("Retrieved userID %s from matchmaking server." % NetworkInfo.user_id)
 		else:
