@@ -20,7 +20,7 @@ func _ready() -> void:
 		SceneSwitcher.goto_scene("res://game/game.tscn")
 	else: # If it's a user, request an ID
 		NetworkInfo.state = NetworkInfo.State.Client
-		var json = await HttpWrapper.request(%AwaitableHTTP, "/user/", HTTPClient.METHOD_POST)
+		var json: Dictionary = await HttpWrapper.request(%AwaitableHTTP, "/user/", HTTPClient.METHOD_POST)
 		if json: 
 			NetworkInfo.user_id = json["userId"]
 			GlobalLog.client_log("Retrieved userID %s from matchmaking server." % NetworkInfo.user_id)
@@ -39,8 +39,13 @@ func _on_debug_server_pressed() -> void:
 	SceneSwitcher.goto_scene("res://game/game.tscn")
 
 func _on_create_match_pressed() -> void:
-	GlobalLog.client_log("Creating match...")
-	pass
+	var res: Dictionary = await HttpWrapper.request(%AwaitableHTTP, "/match/create", HTTPClient.METHOD_POST, {
+		"userId": NetworkInfo.user_id,
+	})
+	GlobalLog.client_log(JSON.stringify(res))
+	var code = res["match"]["code"]
+	var gsiUrl = res["match"]["gsiUrl"]
+	GlobalLog.client_log("Created match with code %s and GSI URL %s" % [code, gsiUrl])
 
 func _on_join_match_pressed() -> void:
 	GlobalLog.client_log("Joining match...")
