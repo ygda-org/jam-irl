@@ -39,14 +39,26 @@ func _on_debug_server_pressed() -> void:
 	SceneSwitcher.goto_scene("res://game/game.tscn")
 
 func _on_create_match_pressed() -> void:
-	var res: Dictionary = await HttpWrapper.request(%AwaitableHTTP, "/match/create", HTTPClient.METHOD_POST, {
+	var res = await HttpWrapper.request(%AwaitableHTTP, "/match/create", HTTPClient.METHOD_POST, {
 		"userId": NetworkInfo.user_id,
 	})
-	GlobalLog.client_log(JSON.stringify(res))
-	var code = res["match"]["code"]
-	var gsiUrl = res["match"]["gsiUrl"]
-	GlobalLog.client_log("Created match with code %s and GSI URL %s" % [code, gsiUrl])
+	if res:
+		res = res as Dictionary
+		var code = res["match"]["code"]
+		var gsiUrl = res["match"]["gsiUrl"]
+		GlobalLog.client_log("Created match with code %s and GSI URL %s" % [code, gsiUrl])
+	else:
+		GlobalLog.client_log("Failed to create match.")
 
 func _on_join_match_pressed() -> void:
 	GlobalLog.client_log("Joining match...")
-	pass
+	var res = await HttpWrapper.request(%AwaitableHTTP, "/match/join", HTTPClient.METHOD_POST, {
+		"userId": NetworkInfo.user_id,
+		"code": joinCode.text
+	})
+	if res:
+		res = res as Dictionary
+		var gsiUrl = res["match"]["gsiUrl"]
+		GlobalLog.client_log("Joined match with GSI URL %s" % gsiUrl)
+	else:
+		GlobalLog.client_log("Failed to join match.")
