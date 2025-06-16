@@ -9,7 +9,6 @@ generator client {
 
 model User {
   id        String   @id @default(auto()) @map("_id") @db.ObjectId
-  username  String   @unique
 
   matchIds String[] @db.ObjectId
   matches Match[] @relation("match-players",fields: [matchIds], references: [id])
@@ -26,14 +25,15 @@ enum MatchStatus {
 model Match {
     id        String   @id @default(auto()) @map("_id") @db.ObjectId
     
-    status    MatchStatus
-    creatorId String @db.ObjectId
-    creator User @relation("match-creator", fields: [creatorId], references: [id])
-
-    playerIds String[] @db.ObjectId
-    players User[] @relation("match-players",fields: [playerIds], references: [id])
-
+    code   String   @unique
     gsiUrl String
+    status    MatchStatus
+
+    creator User @relation("match-creator", fields: [creatorId], references: [id])
+    creatorId String @db.ObjectId
+
+    players User[] @relation("match-players",fields: [playerIds], references: [id])
+    playerIds String[] @db.ObjectId
 
     createdAt DateTime @default(now())
     startedAt DateTime?

@@ -3,3 +3,4 @@ uvicorn
 pydantic
 prisma
 python-dotenv
+docker

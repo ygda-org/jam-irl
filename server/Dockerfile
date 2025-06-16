@@ -47,7 +47,4 @@ COPY build/linux/project.pck /app/
 RUN chmod +x /app/project.x86_64
 
 # Expose the server port
-EXPOSE 8080
-
-# Command to run the server
-CMD ["./project.x86_64", "--server", "--headless"] 
+EXPOSE 9999 
