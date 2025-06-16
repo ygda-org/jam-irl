@@ -34,5 +34,6 @@ animations = [{
 [node name="Tower" type="Node2D"]
 
 [node name="Anim" type="AnimatedSprite2D" parent="."]
+position = Vector2(25, 15)
 sprite_frames = SubResource("SpriteFrames_klqmc")
 autoplay = "default"
