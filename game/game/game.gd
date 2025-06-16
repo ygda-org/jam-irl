@@ -78,6 +78,13 @@ func send_room_code(code: String):
 func debug_end_game():
 	if not NetworkInfo.is_server():
 		return
+
+	GlobalLog.server_log("Ending game instance! Goodbye!")
+	
+	var res = await HttpWrapper.request(%AwaitableHTTP, "/match/end", HTTPClient.METHOD_POST, {
+		"matchId": NetworkInfo.match_id,
+		"code": NetworkInfo.code
+	})
 	
 	GlobalLog.server_log("Ending game instance! Goodbye!")
 	get_tree().quit(0)

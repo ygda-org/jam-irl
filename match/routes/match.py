@@ -56,7 +56,7 @@ def generate_match_code() -> str:
     """Generate a random 6-character code for the match"""
     return ''.join(random.choices(string.ascii_uppercase + string.digits, k=6))
 
-async def start_gis_container(port: int, code: str) -> str:
+async def start_gis_container(port: int, code: str, match_id: str) -> str:
     """Start a new GIS container and return its websocket URL"""
     container_name = f"gis-{port}"
     
@@ -66,7 +66,7 @@ async def start_gis_container(port: int, code: str) -> str:
         name=container_name,
         detach=True,
         ports={'9999': port},
-        command=["./project.x86_64", "--server", "--headless", "--code", code]
+        command=["./project.x86_64", "--server", "--headless", "--code", code, "--match-id", match_id]
     )
     
     # Return the websocket URL
@@ -75,7 +75,7 @@ async def start_gis_container(port: int, code: str) -> str:
 async def stop_gis_container(port: int):
     container = docker_client.containers.get(f"gis-{port}")
     container.stop()
-    container.remove()
+    container.remove(force=True)
 
 @router.post("/create")
 async def create_match(request: MatchCreateRequest):
@@ -89,9 +89,6 @@ async def create_match(request: MatchCreateRequest):
     port = get_available_port()
     
     try:
-        # Start GIS container
-        gsi_url = await start_gis_container(port, match_code)
-        
         # Create a new match
         match = await prisma.match.create(
             data={
@@ -106,9 +103,16 @@ async def create_match(request: MatchCreateRequest):
                         "id": request.userId
                     }]
                 },
-                "gsiUrl": gsi_url,
+                "gsiUrl": "",
                 "code": match_code
             }
+        )
+
+        gsi_url = await start_gis_container(port, match_code, match.id)
+
+        match = await prisma.match.update(
+            where={"id": match.id},
+            data={"gsiUrl": gsi_url}
         )
 
         # Update user's matchIds
@@ -193,8 +197,8 @@ async def end_match(request: MatchEndRequest):
     if not match:
         raise HTTPException(status_code=404, detail="Match not found")
     
-    if match.creator.id != request.userId:
-        raise HTTPException(status_code=403, detail="Only match creator can delete the match")
+    if match.code != request.code:
+        raise HTTPException(status_code=403, detail="Invalid code")
 
     try:
         port = int(match.gsiUrl.split(":")[2])
@@ -229,4 +233,4 @@ async def get_match(match_id: str):
     if not match:
         raise HTTPException(status_code=404, detail="Match not found")
 
-    return {"match": match} 
+    return {"match": match}

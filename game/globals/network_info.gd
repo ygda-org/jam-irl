@@ -19,6 +19,7 @@ enum State {
 ## Client info:
 @export var user_id: String = "none"
 @export var address_with_port: String = "localhost:9999"
+@export var match_id: String = ""
 ##
 
 

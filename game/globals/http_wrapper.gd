@@ -18,6 +18,9 @@ func request(http_node, path: String, method: int, body = null):
 	var json = JSON.stringify(body) if body else ""
 	var res = await http_node.async_request(NetworkInfo.match_making_address + path, headers, method, json)
 	if res.success() and res.status_ok():
-		return res.body_as_json()
+		body = res.body_as_json()
+		GlobalLog.log("Request to %s returned %s" % [path, body])
+		return body
 
+	GlobalLog.log("Request to %s failed with status %s" % [path, res.status])
 	return null

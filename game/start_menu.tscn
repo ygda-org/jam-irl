@@ -22,16 +22,8 @@ offset_left = 8.0
 offset_top = 9.0
 offset_right = 183.0
 offset_bottom = 51.0
+text = "localhost"
 placeholder_text = "Address..."
-
-[node name="Code" type="TextEdit" parent="Debug Menu"]
-layout_mode = 0
-offset_left = 7.0
-offset_top = 117.0
-offset_right = 182.0
-offset_bottom = 159.0
-placeholder_text = "Code...
-"
 
 [node name="Port" type="TextEdit" parent="Debug Menu"]
 layout_mode = 0
@@ -39,7 +31,18 @@ offset_left = 8.0
 offset_top = 63.0
 offset_right = 183.0
 offset_bottom = 105.0
+text = "9999"
 placeholder_text = "Port..."
+
+[node name="Code" type="TextEdit" parent="Debug Menu"]
+layout_mode = 0
+offset_left = 7.0
+offset_top = 117.0
+offset_right = 182.0
+offset_bottom = 159.0
+text = "code"
+placeholder_text = "Code...
+"
 
 [node name="DebugClient" type="Button" parent="Debug Menu"]
 layout_mode = 0

@@ -17,6 +17,9 @@ func _ready() -> void:
 		if args.has("--code"):
 			NetworkInfo.code = args[args.find("--code") + 1]
 		
+		if args.has("--match-id"):
+			NetworkInfo.match_id = args[args.find("--match-id") + 1]
+		
 		SceneSwitcher.goto_scene("res://game/game.tscn")
 	else: # If it's a user, request an ID
 		NetworkInfo.state = NetworkInfo.State.Client
