@@ -1,10 +1,11 @@
-[gd_scene load_steps=19 format=3 uid="uid://ckt2f8dbwhbdg"]
+[gd_scene load_steps=21 format=3 uid="uid://bvt0k3xhgf57x"]
 
 [ext_resource type="Script" uid="uid://dxktiamsqy8oe" path="res://game/prefabs/alice_heart.gd" id="1_0ofpv"]
 [ext_resource type="Texture2D" uid="uid://hpyyr7xv66ui" path="res://ASSETS/heart/heart_healthy (no bacon or candy).png" id="1_nur3n"]
 [ext_resource type="Texture2D" uid="uid://dk5j5pdct4rtl" path="res://ASSETS/heart/heart_hurt.png" id="2_0ofpv"]
 [ext_resource type="Texture2D" uid="uid://oanoiel2xjm6" path="res://ASSETS/heart/heart turbo cancer.png" id="3_cbthp"]
 [ext_resource type="Texture2D" uid="uid://0s8er7plxuh0" path="res://ASSETS/heart/heart broken.png" id="4_jodgb"]
+[ext_resource type="PackedScene" uid="uid://d11uab4tmr325" path="res://game/game/damage/target.tscn" id="6_cbthp"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_ch0le"]
 atlas = ExtResource("1_nur3n")
@@ -113,6 +114,9 @@ animations = [{
 "speed": 5.0
 }]
 
+[sub_resource type="CircleShape2D" id="CircleShape2D_jodgb"]
+radius = 15.1327
+
 [node name="alice_heart" type="Node2D"]
 z_index = 11
 script = ExtResource("1_0ofpv")
@@ -121,3 +125,11 @@ script = ExtResource("1_0ofpv")
 sprite_frames = SubResource("SpriteFrames_ihhrn")
 animation = &"healthy"
 autoplay = "healthy"
+
+[node name="Target" parent="." instance=ExtResource("6_cbthp")]
+affiliation = 1
+
+[node name="Area2D" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+shape = SubResource("CircleShape2D_jodgb")
