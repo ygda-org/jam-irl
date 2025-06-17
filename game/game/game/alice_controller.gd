@@ -8,7 +8,7 @@ const SWEATSHOP = preload("res://game/prefabs/alice_placeables/sweatshop.tscn") 
 const margin = 20
 
 const structures = [FLOOR, TOWER, WALLH, WALLV, SWEATSHOP]
-const costs = [0,4,1,5]
+const costs = [0,4,1,1,5]
 
 var mouse_position: Vector2
 var current_selected
