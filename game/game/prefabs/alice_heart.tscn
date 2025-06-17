@@ -130,7 +130,7 @@ script = ExtResource("1_0ofpv")
 sprite_frames = SubResource("SpriteFrames_ihhrn")
 animation = &"turbo_dead"
 autoplay = "healthy"
-frame_progress = 0.530246
+frame_progress = 0.283465
 
 [node name="Target" parent="." instance=ExtResource("6_cbthp")]
 affiliation = 1
