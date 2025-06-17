@@ -1,9 +1,140 @@
-[gd_scene load_steps=9 format=3 uid="uid://bdevl74cx1y01"]
+[gd_scene load_steps=38 format=3 uid="uid://bdevl74cx1y01"]
 
 [ext_resource type="Script" uid="uid://c76tnbw2ekk3y" path="res://game/game/alice_controller.gd" id="1_02yvw"]
-[ext_resource type="Texture2D" uid="uid://b7irlyxwi45i0" path="res://icon.svg" id="2_gesbw"]
+[ext_resource type="Texture2D" uid="uid://hpyyr7xv66ui" path="res://ASSETS/heart/heart_healthy (no bacon or candy).png" id="2_r5w2a"]
 [ext_resource type="Texture2D" uid="uid://bk2rqpin2idcc" path="res://ASSETS/placeables/floor.png" id="2_u2o8n"]
 [ext_resource type="Texture2D" uid="uid://dyfgahnrnw8fd" path="res://ASSETS/placeables/tower.png" id="3_gesbw"]
+[ext_resource type="Texture2D" uid="uid://dk5j5pdct4rtl" path="res://ASSETS/heart/heart_hurt.png" id="3_q06jk"]
+[ext_resource type="Texture2D" uid="uid://oanoiel2xjm6" path="res://ASSETS/heart/heart turbo cancer.png" id="4_32c7f"]
+[ext_resource type="Texture2D" uid="uid://0s8er7plxuh0" path="res://ASSETS/heart/heart broken.png" id="5_cpxrb"]
+[ext_resource type="Texture2D" uid="uid://dagxvmxuw0ai5" path="res://ASSETS/placeables/child labor.png" id="7_cpxrb"]
+[ext_resource type="Texture2D" uid="uid://dcc84qxfx1rnn" path="res://ASSETS/placeables/wall_h.png" id="8_32c7f"]
+[ext_resource type="Texture2D" uid="uid://fxyylq031bix" path="res://ASSETS/placeables/wall-v.png" id="9_cpxrb"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ch0le"]
+atlas = ExtResource("2_r5w2a")
+region = Rect2(0, 0, 50, 50)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_t2gb1"]
+atlas = ExtResource("2_r5w2a")
+region = Rect2(50, 0, 50, 50)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_yo212"]
+atlas = ExtResource("2_r5w2a")
+region = Rect2(0, 50, 50, 50)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ikat3"]
+atlas = ExtResource("3_q06jk")
+region = Rect2(0, 0, 50, 50)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_whuc2"]
+atlas = ExtResource("3_q06jk")
+region = Rect2(50, 0, 50, 50)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_8mky1"]
+atlas = ExtResource("3_q06jk")
+region = Rect2(0, 50, 50, 50)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_v4ixi"]
+atlas = ExtResource("4_32c7f")
+region = Rect2(0, 0, 50, 50)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_luao1"]
+atlas = ExtResource("4_32c7f")
+region = Rect2(50, 0, 50, 50)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_cyye3"]
+atlas = ExtResource("4_32c7f")
+region = Rect2(0, 50, 50, 50)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_6g537"]
+atlas = ExtResource("5_cpxrb")
+region = Rect2(0, 0, 50, 50)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_0m30t"]
+atlas = ExtResource("5_cpxrb")
+region = Rect2(50, 0, 50, 50)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_c5t0j"]
+atlas = ExtResource("5_cpxrb")
+region = Rect2(0, 50, 50, 50)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_ihhrn"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ch0le")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_t2gb1")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_yo212")
+}],
+"loop": true,
+"name": &"healthy",
+"speed": 6.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ikat3")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_whuc2")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_8mky1")
+}],
+"loop": true,
+"name": &"slight_hurt",
+"speed": 6.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_v4ixi")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_luao1")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_cyye3")
+}],
+"loop": true,
+"name": &"turbo_cancer",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_6g537")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_0m30t")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_c5t0j")
+}],
+"loop": true,
+"name": &"turbo_dead",
+"speed": 5.0
+}]
+
+[sub_resource type="LabelSettings" id="LabelSettings_32c7f"]
+font_size = 28
+font_color = Color(1, 1, 0, 1)
+outline_size = 6
+outline_color = Color(0, 0.563816, 0, 1)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_u8ss5"]
+atlas = ExtResource("7_cpxrb")
+region = Rect2(0, 0, 50, 50)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_pawpw"]
+atlas = ExtResource("7_cpxrb")
+region = Rect2(50, 0, 50, 50)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_v2ip4"]
+atlas = ExtResource("7_cpxrb")
+region = Rect2(0, 50, 50, 50)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_c2d63"]
 atlas = ExtResource("3_gesbw")
@@ -17,6 +148,30 @@ region = Rect2(50, 0, 50, 70)
 atlas = ExtResource("3_gesbw")
 region = Rect2(0, 70, 50, 70)
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_5ixj2"]
+atlas = ExtResource("8_32c7f")
+region = Rect2(0, 0, 50, 44)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_1p3f7"]
+atlas = ExtResource("8_32c7f")
+region = Rect2(50, 0, 50, 44)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_vep5a"]
+atlas = ExtResource("8_32c7f")
+region = Rect2(0, 49, 50, 44)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_lj30e"]
+atlas = ExtResource("9_cpxrb")
+region = Rect2(0, 0, 30, 50)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_qcgy1"]
+atlas = ExtResource("9_cpxrb")
+region = Rect2(30, 0, 30, 50)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_f6dfh"]
+atlas = ExtResource("9_cpxrb")
+region = Rect2(0, 50, 30, 50)
+
 [sub_resource type="SpriteFrames" id="SpriteFrames_6lebb"]
 animations = [{
 "frames": [{
@@ -25,6 +180,20 @@ animations = [{
 }],
 "loop": true,
 "name": &"floorTEST",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_u8ss5")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_pawpw")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_v2ip4")
+}],
+"loop": true,
+"name": &"sweatshop",
 "speed": 5.0
 }, {
 "frames": [{
@@ -39,6 +208,34 @@ animations = [{
 }],
 "loop": true,
 "name": &"tower",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_5ixj2")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_1p3f7")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_vep5a")
+}],
+"loop": true,
+"name": &"wallH",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_lj30e")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_qcgy1")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_f6dfh")
+}],
+"loop": true,
+"name": &"wallV",
 "speed": 5.0
 }]
 
@@ -57,7 +254,7 @@ offset_left = 25.0
 offset_top = 25.0
 offset_right = 125.0
 offset_bottom = 75.0
-text = "Tower"
+text = "Tower ($4)"
 
 [node name="Wall" type="Button" parent="Panel"]
 layout_mode = 0
@@ -65,16 +262,24 @@ offset_left = 163.0
 offset_top = 24.0
 offset_right = 263.0
 offset_bottom = 74.0
-text = "Wall
+text = "Wall ($1)
 "
 
 [node name="Floor-test" type="Button" parent="Panel"]
 layout_mode = 0
-offset_left = 25.0
+offset_left = 163.0
 offset_top = 125.0
-offset_right = 125.0
+offset_right = 263.0
 offset_bottom = 175.0
 text = "Floor (test)"
+
+[node name="Sweatshop" type="Button" parent="Panel"]
+offset_left = 19.0
+offset_top = 125.0
+offset_right = 144.0
+offset_bottom = 175.0
+text = "Sweatshop ($5)
+"
 
 [node name="HealthBar" type="Panel" parent="."]
 offset_left = 640.0
@@ -82,29 +287,36 @@ offset_top = 38.0
 offset_right = 940.0
 offset_bottom = 103.0
 
-[node name="H1" type="Sprite2D" parent="HealthBar"]
-modulate = Color(1, 0, 0, 1)
-position = Vector2(46, 32)
-scale = Vector2(0.25, 0.25)
-texture = ExtResource("2_gesbw")
+[node name="H1" type="AnimatedSprite2D" parent="HealthBar"]
+position = Vector2(36, 31)
+sprite_frames = SubResource("SpriteFrames_ihhrn")
+animation = &"healthy"
 
-[node name="H2" type="Sprite2D" parent="HealthBar"]
-modulate = Color(1, 0, 0, 1)
-position = Vector2(113, 31)
-scale = Vector2(0.25, 0.25)
-texture = ExtResource("2_gesbw")
+[node name="H2" type="AnimatedSprite2D" parent="HealthBar"]
+position = Vector2(86, 31)
+sprite_frames = SubResource("SpriteFrames_ihhrn")
+animation = &"healthy"
 
-[node name="H3" type="Sprite2D" parent="HealthBar"]
-modulate = Color(1, 0, 0, 1)
-position = Vector2(182, 32)
-scale = Vector2(0.25, 0.25)
-texture = ExtResource("2_gesbw")
+[node name="H3" type="AnimatedSprite2D" parent="HealthBar"]
+position = Vector2(135, 31)
+sprite_frames = SubResource("SpriteFrames_ihhrn")
+animation = &"healthy"
 
-[node name="H4" type="Sprite2D" parent="HealthBar"]
-modulate = Color(1, 0, 0, 1)
-position = Vector2(254, 32)
-scale = Vector2(0.25, 0.25)
-texture = ExtResource("2_gesbw")
+[node name="H4" type="AnimatedSprite2D" parent="HealthBar"]
+position = Vector2(183, 31)
+sprite_frames = SubResource("SpriteFrames_ihhrn")
+animation = &"healthy"
+
+[node name="Money" type="Label" parent="HealthBar"]
+layout_mode = 0
+offset_left = 207.0
+offset_top = 1.0
+offset_right = 299.0
+offset_bottom = 64.0
+text = "$10"
+label_settings = SubResource("LabelSettings_32c7f")
+horizontal_alignment = 1
+vertical_alignment = 1
 
 [node name="PlacePreview" type="AnimatedSprite2D" parent="."]
 modulate = Color(1, 1, 1, 0.294118)
@@ -113,6 +325,12 @@ position = Vector2(25, 35)
 sprite_frames = SubResource("SpriteFrames_6lebb")
 animation = &"floorTEST"
 
+[node name="MoneyTimer" type="Timer" parent="."]
+wait_time = 3.0
+autostart = true
+
 [connection signal="pressed" from="Panel/Tower" to="." method="_on_tower_pressed"]
 [connection signal="pressed" from="Panel/Wall" to="." method="_on_wall_pressed"]
 [connection signal="pressed" from="Panel/Floor-test" to="." method="_on_floortest_pressed"]
+[connection signal="pressed" from="Panel/Sweatshop" to="." method="_on_sweatshop_pressed"]
+[connection signal="timeout" from="MoneyTimer" to="." method="_on_money_timer_timeout"]
