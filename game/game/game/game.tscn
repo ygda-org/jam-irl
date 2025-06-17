@@ -11,6 +11,7 @@ script = ExtResource("1_41k3g")
 
 [node name="DebugLabel" type="Label" parent="."]
 unique_name_in_owner = true
+z_index = 10
 offset_left = 16.0
 offset_top = 16.0
 offset_right = 531.0
@@ -34,13 +35,13 @@ spawn_path = NodePath("..")
 
 [node name="Arena" type="Node2D" parent="."]
 
+[node name="GameBoard" parent="Arena" instance=ExtResource("1_g4fio")]
+
 [node name="Slime" parent="Arena" instance=ExtResource("3_m7sxm")]
 position = Vector2(590, 516)
 
-[node name="GameBoard" parent="Arena" instance=ExtResource("1_g4fio")]
-
 [node name="Bob" parent="Arena" instance=ExtResource("4_mafgb")]
 unique_name_in_owner = true
-position = Vector2(761, 255)
+position = Vector2(315, 254)
 
 [connection signal="pressed" from="DebugEndGame" to="." method="_on_debug_end_game_pressed"]
