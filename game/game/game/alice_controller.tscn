@@ -1,4 +1,4 @@
-[gd_scene load_steps=42 format=3 uid="uid://bdevl74cx1y01"]
+[gd_scene load_steps=41 format=3 uid="uid://bdevl74cx1y01"]
 
 [ext_resource type="Script" uid="uid://c76tnbw2ekk3y" path="res://game/game/alice_controller.gd" id="1_02yvw"]
 [ext_resource type="Texture2D" uid="uid://yleeok8446bj" path="res://ASSETS/UI/alice tower button.png" id="2_pawpw"]
@@ -242,23 +242,6 @@ animations = [{
 "speed": 5.0
 }]
 
-[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_v2ip4"]
-properties/0/path = NodePath("HealthBar/Money:text")
-properties/0/spawn = true
-properties/0/replication_mode = 2
-properties/1/path = NodePath("HealthBar/H1:animation")
-properties/1/spawn = true
-properties/1/replication_mode = 2
-properties/2/path = NodePath("HealthBar/H2:animation")
-properties/2/spawn = true
-properties/2/replication_mode = 2
-properties/3/path = NodePath("HealthBar/H3:animation")
-properties/3/spawn = true
-properties/3/replication_mode = 2
-properties/4/path = NodePath("HealthBar/H4:animation")
-properties/4/spawn = true
-properties/4/replication_mode = 2
-
 [node name="AliceController" type="Node2D"]
 script = ExtResource("1_02yvw")
 
@@ -361,9 +344,6 @@ wait_time = 0.2
 one_shot = true
 
 [node name="PlaceFailTimer" type="Timer" parent="."]
-
-[node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
-replication_config = SubResource("SceneReplicationConfig_v2ip4")
 
 [connection signal="pressed" from="Panel/Tower" to="." method="_on_tower_pressed"]
 [connection signal="pressed" from="Panel/Wall" to="." method="_on_wall_pressed"]
