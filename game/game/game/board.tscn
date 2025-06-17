@@ -1,6 +1,13 @@
-[gd_scene load_steps=2 format=3 uid="uid://qouqpq8qoo84"]
+[gd_scene load_steps=3 format=3 uid="uid://qouqpq8qoo84"]
 
 [ext_resource type="Script" uid="uid://oij26kb7jvx5" path="res://game/game/board.gd" id="1_gp7jp"]
+[ext_resource type="Texture2D" uid="uid://bk2rqpin2idcc" path="res://ASSETS/placeables/floor.png" id="2_m3ncr"]
 
 [node name="GameBoard" type="Node2D"]
 script = ExtResource("1_gp7jp")
+
+[node name="BoardBackground" type="Sprite2D" parent="."]
+z_index = -1
+position = Vector2(321, 269)
+scale = Vector2(12, 10)
+texture = ExtResource("2_m3ncr")
