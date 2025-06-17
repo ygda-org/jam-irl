@@ -1,6 +1,7 @@
 extends CharacterBody2D
 
 const SPEED: int = 10000
+const ATTACK: int = 20
 const ATTACK_COOLDOWN: float = 0.75
 
 var can_attack: bool = true
@@ -55,9 +56,9 @@ func attack():
 		%Anim.play("sword1")
 		var attacked_bodies: Array = %BobAttackArea.get_overlapping_bodies() + %BobAttackArea.get_overlapping_areas()
 		
-		for body in attacked_bodies:
+		for body: Node2D in attacked_bodies:
 			if body.is_in_group("Damageable"):
-				body.damage()
+				body.get_node("Target").damage(ATTACK)
 		
 
 @rpc("authority")
