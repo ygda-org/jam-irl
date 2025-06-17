@@ -5,7 +5,7 @@
 [ext_resource type="Texture2D" uid="uid://drswgsys46413" path="res://ASSETS/sprites/slime/jump.png" id="2_r6ugr"]
 [ext_resource type="Texture2D" uid="uid://c26tlum7sb0sy" path="res://ASSETS/sprites/slime/spawn.png" id="3_r6ugr"]
 [ext_resource type="PackedScene" uid="uid://t1llkwtqjrew" path="res://game/game/z_index_manager.tscn" id="5_4c8a6"]
-[ext_resource type="PackedScene" uid="uid://d11uab4tmr325" path="res://game/game/damage/target.tscn" id="6_doswg"]
+[ext_resource type="PackedScene" path="res://game/game/damage/target.tscn" id="6_doswg"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_4c8a6"]
 atlas = ExtResource("1_y2vlo")
