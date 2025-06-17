@@ -1,0 +1,24 @@
+[gd_resource type="Resource" script_class="ProjectileSettings" load_steps=4 format=3 uid="uid://bk1qh5ygm30mj"]
+
+[ext_resource type="Script" uid="uid://dsgcyaisuwbf5" path="res://game/game/GenericProjectile/projectile_settings.gd" id="1_2twmc"]
+[ext_resource type="Texture2D" uid="uid://b7irlyxwi45i0" path="res://icon.svg" id="2_s1h54"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_gow3r"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_s1h54")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[resource]
+script = ExtResource("1_2twmc")
+sprite_frames = SubResource("SpriteFrames_gow3r")
+sprite_rotation_offset = 0.0
+sprite_position_offset = 0
+damage_dealt = 2
+speed = 3
+metadata/_custom_type_script = "uid://dsgcyaisuwbf5"
