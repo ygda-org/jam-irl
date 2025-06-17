@@ -11,17 +11,15 @@ var velocity
 
 func _ready() -> void:
 	rotation = direction.angle()
-	$AnimatedSprite2D.sprite_frames = settings.sprite_frames
-	$AnimatedSprite2D.rotation = settings.sprite_rotation_offset
-	$AnimatedSprite2D.position = settings.sprite_position_offset
+	
+	$Anim.sprite_frames = settings.sprite_frames
+	$Anim.rotation = settings.sprite_rotation_offset
 	$CollisionShape2D.shape = settings.collision_shape
 	velocity = transform.x * settings.speed
-	# NOTE Remove this line later, DONT FORGET
-	position = Vector2(300,300)
 
 func _process(delta: float) -> void:
 	position += velocity * delta
-	$AnimatedSprite2D.play()
+	$Anim.play()
 
 func _on_body_entered(body: Node2D) -> void:
 	# TODO Add damage dealt here
