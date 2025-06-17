@@ -57,3 +57,10 @@ func debug_end_game():
 
 func update_bob_input(input: Vector2):
 	%Bob.input = input
+
+func summon_projectile(spawn_position : Vector2, direction : Vector2, proj_settings : ProjectileSettings):
+	var projectile_instance = GenericProjectile.new()
+	projectile_instance.settings = proj_settings
+	projectile_instance.direction = direction
+	projectile_instance.position = spawn_position
+	$Arena.add_child(projectile_instance)

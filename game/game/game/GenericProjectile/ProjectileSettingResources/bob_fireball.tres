@@ -1,0 +1,52 @@
+[gd_resource type="Resource" script_class="ProjectileSettings" load_steps=9 format=3 uid="uid://uoegdrvndlkn"]
+
+[ext_resource type="Script" uid="uid://dsgcyaisuwbf5" path="res://game/game/GenericProjectile/projectile_settings.gd" id="1_5s36b"]
+[ext_resource type="Texture2D" uid="uid://dka6ruqeuh4lu" path="res://ASSETS/projectiles/fireball.png" id="2_bbr2d"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_fm65o"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_s60vw"]
+atlas = ExtResource("2_bbr2d")
+region = Rect2(0, 0, 20, 20)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_cbwdh"]
+atlas = ExtResource("2_bbr2d")
+region = Rect2(20, 0, 20, 20)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_c64in"]
+atlas = ExtResource("2_bbr2d")
+region = Rect2(0, 20, 20, 20)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_sjwi2"]
+atlas = ExtResource("2_bbr2d")
+region = Rect2(20, 20, 20, 20)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_rvt3m"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_s60vw")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_cbwdh")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_c64in")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_sjwi2")
+}],
+"loop": true,
+"name": &"default",
+"speed": 6.0
+}]
+
+[resource]
+script = ExtResource("1_5s36b")
+sprite_frames = SubResource("SpriteFrames_rvt3m")
+sprite_rotation_offset = 0.0
+sprite_position_offset = 0
+collision_shape = SubResource("CircleShape2D_fm65o")
+damage_dealt = 1
+speed = 50
+metadata/_custom_type_script = "uid://dsgcyaisuwbf5"
