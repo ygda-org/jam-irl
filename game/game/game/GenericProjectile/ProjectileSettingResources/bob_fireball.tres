@@ -49,4 +49,5 @@ sprite_position_offset = 0
 collision_shape = SubResource("CircleShape2D_fm65o")
 damage_dealt = 1
 speed = 300
+affiliation = 1
 metadata/_custom_type_script = "uid://dsgcyaisuwbf5"

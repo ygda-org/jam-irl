@@ -21,8 +21,11 @@ func _on_range_body_exited(body: Node2D) -> void:
 	if body.name == "Bob":
 		bob_in_range = false
 
-
 func _on_cooldown_timeout() -> void:
 	if bob_in_range:
 		rpc("attack")
+		attack()
 		$Cooldown.start()
+
+func _to_string() -> String:
+	return "TOWER: " + str(global_position)

@@ -37,3 +37,6 @@ func _on_target_on_death() -> void:
 
 func _on_target_on_damage(damage: int) -> void:
 	GlobalLog.server_log("Bob has taken " + str(damage) + " damage!")
+
+func _to_string() -> String:
+	return "BOB"

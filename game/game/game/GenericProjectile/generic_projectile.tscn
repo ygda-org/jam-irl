@@ -1,18 +1,23 @@
-[gd_scene load_steps=4 format=3 uid="uid://opcyosc2oaf8"]
+[gd_scene load_steps=5 format=3 uid="uid://opcyosc2oaf8"]
 
 [ext_resource type="Script" uid="uid://bwi0tm8ebuvh" path="res://game/game/GenericProjectile/generic_projectile.gd" id="1_7mlg5"]
-[ext_resource type="Resource" uid="uid://uoegdrvndlkn" path="res://game/game/GenericProjectile/ProjectileSettingResources/bob_fireball.tres" id="2_4gl3i"]
+[ext_resource type="Resource" uid="uid://cmadjqttgwu6e" path="res://game/game/GenericProjectile/ProjectileSettingResources/tower_shot.tres" id="2_oppmn"]
+[ext_resource type="PackedScene" uid="uid://byal7lnwpsy4h" path="res://game/game/damage/damage_area.tscn" id="3_oppmn"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_4gl3i"]
 
 [node name="GenericProjectile" type="Area2D"]
 script = ExtResource("1_7mlg5")
-settings = ExtResource("2_4gl3i")
+settings = ExtResource("2_oppmn")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+
+[node name="DamageArea" parent="." instance=ExtResource("3_oppmn")]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="DamageArea"]
 
 [node name="Anim" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_4gl3i")
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 
 [node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="."]
 

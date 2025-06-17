@@ -14,3 +14,5 @@ class_name ProjectileSettings
 @export var damage_dealt : int
 ## Self explanitory
 @export var speed : int
+## The Projectile Affiliation
+@export var affiliation : Affiliation.Type
