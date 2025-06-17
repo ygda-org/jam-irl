@@ -44,13 +44,20 @@ text = "code"
 placeholder_text = "Code...
 "
 
-[node name="DebugClient" type="Button" parent="Debug Menu"]
+[node name="Bob" type="Button" parent="Debug Menu"]
+offset_left = 103.0
+offset_top = 180.0
+offset_right = 180.0
+offset_bottom = 221.0
+text = "Bob"
+
+[node name="Alice" type="Button" parent="Debug Menu"]
 layout_mode = 0
-offset_left = 9.0
-offset_top = 181.0
-offset_right = 182.0
-offset_bottom = 222.0
-text = "Debug Client"
+offset_left = 11.0
+offset_top = 180.0
+offset_right = 89.0
+offset_bottom = 221.0
+text = "Alice"
 
 [node name="Debug Server" type="Button" parent="Debug Menu"]
 layout_mode = 0
@@ -95,7 +102,8 @@ text = "Join Match
 unique_name_in_owner = true
 script = ExtResource("2_ia0g5")
 
-[connection signal="pressed" from="Debug Menu/DebugClient" to="." method="_on_button_pressed"]
+[connection signal="pressed" from="Debug Menu/Bob" to="." method="_on_debug_client_pressed" binds= ["Bob"]]
+[connection signal="pressed" from="Debug Menu/Alice" to="." method="_on_debug_client_pressed" binds= ["\"Alice\""]]
 [connection signal="pressed" from="Debug Menu/Debug Server" to="." method="_on_debug_server_pressed"]
 [connection signal="pressed" from="CreateMatch" to="." method="_on_create_match_pressed"]
 [connection signal="pressed" from="Control/JoinMatch" to="." method="_on_join_match_pressed"]

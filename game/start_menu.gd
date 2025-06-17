@@ -35,10 +35,15 @@ func _ready() -> void:
 		else:
 			GlobalLog.client_log("Failed to get userID from matchmaking server.")
 
-func _on_button_pressed() -> void:
+func _on_debug_client_pressed(role: String) -> void:
 	NetworkInfo.state = NetworkInfo.State.Client
 	NetworkInfo.address_with_port = address.text + ":" + port.text
 	NetworkInfo.code = code.text
+	if role == "Alice":
+		NetworkInfo.role = NetworkInfo.Role.Alice
+	elif role == "Bob":
+		NetworkInfo.role = NetworkInfo.Role.Bob
+	
 	SceneSwitcher.goto_scene("res://game/game.tscn")
 
 func _on_debug_server_pressed() -> void:
