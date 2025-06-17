@@ -4,11 +4,12 @@ var board = []
 
 const FLOOR = preload("res://game/prefabs/alice_placeables/floor.tscn") # 0
 const TOWER = preload("res://game/prefabs/alice_placeables/tower.tscn") # 1
-const WALL = preload("res://game/prefabs/alice_placeables/wall.tscn") # 2
-const SWEATSHOP = preload("res://game/prefabs/alice_placeables/sweatshop.tscn") # 3 
+const WALLH = preload("res://game/prefabs/alice_placeables/wallh.tscn") # 2
+const WALLV = preload("res://game/prefabs/alice_placeables/wallv.tscn") # 3
+const SWEATSHOP = preload("res://game/prefabs/alice_placeables/sweatshop.tscn") # 4
 const margin = 20
 
-const structures = [FLOOR, TOWER, WALL, SWEATSHOP]
+const structures = [FLOOR, TOWER, WALLH, WALLV, SWEATSHOP]
 
 var mouse_position: Vector2
 
