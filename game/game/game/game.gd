@@ -7,13 +7,9 @@ func _ready():
 	_update_debug_label()
 
 	add_child(load("res://game/game/alice_controller.tscn").instantiate())
-	$AliceController.set_multiplayer_authority(NetworkManager.server_data.alice_id)
-
+	
 	if NetworkManager.is_bob():
-		$AliceController/Panel/Tower.disabled = true
-		$AliceController/Panel/Wall.disabled = true
-		$AliceController/Panel/Floortest.disabled = true
-		$AliceController/Panel/Sweatshop.disabled = true
+		pass
 	
 	if NetworkManager.is_server():
 		var bob_manager = BOB_MANAGER.instantiate()
