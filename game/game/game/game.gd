@@ -1,5 +1,7 @@
 extends Node2D
 
+@onready var alliceNode = get_node("res://test.tscn")
+
 func _ready():
 	_update_debug_label()
 	
@@ -7,11 +9,11 @@ func _update_debug_label():
 	%DebugLabel.text = "Role: "
 	if NetworkManager.is_alice():
 		%DebugLabel.text += "Alice"
+		add_child(alliceNode)
 	elif NetworkManager.is_bob():
 		%DebugLabel.text += "Bob"
 	elif NetworkManager.is_server():
 		%DebugLabel.text += "Server"
-	
 	if NetworkManager.verified:
 		%DebugLabel.text += " | Verified"
 	
