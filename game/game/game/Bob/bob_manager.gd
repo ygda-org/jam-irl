@@ -15,18 +15,18 @@ func _on_input_tick_timeout() -> void:
 	
 	if summon_request:# TODO Factor in timer to delay request and slow shooting speed
 		summon_request = false
-		rpc("request_projectile")
-		request_projectile()
+		rpc("request_projectile", input)
+		request_projectile(input)
 		pass
 	
 	if not old_input == input:
 		rpc_id(1, "send_input", to_bitmask(input))
 
 @rpc("any_peer")
-func request_projectile():
+func request_projectile(direction : Vector2):
 	#GlobalLog.log("Projectile Requested")
 	var bob = $"../Arena/Bob"
-	get_parent().summon_projectile(bob.global_position, input, BOB_FIREBALL, bob)
+	get_parent().summon_projectile(bob.global_position, direction, BOB_FIREBALL, bob)
 
 @rpc("any_peer")
 func send_input(input_bitmask: int):

@@ -9,6 +9,9 @@ func _ready():
 	if NetworkManager.is_alice():
 		add_child(load("res://game/game/alice_controller.tscn").instantiate())
 	
+	if NetworkManager.is_bob():
+		pass
+	
 	if NetworkManager.is_server():
 		var bob_manager = BOB_MANAGER.instantiate()
 		bob_manager.set_multiplayer_authority(NetworkManager.server_data.bob_id)

@@ -1,19 +1,37 @@
-[gd_resource type="Resource" script_class="ProjectileSettings" load_steps=5 format=3 uid="uid://cmadjqttgwu6e"]
+[gd_resource type="Resource" script_class="ProjectileSettings" load_steps=8 format=3 uid="uid://cmadjqttgwu6e"]
 
 [ext_resource type="Script" uid="uid://dsgcyaisuwbf5" path="res://game/game/GenericProjectile/projectile_settings.gd" id="1_2twmc"]
-[ext_resource type="Texture2D" uid="uid://b7irlyxwi45i0" path="res://icon.svg" id="2_s1h54"]
+[ext_resource type="Texture2D" uid="uid://lv1wh7ebyerv" path="res://ASSETS/projectiles/tower_projectile (derogatory).png" id="2_s1h54"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_s1h54"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_gow3r"]
+atlas = ExtResource("2_s1h54")
+region = Rect2(8, 0, 8, 8)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_d3twg"]
+atlas = ExtResource("2_s1h54")
+region = Rect2(0, 8, 8, 8)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_4piqw"]
+atlas = ExtResource("2_s1h54")
+region = Rect2(0, 0, 8, 8)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_gow3r"]
 animations = [{
 "frames": [{
 "duration": 1.0,
-"texture": ExtResource("2_s1h54")
+"texture": SubResource("AtlasTexture_gow3r")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_d3twg")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_4piqw")
 }],
 "loop": true,
 "name": &"default",
-"speed": 5.0
+"speed": 6.0
 }]
 
 [resource]
