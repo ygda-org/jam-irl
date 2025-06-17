@@ -1,6 +1,6 @@
 [gd_scene load_steps=3 format=3 uid="uid://di360h4q2r2we"]
 
-[ext_resource type="Script" uid="uid://ced3oeh5brbta" path="res://start_menu.gd" id="1_jwbto"]
+[ext_resource type="Script" uid="uid://ced3oeh5brbta" path="res://game/start/start_menu.gd" id="1_jwbto"]
 [ext_resource type="Script" uid="uid://it2fdbjm2lvp" path="res://addons/awaitable_http_request/awaitable_http_request.gd" id="2_ia0g5"]
 
 [node name="Node2D" type="Node2D"]

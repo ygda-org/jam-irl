@@ -13,7 +13,10 @@ func goto_lobby():
 	goto_scene("res://game/lobby/lobby.tscn")
 
 func goto_game():
-	goto_scene("res://game/game.tscn")
+	goto_scene("res://game/game/game.tscn")
+
+func goto_start():
+	goto_scene("res://game/start/start_menu.tscn")
 
 func _deferred_goto_scene(path):
 	current_scene.free()
@@ -31,4 +34,4 @@ func start_menu_with_error(msg: String = "Failed to connect to server.") -> void
 	else:
 		GlobalLog.client_log(msg)
 	# TODO: display the error message in the main menu scene
-	goto_scene("res://start_menu.tscn")
+	goto_start()

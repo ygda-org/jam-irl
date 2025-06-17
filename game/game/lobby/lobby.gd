@@ -61,13 +61,6 @@ func start_game(role: NetworkManager.Role):
 func send_role_and_start(role: NetworkManager.Role):
 	NetworkManager.role = role
 	SceneSwitcher.goto_game()
-	# %LobbyUI.queue_free()
-	# if role == NetworkManager.Role.Bob:
-	# 	GlobalLog.client_log("Started game as bob!")
-	# 	%DebugLabel.text = "Started aas Bob"
-	# elif role == NetworkManager.Role.Alice:
-	# 	GlobalLog.client_log("Started game as alice!")
-	# 	%DebugLabel.text = "Started as Alice"
 ###
 
 
