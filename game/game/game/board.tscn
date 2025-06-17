@@ -1,9 +1,8 @@
-[gd_scene load_steps=9 format=3 uid="uid://qouqpq8qoo84"]
+[gd_scene load_steps=8 format=3 uid="uid://qouqpq8qoo84"]
 
 [ext_resource type="Script" uid="uid://oij26kb7jvx5" path="res://game/game/board.gd" id="1_gp7jp"]
 [ext_resource type="Texture2D" uid="uid://bk2rqpin2idcc" path="res://ASSETS/placeables/floor.png" id="2_qg1d3"]
 [ext_resource type="Texture2D" uid="uid://dyfgahnrnw8fd" path="res://ASSETS/placeables/tower.png" id="3_w12sq"]
-[ext_resource type="PackedScene" uid="uid://wfe7bn7vocag" path="res://game/game/alice_controller.tscn" id="4_fpmm3"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_c2d63"]
 atlas = ExtResource("3_w12sq")
@@ -58,5 +57,3 @@ z_index = 10
 position = Vector2(25, 35)
 sprite_frames = SubResource("SpriteFrames_iu2je")
 animation = &"floorTEST"
-
-[node name="AliceController" parent="." instance=ExtResource("4_fpmm3")]
