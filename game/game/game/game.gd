@@ -1,7 +1,7 @@
 extends Node2D
 
 const BOB_MANAGER = preload("res://game/game/Bob/bob_manager.tscn")
-
+const GENERIC_PROJECTILE = preload("res://game/game/GenericProjectile/generic_projectile.tscn")
 
 func _ready():
 	_update_debug_label()
@@ -59,7 +59,7 @@ func update_bob_input(input: Vector2):
 	%Bob.input = input
 
 func summon_projectile(spawn_position : Vector2, direction : Vector2, proj_settings : ProjectileSettings):
-	var projectile_instance = GenericProjectile.new()
+	var projectile_instance = GENERIC_PROJECTILE.instantiate()
 	projectile_instance.settings = proj_settings
 	projectile_instance.direction = direction
 	projectile_instance.position = spawn_position

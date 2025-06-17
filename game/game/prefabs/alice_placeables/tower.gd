@@ -3,7 +3,7 @@ extends StaticBody2D
 @onready var bob = get_parent().get_parent().get_node("Bob")
 @onready var game = get_parent().get_parent().get_parent()
 
-var projectile = load("res://game/game/GenericProjectile/ProjectileSettingResources/tower_shot.tres")
+var projectile = preload("res://game/game/GenericProjectile/ProjectileSettingResources/tower_shot.tres")
 
 var bob_in_range = false
 
