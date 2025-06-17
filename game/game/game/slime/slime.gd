@@ -62,3 +62,21 @@ func _on_anim_animation_finished() -> void:
 		can_jump = true
 
 		$Anim.play("Idle")
+
+func _on_target_on_death() -> void:
+	GlobalLog.server_log(str(self) + " has died!")
+	suicide()
+
+func suicide():
+	rpc("_suicide")
+	_suicide()
+
+@rpc("authority")
+func _suicide():
+	queue_free()
+
+func _on_target_on_damage(damage: int) -> void:
+	GlobalLog.server_log(str(self) + " has taken " + str(damage) + " damage!")
+
+func _to_string() -> String:
+	return "SLIME: " + str(global_position)
