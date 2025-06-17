@@ -10,7 +10,10 @@ func _ready():
 	add_child(load("res://game/game/alice_controller.tscn").instantiate())
 	
 	if NetworkManager.is_bob():
-		pass
+		$AliceController/Panel/Tower.disabled = true
+		$AliceController/Panel/Wall.disabled = true
+		$AliceController/Panel/Floortest.disabled = true
+		$AliceController/Panel/Sweatshop.disabled = true
 	
 	if NetworkManager.is_server():
 		var bob_manager = BOB_MANAGER.instantiate()
