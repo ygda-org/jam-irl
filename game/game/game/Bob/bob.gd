@@ -1,7 +1,5 @@
 extends CharacterBody2D
 
-signal damaged
-
 const SPEED: int = 10000
 
 var input: Vector2 = Vector2(0, 0)
@@ -38,5 +36,4 @@ func _on_target_on_death() -> void:
 
 
 func _on_target_on_damage(damage: int) -> void:
-	damaged.emit()
 	GlobalLog.server_log("Bob has taken " + str(damage) + " damage!")
