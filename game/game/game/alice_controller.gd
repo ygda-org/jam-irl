@@ -20,6 +20,9 @@ var health = 4
 var money = 20
 var number_of_children_worked_to_the_bone = 0
 
+func _ready():
+	$Panel/Selection.hide()
+
 func _process(delta):
 	mouse_position = get_viewport().get_mouse_position()
 	if Input.is_action_just_released("LeftClick"):
@@ -50,11 +53,15 @@ func placeTile():
 	
 
 func _on_tower_pressed() -> void:
+	$Panel/Selection.show()
 	$PlacePreview.play("tower")
+	$Panel/Selection.position = $Panel/Tower.position + Vector2(4, 4)
 	#get_node("PlacePreview").texture = load("res://ASSETS/placeables/tower.png")
 	current_selected = 1
 
 func _on_wall_pressed() -> void:
+	$Panel/Selection.show()
+	$Panel/Selection.position = $Panel/Wall.position + Vector2(4, 4)
 	if current_rotation == 1:
 		$PlacePreview.play("wallV")
 		current_selected = 3
@@ -64,7 +71,9 @@ func _on_wall_pressed() -> void:
 	#get_node("PlacePreview").texture = load("res://ASSETS/placeables/tower.png")
 
 func _on_floortest_pressed() -> void:
+	$Panel/Selection.show()
 	$PlacePreview.play("floorTEST")
+	$Panel/Selection.position = $Panel/Floortest.position + Vector2(4,4)
 	dec_health()
 	#get_node("PlacePreview").texture = load("res://ASSETS/placeables/floor.png")
 	current_selected = 0
@@ -84,6 +93,8 @@ func change_money(change) -> void:
 	$HealthBar/Money.text = "$"+str(money)
 
 func _on_sweatshop_pressed() -> void:
+	$Panel/Selection.show()
+	$Panel/Selection.position = $Panel/Sweatshop.position + Vector2(4, 4)
 	number_of_children_worked_to_the_bone += 1
 	$PlacePreview.play("sweatshop")
 	
