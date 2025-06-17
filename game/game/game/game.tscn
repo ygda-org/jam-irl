@@ -1,10 +1,11 @@
-[gd_scene load_steps=6 format=3 uid="uid://cnh7fvr6s1oit"]
+[gd_scene load_steps=7 format=3 uid="uid://cnh7fvr6s1oit"]
 
 [ext_resource type="Script" uid="uid://cmgub88gm7itj" path="res://game/game/game.gd" id="1_41k3g"]
 [ext_resource type="PackedScene" uid="uid://qouqpq8qoo84" path="res://game/game/board.tscn" id="1_g4fio"]
 [ext_resource type="Script" uid="uid://it2fdbjm2lvp" path="res://addons/awaitable_http_request/awaitable_http_request.gd" id="3_7dndb"]
 [ext_resource type="PackedScene" uid="uid://cf5ab8q45yaqr" path="res://game/game/slime/slime.tscn" id="3_m7sxm"]
 [ext_resource type="PackedScene" uid="uid://dnfl7m5gxhq71" path="res://game/game/Bob/bob.tscn" id="4_mafgb"]
+[ext_resource type="PackedScene" path="res://game/game/Bob/bob_ui.tscn" id="6_efj5v"]
 
 [node name="Game" type="Node2D"]
 script = ExtResource("1_41k3g")
@@ -32,6 +33,10 @@ script = ExtResource("3_7dndb")
 [node name="MultiplayerSpawner" type="MultiplayerSpawner" parent="."]
 _spawnable_scenes = PackedStringArray("uid://bbvmg7acguuaf")
 spawn_path = NodePath("..")
+
+[node name="BobUI" parent="." node_paths=PackedStringArray("bob") instance=ExtResource("6_efj5v")]
+position = Vector2(704, 340)
+bob = NodePath("../Arena/Bob")
 
 [node name="Arena" type="Node2D" parent="."]
 
