@@ -3,12 +3,14 @@ extends Node2D
 
 func _ready():
 	_update_debug_label()
+
+	if NetworkManager.is_alice():
+		add_child(load("res://game/game/alice_controller.tscn").instantiate())
 	
 func _update_debug_label():
 	%DebugLabel.text = "Role: "
 	if NetworkManager.is_alice():
 		%DebugLabel.text += "Alice"
-		add_child(load("res://game/game/alice_controller.tscn").instantiate())
 	elif NetworkManager.is_bob():
 		%DebugLabel.text += "Bob"
 	elif NetworkManager.is_server():
