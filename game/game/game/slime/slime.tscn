@@ -1,4 +1,4 @@
-[gd_scene load_steps=40 format=3 uid="uid://cf5ab8q45yaqr"]
+[gd_scene load_steps=41 format=3 uid="uid://cf5ab8q45yaqr"]
 
 [ext_resource type="Script" uid="uid://el1asfi0gvhd" path="res://game/game/slime/slime.gd" id="1_w8pft"]
 [ext_resource type="Texture2D" uid="uid://caugac54jxbkm" path="res://ASSETS/sprites/slime/idle.png" id="1_y2vlo"]
@@ -254,8 +254,14 @@ properties/2/path = NodePath("Anim:animation")
 properties/2/spawn = true
 properties/2/replication_mode = 2
 
+[sub_resource type="CircleShape2D" id="CircleShape2D_4c8a6"]
+radius = 28.0179
+
 [node name="Slime" type="CharacterBody2D"]
 script = ExtResource("1_w8pft")
+max_health = 20
+jumpCooldown = 0.7
+damage = 12
 
 [node name="Anim" type="AnimatedSprite2D" parent="."]
 position = Vector2(0, -25)
@@ -266,10 +272,17 @@ animation = &"Jump"
 position = Vector2(0, -10)
 rotation = 1.5708
 shape = SubResource("CapsuleShape2D_1j4xl")
+disabled = true
 
 [node name="ZIndexManager" parent="." instance=ExtResource("5_4c8a6")]
 
 [node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
 replication_config = SubResource("SceneReplicationConfig_w8pft")
+
+[node name="AttackArea" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="AttackArea"]
+position = Vector2(0, -9)
+shape = SubResource("CircleShape2D_4c8a6")
 
 [connection signal="animation_finished" from="Anim" to="." method="_on_anim_animation_finished"]

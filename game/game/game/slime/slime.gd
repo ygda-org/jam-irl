@@ -9,7 +9,7 @@ var jumpTime: float = 6./12.;
 @export var target: Node2D
 
 @onready var board = get_parent().get_node("GameBoard")
-
+@onready var attack_area: Area2D = $AttackArea
 
 @export var is_spawning: bool = true
 @export var is_jumping: bool = false
@@ -24,8 +24,6 @@ func _ready() -> void:
 	$Anim.play("Spawn")
 
 func _physics_process(delta: float) -> void:
-	# if NetworkManager.is_client(): return
-	# GlobalLog.server_log(str(jump_target) + " " + str(jump_target == null) + " " + str(is_spawning))
 	if can_jump:
 		var dir = target.position - position
 		var dist = dir.length()
@@ -37,9 +35,6 @@ func _physics_process(delta: float) -> void:
 		if is_jumping:
 			position += (jump_target - position) * delta / jumpTime
 
-	
-	# Optional: Add some debug visualization
-	queue_redraw()
 
 func start_jump() -> void:
 	$Anim.play("Jump")
@@ -49,13 +44,19 @@ func start_jump() -> void:
 	is_jumping = false
 	jump_target = null
 
+	if is_target_in_attack_range():
+		target.get_node("Target").damage(damage)
+
 	await get_tree().create_timer(jumpCooldown).timeout
 	can_jump = true
 
-func _draw() -> void:
-	if jump_target != null:
-		# Draw a line to the target
-		draw_line(Vector2.ZERO, to_local(jump_target), Color.RED, 2.0)
+func is_target_in_attack_range() -> bool:
+	if target == null:
+		return false
+		
+	var bodies = attack_area.get_overlapping_bodies()
+	return bodies.has(target)
+
 
 func _on_anim_animation_finished() -> void:
 	if is_spawning:
@@ -63,7 +64,3 @@ func _on_anim_animation_finished() -> void:
 		can_jump = true
 
 		$Anim.play("Idle")
-
-# @rpc("authority")
-# func play_anim(name: String) -> void:
-# 	$Anim.play(name)

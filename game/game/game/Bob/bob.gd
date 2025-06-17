@@ -1,9 +1,6 @@
 extends CharacterBody2D
 
 const SPEED: int = 10000
-signal died
-
-@export var health: int = 100
 
 var input: Vector2 = Vector2(0, 0)
 
@@ -31,11 +28,12 @@ func _physics_process(delta: float) -> void:
 	
 	move_and_slide()
 
-func damage(damage: int):
-	if not NetworkManager.is_server(): return
-	
-	health -= damage
-	
-	if health <= 0:
-		GlobalLog.server_log("Bob has died!")
-		died.emit()
+func health() -> int:
+	return $Target.health
+
+func _on_target_on_death() -> void:
+	GlobalLog.server_log("Bob has died!")
+
+
+func _on_target_on_damage(damage: int) -> void:
+	GlobalLog.server_log("Bob has taken " + str(damage) + " damage!")

@@ -27,7 +27,7 @@ func _process(delta):
 		$PlacePreview.position = Vector2i(margin, margin) + Vector2i(5, -5) + Vector2i(mouse_position) - Vector2i(int(mouse_position.x - margin) % 50, int(mouse_position.y - margin) % 50)
 	else:
 		$PlacePreview.hide()
-	
+
 func placeTile():
 	if current_selected == null or not (mouse_position.x < 620 and mouse_position.x > 20 and mouse_position.y < 520 and mouse_position.y > 20):
 		return
@@ -38,6 +38,10 @@ func placeTile():
 		board.rpc("updateTile", current_selected, mouse_pos.y, mouse_pos.x)
 		board.updateTile(current_selected, mouse_pos.y, mouse_pos.x)
 		change_money(-costs[current_selected])
+	else:
+		$PlacePreview.modulate = "dd00004b"
+		$PlaceFailTimer.start()
+	
 
 func _on_tower_pressed() -> void:
 	$PlacePreview.play("tower")
@@ -77,3 +81,7 @@ func _on_sweatshop_pressed() -> void:
 
 func _on_money_timer_timeout() -> void:
 	change_money(number_of_children_worked_to_the_bone)
+
+
+func _on_place_fail_timer_timeout() -> void:
+	$PlacePreview.modulate = "ffffff4b"

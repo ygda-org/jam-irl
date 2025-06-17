@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://c7wath0wq4tr0"]
+[gd_scene load_steps=11 format=3 uid="uid://c7wath0wq4tr0"]
 
 [ext_resource type="Texture2D" uid="uid://dcc84qxfx1rnn" path="res://ASSETS/placeables/wall_h.png" id="1_td36q"]
 [ext_resource type="Texture2D" uid="uid://fxyylq031bix" path="res://ASSETS/placeables/wall-v.png" id="2_1528w"]
@@ -58,6 +58,9 @@ animations = [{
 "speed": 5.0
 }]
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_td36q"]
+size = Vector2(50, 36)
+
 [node name="Tower" type="Node2D"]
 
 [node name="Anim" type="AnimatedSprite2D" parent="."]
@@ -66,3 +69,9 @@ sprite_frames = SubResource("SpriteFrames_klqmc")
 animation = &"h"
 autoplay = "h"
 frame_progress = 0.0375871
+
+[node name="StaticBody2D" type="StaticBody2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
+position = Vector2(25, 18)
+shape = SubResource("RectangleShape2D_td36q")
