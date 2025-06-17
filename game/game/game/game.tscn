@@ -5,7 +5,7 @@
 [ext_resource type="Script" uid="uid://it2fdbjm2lvp" path="res://addons/awaitable_http_request/awaitable_http_request.gd" id="3_7dndb"]
 [ext_resource type="PackedScene" uid="uid://cf5ab8q45yaqr" path="res://game/game/slime/slime.tscn" id="3_m7sxm"]
 [ext_resource type="PackedScene" uid="uid://dnfl7m5gxhq71" path="res://game/game/Bob/bob.tscn" id="4_mafgb"]
-[ext_resource type="PackedScene" uid="uid://dxpybi0k3v2la" path="res://game/game/Bob/bob_ui.tscn" id="6_efj5v"]
+[ext_resource type="PackedScene" path="res://game/game/Bob/bob_ui.tscn" id="6_efj5v"]
 
 [node name="Game" type="Node2D"]
 script = ExtResource("1_41k3g")
@@ -44,6 +44,9 @@ bob = NodePath("../Arena/Bob")
 
 [node name="Slime" parent="Arena" instance=ExtResource("3_m7sxm")]
 position = Vector2(590, 516)
+
+[node name="Slime2" parent="Arena" instance=ExtResource("3_m7sxm")]
+position = Vector2(242, 390)
 
 [node name="Bob" parent="Arena" instance=ExtResource("4_mafgb")]
 unique_name_in_owner = true

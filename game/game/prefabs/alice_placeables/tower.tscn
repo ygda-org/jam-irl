@@ -1,7 +1,8 @@
-[gd_scene load_steps=9 format=3 uid="uid://ci3rv6arq57ut"]
+[gd_scene load_steps=10 format=3 uid="uid://ci3rv6arq57ut"]
 
 [ext_resource type="Texture2D" uid="uid://dyfgahnrnw8fd" path="res://ASSETS/placeables/tower.png" id="1_2apcv"]
-[ext_resource type="Script" uid="uid://xj6n83wcdefu" path="res://game/prefabs/alice_placeables/tower.gd" id="1_rppiq"]
+[ext_resource type="Script" path="res://game/prefabs/alice_placeables/tower.gd" id="1_rppiq"]
+[ext_resource type="PackedScene" uid="uid://d11uab4tmr325" path="res://game/game/damage/target.tscn" id="3_yxqci"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_lnvb4"]
 atlas = ExtResource("1_2apcv")
@@ -61,6 +62,10 @@ position = Vector2(25, -5)
 
 [node name="Cooldown" type="Timer" parent="."]
 one_shot = true
+
+[node name="Target" parent="." instance=ExtResource("3_yxqci")]
+maxHealth = 70
+affiliation = 1
 
 [connection signal="body_entered" from="Range" to="." method="_on_range_body_entered"]
 [connection signal="body_exited" from="Range" to="." method="_on_range_body_exited"]

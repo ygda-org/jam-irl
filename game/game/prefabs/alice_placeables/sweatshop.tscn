@@ -1,6 +1,7 @@
-[gd_scene load_steps=7 format=3 uid="uid://ff8ybv3maa7x"]
+[gd_scene load_steps=8 format=3 uid="uid://ff8ybv3maa7x"]
 
 [ext_resource type="Texture2D" uid="uid://dagxvmxuw0ai5" path="res://ASSETS/placeables/child labor.png" id="1_6fi7d"]
+[ext_resource type="PackedScene" uid="uid://d11uab4tmr325" path="res://game/game/damage/target.tscn" id="2_4dufv"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_4dufv"]
 atlas = ExtResource("1_6fi7d")
@@ -34,7 +35,7 @@ animations = [{
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_6fi7d"]
 size = Vector2(50, 35)
 
-[node name="Tower" type="Node2D"]
+[node name="Sweatshop" type="Node2D"]
 
 [node name="Anim" type="AnimatedSprite2D" parent="."]
 position = Vector2(25, 15)
@@ -42,6 +43,10 @@ sprite_frames = SubResource("SpriteFrames_klqmc")
 animation = &"sweatshop"
 autoplay = "sweatshop"
 frame_progress = 0.949885
+
+[node name="Target" parent="." instance=ExtResource("2_4dufv")]
+maxHealth = 50
+affiliation = 1
 
 [node name="StaticBody2D" type="StaticBody2D" parent="."]
 
