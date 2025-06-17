@@ -40,7 +40,7 @@ offset_left = 7.0
 offset_top = 117.0
 offset_right = 182.0
 offset_bottom = 159.0
-text = "code"
+text = "default"
 placeholder_text = "Code...
 "
 
