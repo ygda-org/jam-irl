@@ -1,6 +1,7 @@
 extends CharacterBody2D
 
 const SPEED: int = 10000
+const ATTACK: int = 20
 const ATTACK_COOLDOWN: float = 0.75
 
 var can_attack: bool = true
@@ -19,17 +20,18 @@ func _physics_process(delta: float) -> void:
 	if not NetworkManager.is_server():
 		return
 	
-
-	if input != Vector2.ZERO:
-		if input.x > 0:
-			%Anim.flip_h = true
-		elif input.x < 0:
-			%Anim.flip_h = false
+	
+	if can_attack:
+		if input != Vector2.ZERO:
+			if input.x > 0:
+				%Anim.flip_h = true
+			elif input.x < 0:
+				%Anim.flip_h = false
+				
+			%Anim.play("run")
 			
-		%Anim.play("run")
-		
-	else:
-		$Anim.play("idle")
+		else:
+			$Anim.play("idle")
 		
 	velocity = delta * SPEED * input
 	
@@ -52,10 +54,11 @@ func attack():
 		can_attack = false
 		%BobAttackCooldown.start(ATTACK_COOLDOWN)
 		%Anim.play("sword1")
-		var attacked_bodies: Array[Node2D] = %BobAttackArea.get_overlapping_bodies()
-		for body in attacked_bodies:
-			if body.is_in_group("Damageable"):
-				body.damage()
+		var attacked_bodies: Array = %BobAttackArea.get_overlapping_bodies() + %BobAttackArea.get_overlapping_areas()
+		
+		for body: Node2D in attacked_bodies:
+			if body.has_node("Target"):
+				body.get_node("Target").damage(ATTACK)
 		
 
 @rpc("authority")
