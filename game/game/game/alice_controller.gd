@@ -2,15 +2,17 @@ extends Node2D
 
 const FLOOR = preload("res://game/prefabs/alice_placeables/floor.tscn") # 0
 const TOWER = preload("res://game/prefabs/alice_placeables/tower.tscn") # 1
-const WALL = preload("res://game/prefabs/alice_placeables/wall.tscn") # 2
-const SWEATSHOP = preload("res://game/prefabs/alice_placeables/sweatshop.tscn") # 3
+const WALLH = preload("res://game/prefabs/alice_placeables/wallh.tscn") # 2
+const WALLV = preload("res://game/prefabs/alice_placeables/wallv.tscn") # 3
+const SWEATSHOP = preload("res://game/prefabs/alice_placeables/sweatshop.tscn") # 4
 const margin = 20
 
-const structures = [FLOOR, TOWER, WALL, SWEATSHOP]
-const costs = [0,4,1,5]
+const structures = [FLOOR, TOWER, WALLH, WALLV, SWEATSHOP]
+const costs = [0,4,1,1,5]
 
 var mouse_position: Vector2
 var current_selected
+var current_rotation = 0 # 0 or 1, o is horizontal 1 is vertical
 
 @onready var board = get_parent().get_node("Arena").get_node("GameBoard")
 
@@ -22,6 +24,10 @@ func _process(delta):
 	mouse_position = get_viewport().get_mouse_position()
 	if Input.is_action_just_released("LeftClick"):
 		placeTile()
+	if Input.is_action_just_pressed("RightClick"): 
+		current_rotation = (current_rotation + 1) % 2
+		if current_selected == 2 or current_selected == 3:
+			_on_wall_pressed()
 	if mouse_position.x < 620 and mouse_position.x > 20 and mouse_position.y < 520 and mouse_position.y > 20:
 		$PlacePreview.show()
 		$PlacePreview.position = Vector2i(margin, margin) + Vector2i(5, -5) + Vector2i(mouse_position) - Vector2i(int(mouse_position.x - margin) % 50, int(mouse_position.y - margin) % 50)
@@ -49,9 +55,13 @@ func _on_tower_pressed() -> void:
 	current_selected = 1
 
 func _on_wall_pressed() -> void:
-	$PlacePreview.play("wallH")
+	if current_rotation == 1:
+		$PlacePreview.play("wallV")
+		current_selected = 3
+	else:
+		$PlacePreview.play("wallH")
+		current_selected = 2
 	#get_node("PlacePreview").texture = load("res://ASSETS/placeables/tower.png")
-	current_selected = 2
 
 func _on_floortest_pressed() -> void:
 	$PlacePreview.play("floorTEST")
@@ -77,7 +87,7 @@ func _on_sweatshop_pressed() -> void:
 	number_of_children_worked_to_the_bone += 1
 	$PlacePreview.play("sweatshop")
 	
-	current_selected = 3
+	current_selected = 4
 
 func _on_money_timer_timeout() -> void:
 	change_money(number_of_children_worked_to_the_bone)
