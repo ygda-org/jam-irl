@@ -47,9 +47,6 @@ position = Vector2(590, 516)
 jumpCooldown = 1.0
 damage = 10
 
-[node name="Slime2" parent="Arena" instance=ExtResource("3_m7sxm")]
-position = Vector2(242, 390)
-
 [node name="Bob" parent="Arena" instance=ExtResource("4_mafgb")]
 unique_name_in_owner = true
 position = Vector2(315, 254)

@@ -1,9 +1,12 @@
 extends CharacterBody2D
 
 const SPEED: int = 10000
-
 var input: Vector2 = Vector2(0, 0)
 @onready var game = get_tree().root.get_node("Game")
+@onready var bob_ui = get_node("../../BobUI")
+
+var mana: int = 100
+
 func _ready() -> void:
 	if not NetworkManager.is_server(): # Disable collisions if it's a client.
 		%CollisionShape2D.disabled = true
@@ -37,6 +40,9 @@ func _on_target_on_death() -> void:
 
 func _on_target_on_damage(damage: int) -> void:
 	GlobalLog.server_log("Bob has taken " + str(damage) + " damage!")
+	rpc("__on_target_on_damage", damage)
 
-func _to_string() -> String:
-	return "BOB"
+@rpc("authority")
+func __on_target_on_damage(damage: int) -> void:
+	bob_ui.update_health_bar(health())
+	

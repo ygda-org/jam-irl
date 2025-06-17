@@ -6,10 +6,11 @@ extends Node2D
 @onready var mana_bar: TextureProgressBar = $Node2D/ManaBar
 
 func _ready() -> void:
-	bob.get_node("Target").onDamage.connect(update_health)
+	update_health_bar(bob.health())
+	update_mana_bar(bob.mana)
+
+func update_health_bar(health: int) -> void:
+	health_bar.value = health
 	
-func update_health() -> void:
-	health_bar.value = bob.get_node("Target").health
-	
-func update_mana() -> void:
-	pass # implement when mana gets added 
+func update_mana_bar(mana: int) -> void:
+	mana_bar.value = mana
