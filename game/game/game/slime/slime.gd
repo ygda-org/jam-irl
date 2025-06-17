@@ -73,10 +73,24 @@ func suicide():
 
 @rpc("authority")
 func _suicide():
+	$Anim.play("Death")
+	can_jump = false
+	await $Anim.animation_finished
+	can_jump = true
 	queue_free()
 
 func _on_target_on_damage(damage: int) -> void:
-	GlobalLog.server_log(str(self) + " has taken " + str(damage) + " damage!")
+	rpc("__on_target_on_damage")
+	__on_target_on_damage(damage)
+
+@rpc("authority")
+func __on_target_on_damage(damage: int) -> void:
+	GlobalLog.log(str(self) + " has taken " + str(damage) + " damage!")
+	$Anim.play("Hurt")
+	if not can_jump: return
+	can_jump = false
+	await $Anim.animation_finished
+	can_jump = true
 
 func _to_string() -> String:
 	return "SLIME: " + str(global_position)
