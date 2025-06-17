@@ -1,11 +1,11 @@
-[gd_scene load_steps=21 format=3 uid="uid://bvt0k3xhgf57x"]
+[gd_scene load_steps=22 format=3 uid="uid://bvt0k3xhgf57x"]
 
 [ext_resource type="Script" uid="uid://dxktiamsqy8oe" path="res://game/prefabs/alice_heart.gd" id="1_0ofpv"]
 [ext_resource type="Texture2D" uid="uid://hpyyr7xv66ui" path="res://ASSETS/heart/heart_healthy (no bacon or candy).png" id="1_nur3n"]
 [ext_resource type="Texture2D" uid="uid://dk5j5pdct4rtl" path="res://ASSETS/heart/heart_hurt.png" id="2_0ofpv"]
 [ext_resource type="Texture2D" uid="uid://oanoiel2xjm6" path="res://ASSETS/heart/heart turbo cancer.png" id="3_cbthp"]
 [ext_resource type="Texture2D" uid="uid://0s8er7plxuh0" path="res://ASSETS/heart/heart broken.png" id="4_jodgb"]
-[ext_resource type="PackedScene" path="res://game/game/damage/target.tscn" id="6_cbthp"]
+[ext_resource type="PackedScene" uid="uid://d11uab4tmr325" path="res://game/game/damage/target.tscn" id="6_cbthp"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_ch0le"]
 atlas = ExtResource("1_nur3n")
@@ -115,21 +115,31 @@ animations = [{
 }]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_jodgb"]
-radius = 15.1327
+radius = 17.4642
 
-[node name="alice_heart" type="Node2D"]
+[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_cbthp"]
+properties/0/path = NodePath("Anim:animation")
+properties/0/spawn = true
+properties/0/replication_mode = 1
+
+[node name="alice_heart" type="StaticBody2D"]
 z_index = 11
 script = ExtResource("1_0ofpv")
 
 [node name="Anim" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_ihhrn")
-animation = &"healthy"
+animation = &"turbo_dead"
 autoplay = "healthy"
+frame_progress = 0.530246
 
 [node name="Target" parent="." instance=ExtResource("6_cbthp")]
 affiliation = 1
 
-[node name="Area2D" type="Area2D" parent="."]
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CircleShape2D_jodgb")
+
+[node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
+replication_config = SubResource("SceneReplicationConfig_cbthp")
+
+[connection signal="onDamage" from="Target" to="." method="_on_target_on_damage"]
+[connection signal="onDeath" from="Target" to="." method="_on_target_on_death"]

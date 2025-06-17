@@ -13,6 +13,9 @@ func _on_input_tick_timeout() -> void:
 	if not summon_request and Input.is_action_just_pressed("Shoot"):
 		summon_request = true
 	
+	if Input.is_action_just_pressed("attack"):
+		get_parent().bob_reference.rpc_id(1, "attack")
+	
 	if summon_request:# TODO Factor in timer to delay request and slow shooting speed
 		summon_request = false
 		rpc("request_projectile", input)

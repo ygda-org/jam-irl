@@ -272,7 +272,6 @@ animation = &"Jump"
 position = Vector2(0, -10)
 rotation = 1.5708
 shape = SubResource("CapsuleShape2D_1j4xl")
-disabled = true
 
 [node name="ZIndexManager" parent="." instance=ExtResource("5_4c8a6")]
 
@@ -290,3 +289,5 @@ position = Vector2(0, -9)
 shape = SubResource("CircleShape2D_4c8a6")
 
 [connection signal="animation_finished" from="Anim" to="." method="_on_anim_animation_finished"]
+[connection signal="onDamage" from="Target" to="." method="_on_target_on_damage"]
+[connection signal="onDeath" from="Target" to="." method="_on_target_on_death"]

@@ -27,6 +27,7 @@ func _on_cooldown_timeout() -> void:
 		attack()
 		$Cooldown.start()
 
+
 func _on_target_on_death() -> void:
 	GlobalLog.server_log(str(self) + " has died!")
 	suicide()

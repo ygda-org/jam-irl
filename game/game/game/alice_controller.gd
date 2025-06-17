@@ -15,6 +15,7 @@ var current_selected
 var current_rotation = 0 # 0 or 1, o is horizontal 1 is vertical
 
 @onready var board = get_parent().get_node("Arena").get_node("GameBoard")
+@onready var game = get_parent()
 
 var health = 4
 var money = 20
@@ -77,17 +78,19 @@ func _on_floortest_pressed() -> void:
 	$Panel/Selection.show()
 	$PlacePreview.play("floorTEST")
 	$Panel/Selection.position = $Panel/Floortest.position + Vector2(4,4)
-	dec_health()
+	dec_health(1)
 	#get_node("PlacePreview").texture = load("res://ASSETS/placeables/floor.png")
 	current_selected = 0
 
-func dec_health() -> void:
-	health -= 1
+func dec_health(delta=1) -> void:
+	GlobalLog.log("Alice hit")
+	health -= delta
 	if health <= 0:
-		print("Allice died :(")
+		game.win(NetworkManager.Role.Bob)
 		health = 0
-	for idx in range($HealthBar.get_child_count()-health):
-		$HealthBar.get_child(idx).play("turbo_dead")
+	
+	# for idx in range($HealthBar.get_child_count()-health):
+	$HealthBar.get_child(health).play("turbo_dead")
 
 func change_money(change) -> void:
 	money += change

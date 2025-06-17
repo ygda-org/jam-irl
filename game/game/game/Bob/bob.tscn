@@ -1,4 +1,4 @@
-[gd_scene load_steps=108 format=3 uid="uid://dnfl7m5gxhq71"]
+[gd_scene load_steps=109 format=3 uid="uid://dnfl7m5gxhq71"]
 
 [ext_resource type="Script" uid="uid://bo54t4ybflsh1" path="res://game/game/Bob/bob.gd" id="1_5xu5e"]
 [ext_resource type="Texture2D" uid="uid://b3252mowlflm5" path="res://ASSETS/bobswordappear.png" id="1_w2qpk"]
@@ -8,7 +8,7 @@
 [ext_resource type="Texture2D" uid="uid://cnkidjqufpieb" path="res://ASSETS/bobsword3.png" id="5_8caah"]
 [ext_resource type="Texture2D" uid="uid://c04xtt0fdbnd" path="res://ASSETS/bobidle.png" id="6_pdcjl"]
 [ext_resource type="Texture2D" uid="uid://ccpav20ymjwgy" path="res://ASSETS/bobrun.png" id="7_4jvte"]
-[ext_resource type="PackedScene" uid="uid://d11uab4tmr325" path="res://game/game/damage/target.tscn" id="9_middi"]
+[ext_resource type="PackedScene" path="res://game/game/damage/target.tscn" id="9_middi"]
 [ext_resource type="PackedScene" uid="uid://t1llkwtqjrew" path="res://game/game/z_index_manager.tscn" id="10_q6un5"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_wmnfi"]
@@ -734,6 +734,9 @@ properties/3/path = NodePath("Target:health")
 properties/3/spawn = true
 properties/3/replication_mode = 2
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_q6un5"]
+size = Vector2(100.5, 36)
+
 [node name="Bob" type="CharacterBody2D"]
 script = ExtResource("1_5xu5e")
 
@@ -758,5 +761,16 @@ affiliation = 0
 [node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
 replication_config = SubResource("SceneReplicationConfig_w2qpk")
 
+[node name="BobAttackArea" type="Area2D" parent="."]
+unique_name_in_owner = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="BobAttackArea"]
+position = Vector2(-3.25, -26)
+shape = SubResource("RectangleShape2D_q6un5")
+
+[node name="BobAttackCooldown" type="Timer" parent="."]
+unique_name_in_owner = true
+
 [connection signal="onDamage" from="Target" to="." method="_on_target_on_damage"]
 [connection signal="onDeath" from="Target" to="." method="_on_target_on_death"]
+[connection signal="timeout" from="BobAttackCooldown" to="." method="_on_bob_attack_cooldown_timeout"]
