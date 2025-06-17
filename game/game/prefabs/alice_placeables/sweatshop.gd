@@ -1,4 +1,4 @@
-extends Node2D
+extends StaticBody2D
 
 @export var production_rate: int = 1
 @export var production_delay: float = 3.0
@@ -17,3 +17,21 @@ func _on_timer_timeout():
 
 	# TODO: production animation
 	alice.change_money(+production_rate)
+
+func _on_target_on_death() -> void:
+	GlobalLog.server_log(str(self) + " has died!")
+	suicide()
+
+func suicide():
+	rpc("_suicide")
+	_suicide()
+
+@rpc("authority")
+func _suicide():
+	queue_free()
+
+func _on_target_on_damage(damage: int) -> void:
+	GlobalLog.server_log(str(self) + " has taken " + str(damage) + " damage!")
+
+func _to_string() -> String:
+	return "SWEATSHOP: " + str(global_position)
