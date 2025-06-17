@@ -1,10 +1,11 @@
-[gd_scene load_steps=41 format=3 uid="uid://cf5ab8q45yaqr"]
+[gd_scene load_steps=42 format=3 uid="uid://cf5ab8q45yaqr"]
 
 [ext_resource type="Script" uid="uid://el1asfi0gvhd" path="res://game/game/slime/slime.gd" id="1_w8pft"]
 [ext_resource type="Texture2D" uid="uid://caugac54jxbkm" path="res://ASSETS/sprites/slime/idle.png" id="1_y2vlo"]
 [ext_resource type="Texture2D" uid="uid://drswgsys46413" path="res://ASSETS/sprites/slime/jump.png" id="2_r6ugr"]
 [ext_resource type="Texture2D" uid="uid://c26tlum7sb0sy" path="res://ASSETS/sprites/slime/spawn.png" id="3_r6ugr"]
-[ext_resource type="PackedScene" path="res://game/game/z_index_manager.tscn" id="5_4c8a6"]
+[ext_resource type="PackedScene" uid="uid://t1llkwtqjrew" path="res://game/game/z_index_manager.tscn" id="5_4c8a6"]
+[ext_resource type="PackedScene" path="res://game/game/damage/target.tscn" id="6_doswg"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_4c8a6"]
 atlas = ExtResource("1_y2vlo")
@@ -259,7 +260,6 @@ radius = 28.0179
 
 [node name="Slime" type="CharacterBody2D"]
 script = ExtResource("1_w8pft")
-max_health = 20
 jumpCooldown = 0.7
 damage = 12
 
@@ -275,6 +275,10 @@ shape = SubResource("CapsuleShape2D_1j4xl")
 disabled = true
 
 [node name="ZIndexManager" parent="." instance=ExtResource("5_4c8a6")]
+
+[node name="Target" parent="." instance=ExtResource("6_doswg")]
+maxHealth = 20
+affiliation = 1
 
 [node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
 replication_config = SubResource("SceneReplicationConfig_w8pft")

@@ -3,7 +3,7 @@ extends CharacterBody2D
 const SPEED: int = 10000
 
 var input: Vector2 = Vector2(0, 0)
-
+@onready var game = get_tree().root.get_node("Game")
 func _ready() -> void:
 	if not NetworkManager.is_server(): # Disable collisions if it's a client.
 		%CollisionShape2D.disabled = true
@@ -33,7 +33,7 @@ func health() -> int:
 
 func _on_target_on_death() -> void:
 	GlobalLog.server_log("Bob has died!")
-
+	game.win(NetworkManager.Role.Alice)
 
 func _on_target_on_damage(damage: int) -> void:
 	GlobalLog.server_log("Bob has taken " + str(damage) + " damage!")

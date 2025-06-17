@@ -22,6 +22,7 @@ NetworkManager="*res://globals/network/network_manager.gd"
 GlobalLog="*res://globals/global_log.gd"
 HttpWrapper="*res://globals/network/http_wrapper.gd"
 MusicManager="*res://globals/music_manager/music_manager.tscn"
+GameManager="*res://globals/game_manager.gd"
 
 [display]
 

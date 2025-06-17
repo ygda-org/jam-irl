@@ -135,4 +135,4 @@ func connect_client():
 	return true
 
 func _handle_client_side_disconnected() -> void:
-	SceneSwitcher.start_menu_with_error("Disconnected from server.")
+	GlobalLog.client_log("Disconnected from server.")

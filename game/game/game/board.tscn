@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" uid="uid://oij26kb7jvx5" path="res://game/game/board.gd" id="1_gp7jp"]
 [ext_resource type="Texture2D" uid="uid://bk2rqpin2idcc" path="res://ASSETS/placeables/floor.png" id="2_m3ncr"]
-[ext_resource type="PackedScene" path="res://game/prefabs/alice_heart.tscn" id="3_a6n51"]
+[ext_resource type="PackedScene" uid="uid://bvt0k3xhgf57x" path="res://game/prefabs/alice_heart.tscn" id="3_a6n51"]
 
 [node name="GameBoard" type="Node2D"]
 script = ExtResource("1_gp7jp")

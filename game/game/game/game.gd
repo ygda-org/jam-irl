@@ -2,12 +2,12 @@ extends Node2D
 
 const BOB_MANAGER = preload("res://game/game/Bob/bob_manager.tscn")
 const GENERIC_PROJECTILE = preload("res://game/game/GenericProjectile/generic_projectile.tscn")
+var winner: NetworkManager.Role = NetworkManager.Role.None
 
 func _ready():
 	_update_debug_label()
 
-	if NetworkManager.is_alice():
-		add_child(load("res://game/game/alice_controller.tscn").instantiate())
+	add_child(load("res://game/game/alice_controller.tscn").instantiate())
 	
 	if NetworkManager.is_bob():
 		pass
@@ -33,14 +33,14 @@ func _update_debug_label():
 
 func _on_debug_end_game_pressed() -> void:
 	if NetworkManager.is_server():
-		debug_end_game()
+		end_match()
 		get_tree().quit(0)
 	else:
-		rpc("debug_end_game")
+		rpc("end_match")
 		# SceneSwitcher.goto_start()
 
 @rpc("any_peer")
-func debug_end_game():
+func end_match():
 	if not NetworkManager.is_server():
 		return
 
@@ -57,6 +57,15 @@ func debug_end_game():
 		GlobalLog.server_log("Failed to tell matchmaking server game ended.")
 	
 	get_tree().quit(0)
+
+func win(role: NetworkManager.Role):
+	GameManager.win(role)
+	rpc("_win", role)
+	end_match()
+
+@rpc("authority")
+func _win(role: NetworkManager.Role):
+	win(role)
 
 func update_bob_input(input: Vector2):
 	%Bob.input = input
