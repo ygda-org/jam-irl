@@ -24,6 +24,9 @@ func _ready():
 	$Panel/Selection.hide()
 
 func _process(delta):
+	if not NetworkManager.is_alice():
+		return
+	
 	mouse_position = get_viewport().get_mouse_position()
 	if Input.is_action_just_released("LeftClick"):
 		placeTile()

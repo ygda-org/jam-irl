@@ -6,8 +6,7 @@ const GENERIC_PROJECTILE = preload("res://game/game/GenericProjectile/generic_pr
 func _ready():
 	_update_debug_label()
 
-	if NetworkManager.is_alice():
-		add_child(load("res://game/game/alice_controller.tscn").instantiate())
+	add_child(load("res://game/game/alice_controller.tscn").instantiate())
 	
 	if NetworkManager.is_bob():
 		pass

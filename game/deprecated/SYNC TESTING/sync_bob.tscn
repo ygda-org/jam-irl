@@ -1,6 +1,6 @@
 [gd_scene load_steps=105 format=3 uid="uid://fm7mk4artm50"]
 
-[ext_resource type="Script" uid="uid://dmjg7k35tlr8u" path="res://SYNC TESTING/sync_bob.gd" id="1_hl1ml"]
+[ext_resource type="Script" uid="uid://dmjg7k35tlr8u" path="res://deprecated/SYNC TESTING/sync_bob.gd" id="1_hl1ml"]
 [ext_resource type="Texture2D" uid="uid://c04xtt0fdbnd" path="res://ASSETS/bobidle.png" id="1_rbqg4"]
 [ext_resource type="Texture2D" uid="uid://b3252mowlflm5" path="res://ASSETS/bobswordappear.png" id="2_872xi"]
 [ext_resource type="Texture2D" uid="uid://ccpav20ymjwgy" path="res://ASSETS/bobrun.png" id="2_wiot8"]
