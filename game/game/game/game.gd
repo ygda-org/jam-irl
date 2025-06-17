@@ -1,14 +1,25 @@
 extends Node2D
 
+const BOB_MANAGER = preload("res://game/game/Bob/bob_manager.tscn")
+
 
 func _ready():
 	_update_debug_label()
+
+	if NetworkManager.is_alice():
+		add_child(load("res://game/game/alice_controller.tscn").instantiate())
+	
+	if NetworkManager.is_server():
+		var bob_manager = BOB_MANAGER.instantiate()
+		bob_manager.set_multiplayer_authority(NetworkManager.server_data.bob_id)
+		add_child(bob_manager)
+	
+	
 	
 func _update_debug_label():
 	%DebugLabel.text = "Role: "
 	if NetworkManager.is_alice():
 		%DebugLabel.text += "Alice"
-		add_child(load("res://game/game/alice_controller.tscn").instantiate())
 	elif NetworkManager.is_bob():
 		%DebugLabel.text += "Bob"
 	elif NetworkManager.is_server():
@@ -45,3 +56,6 @@ func debug_end_game():
 		GlobalLog.server_log("Failed to tell matchmaking server game ended.")
 	
 	get_tree().quit(0)
+
+func update_bob_input(input: Vector2):
+	%Bob.input = input
