@@ -9,7 +9,7 @@ const structures = [FLOOR, TOWER]
 var mouse_position: Vector2
 var current_selected
 
-@onready var board = get_parent().get_node("GameBoard")
+@onready var board = get_parent().get_node("Arena").get_node("GameBoard")
 
 var health = 4
 
@@ -24,7 +24,7 @@ func _process(delta):
 		$PlacePreview.hide()
 	
 func placeTile():
-	if current_selected == null:
+	if current_selected == null or not (mouse_position.x < 620 and mouse_position.x > 20 and mouse_position.y < 520 and mouse_position.y > 20):
 		return
 	var mouse_pos = mouse_position
 	mouse_pos = (mouse_pos - Vector2(margin, margin)) / 50
