@@ -17,16 +17,16 @@ scale = Vector2(12, 10)
 texture = ExtResource("2_m3ncr")
 
 [node name="alice_heart" parent="." instance=ExtResource("3_a6n51")]
-position = Vector2(20, 20)
+position = Vector2(43, 42)
 
 [node name="alice_heart2" parent="." instance=ExtResource("3_a6n51")]
-position = Vector2(620, 20)
+position = Vector2(598, 42)
 
 [node name="alice_heart3" parent="." instance=ExtResource("3_a6n51")]
-position = Vector2(20, 520)
+position = Vector2(39, 511)
 
 [node name="alice_heart4" parent="." instance=ExtResource("3_a6n51")]
-position = Vector2(620, 520)
+position = Vector2(597, 502)
 
 [node name="wall1" type="StaticBody2D" parent="."]
 
