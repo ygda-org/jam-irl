@@ -1,4 +1,4 @@
-[gd_scene load_steps=21 format=3 uid="uid://bvt0k3xhgf57x"]
+[gd_scene load_steps=22 format=3 uid="uid://bvt0k3xhgf57x"]
 
 [ext_resource type="Script" uid="uid://dxktiamsqy8oe" path="res://game/prefabs/alice_heart.gd" id="1_0ofpv"]
 [ext_resource type="Texture2D" uid="uid://hpyyr7xv66ui" path="res://ASSETS/heart/heart_healthy (no bacon or candy).png" id="1_nur3n"]
@@ -117,6 +117,11 @@ animations = [{
 [sub_resource type="CircleShape2D" id="CircleShape2D_jodgb"]
 radius = 17.4642
 
+[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_cbthp"]
+properties/0/path = NodePath("Anim:animation")
+properties/0/spawn = true
+properties/0/replication_mode = 1
+
 [node name="alice_heart" type="StaticBody2D"]
 z_index = 11
 script = ExtResource("1_0ofpv")
@@ -125,13 +130,16 @@ script = ExtResource("1_0ofpv")
 sprite_frames = SubResource("SpriteFrames_ihhrn")
 animation = &"turbo_dead"
 autoplay = "healthy"
-frame_progress = 0.107128
+frame_progress = 0.530246
 
 [node name="Target" parent="." instance=ExtResource("6_cbthp")]
 affiliation = 1
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CircleShape2D_jodgb")
+
+[node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
+replication_config = SubResource("SceneReplicationConfig_cbthp")
 
 [connection signal="onDamage" from="Target" to="." method="_on_target_on_damage"]
 [connection signal="onDeath" from="Target" to="." method="_on_target_on_death"]
