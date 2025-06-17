@@ -1,10 +1,11 @@
-[gd_scene load_steps=40 format=3 uid="uid://cf5ab8q45yaqr"]
+[gd_scene load_steps=42 format=3 uid="uid://cf5ab8q45yaqr"]
 
 [ext_resource type="Script" uid="uid://el1asfi0gvhd" path="res://game/game/slime/slime.gd" id="1_w8pft"]
 [ext_resource type="Texture2D" uid="uid://caugac54jxbkm" path="res://ASSETS/sprites/slime/idle.png" id="1_y2vlo"]
 [ext_resource type="Texture2D" uid="uid://drswgsys46413" path="res://ASSETS/sprites/slime/jump.png" id="2_r6ugr"]
 [ext_resource type="Texture2D" uid="uid://c26tlum7sb0sy" path="res://ASSETS/sprites/slime/spawn.png" id="3_r6ugr"]
 [ext_resource type="PackedScene" uid="uid://t1llkwtqjrew" path="res://game/game/z_index_manager.tscn" id="5_4c8a6"]
+[ext_resource type="PackedScene" uid="uid://byal7lnwpsy4h" path="res://game/game/damage/damage_area.tscn" id="5_doswg"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_4c8a6"]
 atlas = ExtResource("1_y2vlo")
@@ -241,6 +242,9 @@ animations = [{
 "speed": 12.0
 }]
 
+[sub_resource type="CircleShape2D" id="CircleShape2D_doswg"]
+radius = 31.0
+
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_1j4xl"]
 
 [sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_w8pft"]
@@ -261,6 +265,13 @@ script = ExtResource("1_w8pft")
 position = Vector2(0, -25)
 sprite_frames = SubResource("SpriteFrames_l0jed")
 animation = &"Jump"
+
+[node name="DamageArea" parent="." instance=ExtResource("5_doswg")]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="DamageArea"]
+position = Vector2(0, -10)
+rotation = 1.5708
+shape = SubResource("CircleShape2D_doswg")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(0, -10)
