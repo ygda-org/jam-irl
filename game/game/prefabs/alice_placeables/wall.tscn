@@ -1,0 +1,39 @@
+[gd_scene load_steps=6 format=3 uid="uid://c7wath0wq4tr0"]
+
+[ext_resource type="Texture2D" uid="uid://dyfgahnrnw8fd" path="res://ASSETS/placeables/tower.png" id="1_7rqh3"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_lnvb4"]
+atlas = ExtResource("1_7rqh3")
+region = Rect2(0, 0, 50, 70)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ifndd"]
+atlas = ExtResource("1_7rqh3")
+region = Rect2(0, 70, 50, 70)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_2qnwu"]
+atlas = ExtResource("1_7rqh3")
+region = Rect2(50, 0, 50, 70)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_klqmc"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_lnvb4")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ifndd")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_2qnwu")
+}],
+"loop": true,
+"name": &"default",
+"speed": 6.0
+}]
+
+[node name="Tower" type="Node2D"]
+
+[node name="Anim" type="AnimatedSprite2D" parent="."]
+position = Vector2(25, 15)
+sprite_frames = SubResource("SpriteFrames_klqmc")
+autoplay = "default"
