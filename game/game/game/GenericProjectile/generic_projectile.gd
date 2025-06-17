@@ -29,8 +29,7 @@ func _process(delta: float) -> void:
 	$Anim.play()
 
 func _on_body_entered(body: Node2D) -> void:
-	if body._to_string() == "BOB":
-		GlobalLog.log("The following body entered: " + str(body))
+	#GlobalLog.log("The following body entered: " + str(body))
 	if body == ignored_body:
 		return
 	
