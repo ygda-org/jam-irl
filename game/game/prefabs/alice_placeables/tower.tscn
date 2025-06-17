@@ -2,7 +2,7 @@
 
 [ext_resource type="Texture2D" uid="uid://dyfgahnrnw8fd" path="res://ASSETS/placeables/tower.png" id="1_2apcv"]
 [ext_resource type="Script" uid="uid://xj6n83wcdefu" path="res://game/prefabs/alice_placeables/tower.gd" id="1_rppiq"]
-[ext_resource type="PackedScene" path="res://game/game/damage/target.tscn" id="3_yxqci"]
+[ext_resource type="PackedScene" uid="uid://d11uab4tmr325" path="res://game/game/damage/target.tscn" id="3_yxqci"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_lnvb4"]
 atlas = ExtResource("1_2apcv")
@@ -71,3 +71,5 @@ affiliation = 1
 [connection signal="body_exited" from="Range" to="." method="_on_range_body_exited"]
 [connection signal="body_shape_entered" from="Range" to="." method="_on_range_body_shape_entered"]
 [connection signal="timeout" from="Cooldown" to="." method="_on_cooldown_timeout"]
+[connection signal="onDamage" from="Target" to="." method="_on_target_on_damage"]
+[connection signal="onDeath" from="Target" to="." method="_on_target_on_death"]

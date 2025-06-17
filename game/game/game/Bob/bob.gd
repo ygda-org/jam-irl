@@ -45,4 +45,6 @@ func _on_target_on_damage(damage: int) -> void:
 @rpc("authority")
 func __on_target_on_damage(damage: int) -> void:
 	bob_ui.update_health_bar(health())
-	
+
+func _to_string() -> String:
+	return "BOB"
