@@ -1,0 +1,56 @@
+[gd_scene load_steps=6 format=3 uid="uid://dxpybi0k3v2la"]
+
+[ext_resource type="Script" uid="uid://boiu1lufauslq" path="res://game/game/Bob/bob_ui.gd" id="1_objtk"]
+
+[sub_resource type="Gradient" id="Gradient_tki6g"]
+offsets = PackedFloat32Array(0)
+colors = PackedColorArray(0, 0, 0, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_objtk"]
+gradient = SubResource("Gradient_tki6g")
+
+[sub_resource type="Gradient" id="Gradient_ukwbk"]
+offsets = PackedFloat32Array(0.584507, 0.802817)
+colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_nlvis"]
+gradient = SubResource("Gradient_ukwbk")
+
+[node name="BobUI" type="Node2D"]
+script = ExtResource("1_objtk")
+
+[node name="Health" type="Node2D" parent="."]
+
+[node name="HealthBar" type="TextureProgressBar" parent="Health"]
+offset_right = 64.0
+offset_bottom = 64.0
+value = 50.0
+texture_under = SubResource("GradientTexture2D_objtk")
+texture_progress = SubResource("GradientTexture2D_nlvis")
+tint_progress = Color(0.908119, 0.425829, 0.163201, 1)
+
+[node name="Label" type="Label" parent="Health"]
+offset_left = -64.0
+offset_top = 19.0
+offset_right = -8.0
+offset_bottom = 42.0
+text = "Health:"
+
+[node name="Node2D" type="Node2D" parent="."]
+position = Vector2(18, 86)
+
+[node name="Label" type="Label" parent="Node2D"]
+offset_left = -82.0
+offset_top = 18.0
+offset_right = -34.0
+offset_bottom = 41.0
+text = "Mana:"
+
+[node name="ManaBar" type="TextureProgressBar" parent="Node2D"]
+offset_left = -18.0
+offset_right = 46.0
+offset_bottom = 64.0
+value = 50.0
+texture_under = SubResource("GradientTexture2D_objtk")
+texture_progress = SubResource("GradientTexture2D_nlvis")
+tint_progress = Color(0.12966, 0.615393, 0.937523, 1)
