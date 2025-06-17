@@ -729,6 +729,9 @@ properties/1/replication_mode = 2
 properties/2/path = NodePath("Anim:flip_h")
 properties/2/spawn = true
 properties/2/replication_mode = 2
+properties/3/path = NodePath("Target:health")
+properties/3/spawn = true
+properties/3/replication_mode = 1
 
 [node name="Bob" type="CharacterBody2D"]
 script = ExtResource("1_5xu5e")
@@ -747,6 +750,10 @@ position = Vector2(0, 9)
 shape = SubResource("RectangleShape2D_23x7o")
 
 [node name="Target" parent="." instance=ExtResource("9_middi")]
+affiliation = 0
 
 [node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
 replication_config = SubResource("SceneReplicationConfig_w2qpk")
+
+[connection signal="onDamage" from="Target" to="." method="_on_target_on_damage"]
+[connection signal="onDeath" from="Target" to="." method="_on_target_on_death"]

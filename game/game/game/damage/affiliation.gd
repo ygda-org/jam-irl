@@ -1,5 +1,6 @@
 class_name Affiliation
-enum {
+
+enum Type {
     PLAYER,
     ENEMY,
     NEUTRAL

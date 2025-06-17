@@ -267,6 +267,7 @@ sprite_frames = SubResource("SpriteFrames_l0jed")
 animation = &"Jump"
 
 [node name="DamageArea" parent="." instance=ExtResource("5_doswg")]
+affiliation = 1
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="DamageArea"]
 position = Vector2(0, -10)

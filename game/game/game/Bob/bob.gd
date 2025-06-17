@@ -31,5 +31,9 @@ func _physics_process(delta: float) -> void:
 func health() -> int:
 	return $Target.health
 
-func _on_target_died() -> void:
+func _on_target_on_death() -> void:
 	GlobalLog.server_log("Bob has died!")
+
+
+func _on_target_on_damage(damage: int) -> void:
+	GlobalLog.server_log("Bob has taken " + str(damage) + " damage!")

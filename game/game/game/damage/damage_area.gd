@@ -1,6 +1,6 @@
 extends Area2D
 
-@export var affiliation = Affiliation.NEUTRAL
+@export var affiliation: Affiliation.Type = Affiliation.Type.NEUTRAL
 @export var damage: int = 20
 @export var time_till_damage_again: float = 5
 
