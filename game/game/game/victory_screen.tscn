@@ -1,0 +1,28 @@
+[gd_scene load_steps=2 format=3 uid="uid://bmicsqewqj35v"]
+
+[ext_resource type="Script" uid="uid://dm6ifrpckdhch" path="res://game/game/victory_screen.gd" id="1_tpjfp"]
+
+[node name="VictoryScreen" type="Node2D"]
+script = ExtResource("1_tpjfp")
+
+[node name="Panel" type="Panel" parent="."]
+offset_left = 320.0
+offset_top = 20.0
+offset_right = 640.0
+offset_bottom = 520.0
+
+[node name="Label" type="Label" parent="."]
+offset_left = 459.0
+offset_top = 30.0
+offset_right = 501.0
+offset_bottom = 53.0
+text = "Wins!"
+
+[node name="Home" type="Button" parent="."]
+offset_left = 420.0
+offset_top = 150.0
+offset_right = 539.0
+offset_bottom = 181.0
+text = "Back To Home"
+
+[connection signal="pressed" from="Home" to="." method="_on_home_pressed"]
