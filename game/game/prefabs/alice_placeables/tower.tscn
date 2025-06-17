@@ -1,7 +1,7 @@
 [gd_scene load_steps=10 format=3 uid="uid://ci3rv6arq57ut"]
 
 [ext_resource type="Texture2D" uid="uid://dyfgahnrnw8fd" path="res://ASSETS/placeables/tower.png" id="1_2apcv"]
-[ext_resource type="Script" path="res://game/prefabs/alice_placeables/tower.gd" id="1_rppiq"]
+[ext_resource type="Script" uid="uid://xj6n83wcdefu" path="res://game/prefabs/alice_placeables/tower.gd" id="1_rppiq"]
 [ext_resource type="PackedScene" uid="uid://d11uab4tmr325" path="res://game/game/damage/target.tscn" id="3_yxqci"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_lnvb4"]

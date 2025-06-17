@@ -44,7 +44,6 @@ bob = NodePath("../Arena/Bob")
 
 [node name="Slime" parent="Arena" instance=ExtResource("3_m7sxm")]
 position = Vector2(590, 516)
-max_health = 100
 jumpCooldown = 1.0
 damage = 10
 

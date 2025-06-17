@@ -27,5 +27,20 @@ func _on_cooldown_timeout() -> void:
 		attack()
 		$Cooldown.start()
 
+func _on_target_on_death() -> void:
+	GlobalLog.server_log(str(self) + " has died!")
+	suicide()
+
+func suicide():
+	rpc("_suicide")
+	_suicide()
+
+@rpc("authority")
+func _suicide():
+	queue_free()
+
+func _on_target_on_damage(damage: int) -> void:
+	GlobalLog.server_log(str(self) + " has taken " + str(damage) + " damage!")
+
 func _to_string() -> String:
 	return "TOWER: " + str(global_position)
