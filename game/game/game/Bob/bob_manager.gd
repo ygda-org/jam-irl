@@ -5,9 +5,11 @@ var input: Vector2 = Vector2(0, 0)
 func _on_input_tick_timeout() -> void:
 	if not NetworkManager.is_bob():
 		return
-	
+	var old_input = input
 	input = Input.get_vector("Left", "Right", "Up", "Down")
-	rpc_id(1, "send_input", input)
+	
+	if not old_input == input:
+		rpc_id(1, "send_input", input)
 
 
 @rpc("any_peer")

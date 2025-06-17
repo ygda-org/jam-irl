@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=3 uid="uid://wfe7bn7vocag"]
+[gd_scene load_steps=9 format=3 uid="uid://bdevl74cx1y01"]
 
 [ext_resource type="Script" uid="uid://c76tnbw2ekk3y" path="res://game/game/alice_controller.gd" id="1_02yvw"]
 [ext_resource type="Texture2D" uid="uid://b7irlyxwi45i0" path="res://icon.svg" id="2_gesbw"]
