@@ -1,10 +1,8 @@
 extends CharacterBody2D
 
-@export var max_health: int = 100
 var jumpTime: float = 6./12.;
 @export var jumpCooldown: float = 1.0;
 @export var maxJumpDistance: float = 100.0
-@export var health: int = max_health
 @export var damage: int = 10
 @export var target: Node2D
 
