@@ -57,8 +57,9 @@ func attack():
 		var attacked_bodies: Array = %BobAttackArea.get_overlapping_bodies() + %BobAttackArea.get_overlapping_areas()
 		
 		for body: Node2D in attacked_bodies:
-			if body.has_node("Target"):
-				body.get_node("Target").damage(ATTACK)
+			var target = body.get_node("Target")
+			if target and target.affiliation != Affiliation.Type.PLAYER:
+				target.damage(ATTACK)
 		
 
 @rpc("authority")

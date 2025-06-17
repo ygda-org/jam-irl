@@ -36,7 +36,7 @@ animations = [{
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_6fi7d"]
 size = Vector2(50, 35)
 
-[node name="Sweatshop" type="Node2D"]
+[node name="Sweatshop" type="StaticBody2D"]
 script = ExtResource("1_dlvfl")
 
 [node name="Anim" type="AnimatedSprite2D" parent="."]
@@ -44,14 +44,15 @@ position = Vector2(25, 15)
 sprite_frames = SubResource("SpriteFrames_klqmc")
 animation = &"sweatshop"
 autoplay = "sweatshop"
-frame_progress = 0.320478
+frame_progress = 0.689354
 
 [node name="Target" parent="." instance=ExtResource("2_4dufv")]
 maxHealth = 50
 affiliation = 1
 
-[node name="StaticBody2D" type="StaticBody2D" parent="."]
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(25, 17.5)
 shape = SubResource("RectangleShape2D_6fi7d")
+
+[connection signal="onDamage" from="Target" to="." method="_on_target_on_damage"]
+[connection signal="onDeath" from="Target" to="." method="_on_target_on_death"]
