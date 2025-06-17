@@ -1,4 +1,4 @@
-[gd_resource type="Resource" script_class="ProjectileSettings" load_steps=5 format=3 uid="uid://cmadjqttgwu6e"]
+[gd_resource type="Resource" script_class="ProjectileSettings" load_steps=5 format=3 uid="uid://csihfe3tj2nbl"]
 
 [ext_resource type="Script" uid="uid://dsgcyaisuwbf5" path="res://game/game/GenericProjectile/projectile_settings.gd" id="1_2twmc"]
 [ext_resource type="Texture2D" uid="uid://b7irlyxwi45i0" path="res://icon.svg" id="2_s1h54"]
