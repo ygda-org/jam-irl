@@ -44,9 +44,9 @@ animations = [{
 [resource]
 script = ExtResource("1_5s36b")
 sprite_frames = SubResource("SpriteFrames_rvt3m")
-sprite_rotation_offset = 0.0
+sprite_rotation_offset = 3.142
 sprite_position_offset = 0
 collision_shape = SubResource("CircleShape2D_fm65o")
 damage_dealt = 1
-speed = 50
+speed = 300
 metadata/_custom_type_script = "uid://dsgcyaisuwbf5"
