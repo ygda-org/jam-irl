@@ -4,7 +4,7 @@ var health = 100
 const max_health = 100
 
 func _ready():
-	hit(99)
+	pass
 
 func hit(dmg: int):
 	health -= dmg
