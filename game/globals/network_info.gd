@@ -5,11 +5,18 @@ enum State {
 	Server
 }
 
+enum Role {
+	None,
+	Alice,
+	Bob
+}
+
 ## Match making server info:
 @export var match_making_address = "http://localhost:8000"
 ##
 
 @export var state: State = State.Server
+@export var role: Role = Role.None
 
 ## Game instance info:
 @export var port: int = 9999 # 9999 is default game instance port, docker container binds it to port 10000-19999 on host machine
@@ -31,3 +38,9 @@ func is_server() -> bool:
 
 func is_client() -> bool:
 	return state == State.Client
+
+func is_alice() -> bool:
+	return role == Role.Alice
+
+func is_bob() -> bool:
+	return role == Role.Bob

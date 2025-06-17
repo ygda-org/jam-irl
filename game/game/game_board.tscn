@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=3 uid="uid://btvldhpk76yjy"]
+[gd_scene load_steps=8 format=3 uid="uid://qouqpq8qoo84"]
 
 [ext_resource type="Script" uid="uid://oij26kb7jvx5" path="res://game_board.gd" id="1_gp7jp"]
 [ext_resource type="Texture2D" uid="uid://bk2rqpin2idcc" path="res://ASSETS/placeables/floor.png" id="2_qg1d3"]

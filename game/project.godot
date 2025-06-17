@@ -20,8 +20,8 @@ config/icon="res://icon.svg"
 SceneSwitcher="*res://globals/scene_switcher.gd"
 NetworkInfo="*res://globals/network_info.gd"
 GlobalLog="*res://globals/global_log.gd"
-MusicManager="*res://globals/music_manager/music_manager.tscn"
 HttpWrapper="*res://globals/http_wrapper.gd"
+MusicManager="*res://globals/music_manager/music_manager.tscn"
 
 [display]
 
