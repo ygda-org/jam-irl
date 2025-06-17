@@ -4,6 +4,8 @@ const BOB_MANAGER = preload("res://game/game/Bob/bob_manager.tscn")
 const GENERIC_PROJECTILE = preload("res://game/game/GenericProjectile/generic_projectile.tscn")
 var winner: NetworkManager.Role = NetworkManager.Role.None
 
+@export var bob_reference: Node2D = null
+
 func _ready():
 	_update_debug_label()
 

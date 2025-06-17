@@ -19,17 +19,18 @@ func _physics_process(delta: float) -> void:
 	if not NetworkManager.is_server():
 		return
 	
-
-	if input != Vector2.ZERO:
-		if input.x > 0:
-			%Anim.flip_h = true
-		elif input.x < 0:
-			%Anim.flip_h = false
+	
+	if can_attack:
+		if input != Vector2.ZERO:
+			if input.x > 0:
+				%Anim.flip_h = true
+			elif input.x < 0:
+				%Anim.flip_h = false
+				
+			%Anim.play("run")
 			
-		%Anim.play("run")
-		
-	else:
-		$Anim.play("idle")
+		else:
+			$Anim.play("idle")
 		
 	velocity = delta * SPEED * input
 	
@@ -52,7 +53,8 @@ func attack():
 		can_attack = false
 		%BobAttackCooldown.start(ATTACK_COOLDOWN)
 		%Anim.play("sword1")
-		var attacked_bodies: Array[Node2D] = %BobAttackArea.get_overlapping_bodies() + %BobAttackArea.get_overlapping_areas()
+		var attacked_bodies: Array = %BobAttackArea.get_overlapping_bodies() + %BobAttackArea.get_overlapping_areas()
+		
 		for body in attacked_bodies:
 			if body.is_in_group("Damageable"):
 				body.damage()
