@@ -274,6 +274,7 @@ offset_bottom = 175.0
 text = "Floor (test)"
 
 [node name="Sweatshop" type="Button" parent="Panel"]
+layout_mode = 0
 offset_left = 19.0
 offset_top = 125.0
 offset_right = 144.0
