@@ -1,10 +1,12 @@
-[gd_scene load_steps=38 format=3 uid="uid://bdevl74cx1y01"]
+[gd_scene load_steps=40 format=3 uid="uid://bdevl74cx1y01"]
 
 [ext_resource type="Script" uid="uid://c76tnbw2ekk3y" path="res://game/game/alice_controller.gd" id="1_02yvw"]
+[ext_resource type="Texture2D" uid="uid://yleeok8446bj" path="res://ASSETS/UI/alice tower button.png" id="2_pawpw"]
 [ext_resource type="Texture2D" uid="uid://hpyyr7xv66ui" path="res://ASSETS/heart/heart_healthy (no bacon or candy).png" id="2_r5w2a"]
 [ext_resource type="Texture2D" uid="uid://bk2rqpin2idcc" path="res://ASSETS/placeables/floor.png" id="2_u2o8n"]
 [ext_resource type="Texture2D" uid="uid://dyfgahnrnw8fd" path="res://ASSETS/placeables/tower.png" id="3_gesbw"]
 [ext_resource type="Texture2D" uid="uid://dk5j5pdct4rtl" path="res://ASSETS/heart/heart_hurt.png" id="3_q06jk"]
+[ext_resource type="Texture2D" uid="uid://c2qjqyaer1qax" path="res://ASSETS/UI/alice wall button.png" id="3_v2ip4"]
 [ext_resource type="Texture2D" uid="uid://oanoiel2xjm6" path="res://ASSETS/heart/heart turbo cancer.png" id="4_32c7f"]
 [ext_resource type="Texture2D" uid="uid://0s8er7plxuh0" path="res://ASSETS/heart/heart broken.png" id="5_cpxrb"]
 [ext_resource type="Texture2D" uid="uid://dagxvmxuw0ai5" path="res://ASSETS/placeables/child labor.png" id="7_cpxrb"]
@@ -250,26 +252,27 @@ offset_bottom = 326.0
 
 [node name="Tower" type="Button" parent="Panel"]
 layout_mode = 0
-offset_left = 25.0
-offset_top = 25.0
-offset_right = 125.0
-offset_bottom = 75.0
-text = "Tower ($4)"
+offset_left = 22.0
+offset_top = 12.0
+offset_right = 130.0
+offset_bottom = 95.0
+text = "$4"
+icon = ExtResource("2_pawpw")
 
 [node name="Wall" type="Button" parent="Panel"]
 layout_mode = 0
-offset_left = 163.0
-offset_top = 24.0
-offset_right = 263.0
-offset_bottom = 74.0
-text = "Wall ($1)
-"
+offset_left = 165.0
+offset_top = 12.0
+offset_right = 271.0
+offset_bottom = 95.0
+text = "$1"
+icon = ExtResource("3_v2ip4")
 
 [node name="Floor-test" type="Button" parent="Panel"]
 layout_mode = 0
-offset_left = 163.0
+offset_left = 169.0
 offset_top = 125.0
-offset_right = 263.0
+offset_right = 269.0
 offset_bottom = 175.0
 text = "Floor (test)"
 

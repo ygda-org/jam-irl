@@ -1,6 +1,63 @@
-[gd_scene load_steps=2 format=3 uid="uid://xuaexscyabkr"]
+[gd_scene load_steps=11 format=3 uid="uid://xuaexscyabkr"]
 
 [ext_resource type="Script" uid="uid://dqhwuktq4if3c" path="res://game/lobby/lobby_ui.gd" id="1_c5e1p"]
+[ext_resource type="Texture2D" uid="uid://bbohnp1m8xf17" path="res://ASSETS/UI/alice button.png" id="2_oecd8"]
+[ext_resource type="Texture2D" uid="uid://bujs21f11yisb" path="res://ASSETS/UI/bob button.png" id="3_s3qpd"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_36d3c"]
+atlas = ExtResource("2_oecd8")
+region = Rect2(0, 0, 96, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ksoky"]
+atlas = ExtResource("2_oecd8")
+region = Rect2(0, 32, 96, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_icgbd"]
+atlas = ExtResource("2_oecd8")
+region = Rect2(0, 64, 96, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_k4ihf"]
+atlas = ExtResource("3_s3qpd")
+region = Rect2(0, 0, 96, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_nne7v"]
+atlas = ExtResource("3_s3qpd")
+region = Rect2(0, 32, 96, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_7q50m"]
+atlas = ExtResource("3_s3qpd")
+region = Rect2(0, 64, 96, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_0yah4"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_36d3c")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ksoky")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_icgbd")
+}],
+"loop": true,
+"name": &"alice",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_k4ihf")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_nne7v")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_7q50m")
+}],
+"loop": true,
+"name": &"bob",
+"speed": 5.0
+}]
 
 [node name="LobbyUI" type="CanvasLayer"]
 script = ExtResource("1_c5e1p")
@@ -28,21 +85,37 @@ offset_top = 194.0
 offset_right = 638.0
 offset_bottom = 371.0
 
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Control"]
+position = Vector2(129, 56)
+scale = Vector2(1.5, 1.5)
+sprite_frames = SubResource("SpriteFrames_0yah4")
+animation = &"alice"
+autoplay = "alice"
+frame_progress = 0.406069
+
+[node name="AnimatedSprite2D2" type="AnimatedSprite2D" parent="Control"]
+position = Vector2(129.5, 118)
+scale = Vector2(1.5, 1.5)
+sprite_frames = SubResource("SpriteFrames_0yah4")
+animation = &"bob"
+autoplay = "bob"
+frame_progress = 0.643726
+
 [node name="AliceStart" type="Button" parent="Control"]
 layout_mode = 0
-offset_left = 29.0
-offset_top = 33.0
-offset_right = 223.0
-offset_bottom = 78.0
-text = "Alice start"
+offset_left = 57.0
+offset_top = 32.0
+offset_right = 201.0
+offset_bottom = 80.0
+flat = true
 
 [node name="BobStart" type="Button" parent="Control"]
 layout_mode = 0
-offset_left = 29.0
-offset_top = 96.0
-offset_right = 223.0
-offset_bottom = 141.0
-text = "Bob start"
+offset_left = 58.0
+offset_top = 94.0
+offset_right = 201.0
+offset_bottom = 142.0
+flat = true
 
 [connection signal="pressed" from="Control/AliceStart" to="." method="_on_alice_start_pressed"]
 [connection signal="pressed" from="Control/BobStart" to="." method="_on_bob_start_pressed"]
