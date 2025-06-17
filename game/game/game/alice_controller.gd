@@ -1,0 +1,36 @@
+extends Node2D
+
+const FLOOR = preload("res://game/prefabs/alice_placeables/floor.tscn") # 0
+const TOWER = preload("res://game/prefabs/alice_placeables/tower.tscn") # 1
+const margin = 20
+
+const structures = [FLOOR, TOWER]
+
+var mouse_position: Vector2
+var current_selected
+
+@onready var board = get_parent()
+
+func _process(delta):
+	mouse_position = get_viewport().get_mouse_position()
+	if Input.is_action_just_released("LeftClick"):
+		placeTile()
+	get_node("PlacePreview").position = Vector2i(margin, margin) + Vector2i(5, -5) + Vector2i(mouse_position) - Vector2i(int(mouse_position.x - margin) % 50, int(mouse_position.y - margin) % 50)
+	
+func placeTile():
+	var mouse_pos = mouse_position
+	mouse_pos = (mouse_pos - Vector2(margin, margin)) / 50
+	mouse_pos = Vector2i(mouse_pos)
+	board.rpc("updateTile", current_selected, mouse_pos.y, mouse_pos.x)
+	board.updateTile(current_selected, mouse_pos.y, mouse_pos.x)
+
+func _on_tower_pressed() -> void:
+	$PlacePreview.play("tower")
+	#get_node("PlacePreview").texture = load("res://ASSETS/placeables/tower.png")
+	current_selected = 1
+
+
+func _on_floortest_pressed() -> void:
+	$PlacePreview.play("floorTEST")
+	#get_node("PlacePreview").texture = load("res://ASSETS/placeables/floor.png")
+	current_selected = 0

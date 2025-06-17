@@ -11,7 +11,7 @@ func _ready() -> void:
 			%LobbyUI.get_debug_label().text = "Game Instance running on port " + str(NetworkManager.port)
 	else:
 		if NetworkManager.connect_client():
-			%LobbyUI.get_debug_label().text = "Connected to address " + NetworkManager.get_address_with_protocol()
+			%LobbyUI.get_debug_label().text = NetworkManager.get_address_with_protocol() + " [" + str(NetworkManager.code) + "]"
 
 func update_debug_client_list() -> void:
 	%LobbyUI.get_debug_client_list_label().text = str(NetworkManager.server_data.id_to_client_data.keys())
@@ -19,24 +19,6 @@ func update_debug_client_list() -> void:
 func update_debug_verification() -> void:
 	%LobbyUI.get_debug_label().text = "Verified at address " + NetworkManager.get_address_with_protocol()
 
-@rpc("any_peer")
-func debug_end_game():
-	if not NetworkManager.is_server():
-		return
-
-	GlobalLog.server_log("Ending game instance! Goodbye!")
-	
-	var res = await HttpWrapper.request(%AwaitableHTTP, "/match/end", HTTPClient.METHOD_POST, {
-		"matchId": NetworkManager.match_id,
-		"code": NetworkManager.code
-	})
-	
-	if res:
-		GlobalLog.server_log("Successfully told matchmaking server that game is ending.")
-	else:
-		GlobalLog.server_log("Failed to tell matchmaking server game ended.")
-	
-	get_tree().quit(0)
 
 @rpc("any_peer")
 func start_game(role: NetworkManager.Role):
@@ -62,12 +44,3 @@ func send_role_and_start(role: NetworkManager.Role):
 	NetworkManager.role = role
 	SceneSwitcher.goto_game()
 ###
-
-
-func _on_debug_end_game_pressed() -> void:
-	if NetworkManager.is_server():
-		debug_end_game()
-		get_tree().quit(0)
-	else:
-		rpc("debug_end_game")
-		

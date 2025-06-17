@@ -54,6 +54,7 @@ async def create_match(request: MatchCreateRequest):
             )
 
             gsi_url = await start_gsi(match_code, match.id)
+            port = int(gsi_url.split(":")[2])
 
             match = await prisma.match.update(
                 where={"id": match.id},
