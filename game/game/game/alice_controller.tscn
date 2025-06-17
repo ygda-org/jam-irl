@@ -1,0 +1,77 @@
+[gd_scene load_steps=8 format=3 uid="uid://wfe7bn7vocag"]
+
+[ext_resource type="Script" uid="uid://c76tnbw2ekk3y" path="res://game/game/alice_controller.gd" id="1_02yvw"]
+[ext_resource type="Texture2D" uid="uid://bk2rqpin2idcc" path="res://ASSETS/placeables/floor.png" id="2_u2o8n"]
+[ext_resource type="Texture2D" uid="uid://dyfgahnrnw8fd" path="res://ASSETS/placeables/tower.png" id="3_gesbw"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_c2d63"]
+atlas = ExtResource("3_gesbw")
+region = Rect2(0, 0, 50, 70)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_m71v8"]
+atlas = ExtResource("3_gesbw")
+region = Rect2(50, 0, 50, 70)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_f73h8"]
+atlas = ExtResource("3_gesbw")
+region = Rect2(0, 70, 50, 70)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_6lebb"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_u2o8n")
+}],
+"loop": true,
+"name": &"floorTEST",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_c2d63")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_m71v8")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_f73h8")
+}],
+"loop": true,
+"name": &"tower",
+"speed": 5.0
+}]
+
+[node name="AliceController" type="Node2D"]
+script = ExtResource("1_02yvw")
+
+[node name="Panel" type="Panel" parent="."]
+offset_left = 640.0
+offset_top = 70.0
+offset_right = 940.0
+offset_bottom = 270.0
+
+[node name="Tower" type="Button" parent="Panel"]
+layout_mode = 0
+offset_left = 25.0
+offset_top = 25.0
+offset_right = 125.0
+offset_bottom = 75.0
+text = "Tower"
+
+[node name="Floor-test" type="Button" parent="Panel"]
+layout_mode = 0
+offset_left = 25.0
+offset_top = 125.0
+offset_right = 125.0
+offset_bottom = 175.0
+text = "Floor (test)"
+
+[node name="PlacePreview" type="AnimatedSprite2D" parent="."]
+modulate = Color(1, 1, 1, 0.294118)
+z_index = 10
+position = Vector2(25, 35)
+sprite_frames = SubResource("SpriteFrames_6lebb")
+animation = &"floorTEST"
+
+[connection signal="pressed" from="Panel/Tower" to="." method="_on_tower_pressed"]
+[connection signal="pressed" from="Panel/Floor-test" to="." method="_on_floortest_pressed"]
