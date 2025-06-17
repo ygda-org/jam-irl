@@ -14,8 +14,6 @@ func _ready():
 		bob_manager.set_multiplayer_authority(NetworkManager.server_data.bob_id)
 		add_child(bob_manager)
 	
-	
-	
 func _update_debug_label():
 	%DebugLabel.text = "Role: "
 	if NetworkManager.is_alice():
