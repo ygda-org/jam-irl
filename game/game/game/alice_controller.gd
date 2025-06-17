@@ -15,6 +15,7 @@ var current_selected
 var current_rotation = 0 # 0 or 1, o is horizontal 1 is vertical
 
 @onready var board = get_parent().get_node("Arena").get_node("GameBoard")
+@onready var game = get_parent()
 
 var health = 4
 var money = 20
@@ -84,7 +85,7 @@ func _on_floortest_pressed() -> void:
 func dec_health() -> void:
 	health -= 1
 	if health <= 0:
-		print("Allice died :(")
+		game.win(NetworkManager.Role.Bob)
 		health = 0
 	for idx in range($HealthBar.get_child_count()-health):
 		$HealthBar.get_child(idx).play("turbo_dead")
