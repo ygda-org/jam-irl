@@ -11,6 +11,8 @@ var current_selected
 
 @onready var board = get_parent().get_node("GameBoard")
 
+var health = 4
+
 func _process(delta):
 	mouse_position = get_viewport().get_mouse_position()
 	if Input.is_action_just_released("LeftClick"):
@@ -35,8 +37,21 @@ func _on_tower_pressed() -> void:
 	#get_node("PlacePreview").texture = load("res://ASSETS/placeables/tower.png")
 	current_selected = 1
 
+func _on_wall_pressed() -> void:
+	$PlacePreview.play("wall")
+	#get_node("PlacePreview").texture = load("res://ASSETS/placeables/tower.png")
+	current_selected = 1
 
 func _on_floortest_pressed() -> void:
 	$PlacePreview.play("floorTEST")
+	dec_health()
 	#get_node("PlacePreview").texture = load("res://ASSETS/placeables/floor.png")
 	current_selected = 0
+
+func dec_health() -> void:
+	health -= 1
+	health %= 4
+	for idx in range(health,$HealthBar.get_child_count()):
+		$HealthBar.get_child(idx).visible = false
+	if health <= 0:
+		print("Allice died :(")
