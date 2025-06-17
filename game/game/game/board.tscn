@@ -1,7 +1,8 @@
-[gd_scene load_steps=3 format=3 uid="uid://qouqpq8qoo84"]
+[gd_scene load_steps=4 format=3 uid="uid://qouqpq8qoo84"]
 
 [ext_resource type="Script" uid="uid://oij26kb7jvx5" path="res://game/game/board.gd" id="1_gp7jp"]
 [ext_resource type="Texture2D" uid="uid://bk2rqpin2idcc" path="res://ASSETS/placeables/floor.png" id="2_m3ncr"]
+[ext_resource type="PackedScene" uid="uid://ckt2f8dbwhbdg" path="res://game/prefabs/alice_heart.tscn" id="3_a6n51"]
 
 [node name="GameBoard" type="Node2D"]
 script = ExtResource("1_gp7jp")
@@ -11,3 +12,15 @@ z_index = -1
 position = Vector2(321, 269)
 scale = Vector2(12, 10)
 texture = ExtResource("2_m3ncr")
+
+[node name="alice_heart" parent="." instance=ExtResource("3_a6n51")]
+position = Vector2(20, 20)
+
+[node name="alice_heart2" parent="." instance=ExtResource("3_a6n51")]
+position = Vector2(620, 20)
+
+[node name="alice_heart3" parent="." instance=ExtResource("3_a6n51")]
+position = Vector2(20, 520)
+
+[node name="alice_heart4" parent="." instance=ExtResource("3_a6n51")]
+position = Vector2(620, 520)
