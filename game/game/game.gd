@@ -86,8 +86,27 @@ func debug_end_game():
 		"code": NetworkInfo.code
 	})
 	
-	GlobalLog.server_log("Ending game instance! Goodbye!")
+	if res:
+		GlobalLog.server_log("Successfully told matchmaking server that game is ending.")
+	else:
+		GlobalLog.server_log("Failed to tell matchmaking server game ended.")
+	
 	get_tree().quit(0)
+
+@rpc("any_peer")
+func start_game(role: NetworkInfo.Role):
+	if NetworkInfo.is_server():
+		return
+	
+	if server_data.id_to_client_data.keys().size() != 2:
+		GlobalLog.server_log("Client tried to start the game when 2 clients haven't connected yet!")
+		return
+	
+	server_data.start_game(multiplayer.get_remote_sender_id(), role)
+	rpc_id(server_data.alice_id, "send_role_and_start", NetworkInfo.Role.Alice)
+	rpc_id(server_data.bob_id, "send_role_and_start", NetworkInfo.Role.Bob)
+	%LobbyUI.queue_free()
+	GlobalLog.server_log("Starting game!")
 
 ###
 
@@ -122,12 +141,22 @@ func request_room_code():
 func verify_verification() -> void:
 	%LobbyUI.get_debug_label().text = "Verified at address " + NetworkInfo.get_address_with_protocol()
 
+@rpc("authority")
+func send_role_and_start(role: NetworkInfo.Role):
+	NetworkInfo.role = role
+	%LobbyUI.queue_free()
+	if role == NetworkInfo.Role.Bob:
+		GlobalLog.client_log("Started game as bob!")
+		%DebugLabel.text = "Started as Bob"
+	elif role == NetworkInfo.Role.Alice:
+		GlobalLog.client_log("Started game as alice!")
+		%DebugLabel.text = "Started as Alice"
 ###
 
 
 func _on_debug_end_game_pressed() -> void:
 	if NetworkInfo.is_server():
-		GlobalLog.server_log("Ending game instance! Goodbye!")
+		debug_end_game()
 		get_tree().quit(0)
 	else:
 		rpc("debug_end_game")

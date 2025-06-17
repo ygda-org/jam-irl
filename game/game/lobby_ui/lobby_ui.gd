@@ -9,3 +9,10 @@ func get_debug_label() -> Label:
 
 func get_debug_client_list_label() -> Label:
 	return %DebugClientListLabel
+
+
+func _on_alice_start_pressed() -> void:
+	get_parent().rpc_id(1, "start_game", NetworkInfo.Role.Alice)
+	
+func _on_bob_start_pressed() -> void:
+	get_parent().rpc_id(1, "start_game", NetworkInfo.Role.Bob)

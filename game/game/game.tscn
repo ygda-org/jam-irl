@@ -14,14 +14,21 @@ unique_name_in_owner = true
 unique_name_in_owner = true
 
 [node name="DebugEndGame" type="Button" parent="."]
-offset_left = -445.0
-offset_top = 225.0
-offset_right = -269.0
-offset_bottom = 269.0
+offset_left = -441.0
+offset_top = 206.0
+offset_right = -265.0
+offset_bottom = 250.0
 text = "Debug End Game"
 
 [node name="AwaitableHTTP" type="HTTPRequest" parent="."]
 unique_name_in_owner = true
 script = ExtResource("3_h7iqs")
+
+[node name="DebugLabel" type="Label" parent="."]
+unique_name_in_owner = true
+offset_left = -439.0
+offset_top = -237.0
+offset_right = -136.0
+offset_bottom = -183.0
 
 [connection signal="pressed" from="DebugEndGame" to="." method="_on_debug_end_game_pressed"]

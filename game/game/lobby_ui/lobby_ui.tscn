@@ -21,3 +21,27 @@ offset_top = 111.0
 offset_right = 170.0
 offset_bottom = 134.0
 text = "No clients connected"
+
+[node name="Control" type="Panel" parent="."]
+offset_left = 379.0
+offset_top = 194.0
+offset_right = 638.0
+offset_bottom = 371.0
+
+[node name="AliceStart" type="Button" parent="Control"]
+layout_mode = 0
+offset_left = 29.0
+offset_top = 33.0
+offset_right = 223.0
+offset_bottom = 78.0
+text = "Alice start"
+
+[node name="BobStart" type="Button" parent="Control"]
+offset_left = 29.0
+offset_top = 96.0
+offset_right = 223.0
+offset_bottom = 141.0
+text = "Bob start"
+
+[connection signal="pressed" from="Control/AliceStart" to="." method="_on_alice_start_pressed"]
+[connection signal="pressed" from="Control/BobStart" to="." method="_on_bob_start_pressed"]
