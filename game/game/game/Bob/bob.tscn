@@ -1,4 +1,4 @@
-[gd_scene load_steps=106 format=3 uid="uid://dnfl7m5gxhq71"]
+[gd_scene load_steps=107 format=3 uid="uid://dnfl7m5gxhq71"]
 
 [ext_resource type="Script" uid="uid://bo54t4ybflsh1" path="res://game/game/Bob/bob.gd" id="1_5xu5e"]
 [ext_resource type="Texture2D" uid="uid://b3252mowlflm5" path="res://ASSETS/bobswordappear.png" id="1_w2qpk"]
@@ -8,6 +8,7 @@
 [ext_resource type="Texture2D" uid="uid://cnkidjqufpieb" path="res://ASSETS/bobsword3.png" id="5_8caah"]
 [ext_resource type="Texture2D" uid="uid://c04xtt0fdbnd" path="res://ASSETS/bobidle.png" id="6_pdcjl"]
 [ext_resource type="Texture2D" uid="uid://ccpav20ymjwgy" path="res://ASSETS/bobrun.png" id="7_4jvte"]
+[ext_resource type="PackedScene" uid="uid://d11uab4tmr325" path="res://game/game/damage/target.tscn" id="9_middi"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_wmnfi"]
 atlas = ExtResource("1_w2qpk")
@@ -722,21 +723,30 @@ size = Vector2(26, 32)
 properties/0/path = NodePath(".:position")
 properties/0/spawn = true
 properties/0/replication_mode = 2
+properties/1/path = NodePath("Anim:animation")
+properties/1/spawn = true
+properties/1/replication_mode = 2
+properties/2/path = NodePath("Anim:flip_h")
+properties/2/spawn = true
+properties/2/replication_mode = 2
 
 [node name="Bob" type="CharacterBody2D"]
 script = ExtResource("1_5xu5e")
 
 [node name="Anim" type="AnimatedSprite2D" parent="."]
+unique_name_in_owner = true
 position = Vector2(0, -25)
 sprite_frames = SubResource("SpriteFrames_ifr8f")
-animation = &"appear&disappear"
+animation = &"run"
 autoplay = "idle"
-frame_progress = 0.132027
+frame_progress = 0.376741
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 unique_name_in_owner = true
 position = Vector2(0, 9)
 shape = SubResource("RectangleShape2D_23x7o")
+
+[node name="Target" parent="." instance=ExtResource("9_middi")]
 
 [node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
 replication_config = SubResource("SceneReplicationConfig_w2qpk")

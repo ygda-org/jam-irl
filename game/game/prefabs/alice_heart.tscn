@@ -1,6 +1,6 @@
 [gd_scene load_steps=19 format=3 uid="uid://ckt2f8dbwhbdg"]
 
-[ext_resource type="Script" path="res://game/prefabs/alice_heart.gd" id="1_0ofpv"]
+[ext_resource type="Script" uid="uid://dxktiamsqy8oe" path="res://game/prefabs/alice_heart.gd" id="1_0ofpv"]
 [ext_resource type="Texture2D" uid="uid://hpyyr7xv66ui" path="res://ASSETS/heart/heart_healthy (no bacon or candy).png" id="1_nur3n"]
 [ext_resource type="Texture2D" uid="uid://dk5j5pdct4rtl" path="res://ASSETS/heart/heart_hurt.png" id="2_0ofpv"]
 [ext_resource type="Texture2D" uid="uid://oanoiel2xjm6" path="res://ASSETS/heart/heart turbo cancer.png" id="3_cbthp"]
@@ -114,6 +114,7 @@ animations = [{
 }]
 
 [node name="alice_heart" type="Node2D"]
+z_index = 11
 script = ExtResource("1_0ofpv")
 
 [node name="Anim" type="AnimatedSprite2D" parent="."]

@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://d11uab4tmr325"]
+
+[ext_resource type="Script" uid="uid://odrm8rd7t33o" path="res://game/game/damage/target.gd" id="1_wvrxd"]
+
+[node name="Target" type="Node"]
+script = ExtResource("1_wvrxd")

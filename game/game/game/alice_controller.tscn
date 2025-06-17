@@ -330,11 +330,14 @@ sprite_frames = SubResource("SpriteFrames_6lebb")
 animation = &"floorTEST"
 
 [node name="MoneyTimer" type="Timer" parent="."]
-wait_time = 3.0
-autostart = true
+wait_time = 0.2
+one_shot = true
+
+[node name="PlaceFailTimer" type="Timer" parent="."]
 
 [connection signal="pressed" from="Panel/Tower" to="." method="_on_tower_pressed"]
 [connection signal="pressed" from="Panel/Wall" to="." method="_on_wall_pressed"]
 [connection signal="pressed" from="Panel/Floor-test" to="." method="_on_floortest_pressed"]
 [connection signal="pressed" from="Panel/Sweatshop" to="." method="_on_sweatshop_pressed"]
 [connection signal="timeout" from="MoneyTimer" to="." method="_on_money_timer_timeout"]
+[connection signal="timeout" from="PlaceFailTimer" to="." method="_on_place_fail_timer_timeout"]
