@@ -1,59 +1,6 @@
-[gd_scene load_steps=8 format=3 uid="uid://qouqpq8qoo84"]
+[gd_scene load_steps=2 format=3 uid="uid://qouqpq8qoo84"]
 
 [ext_resource type="Script" uid="uid://oij26kb7jvx5" path="res://game/game/board.gd" id="1_gp7jp"]
-[ext_resource type="Texture2D" uid="uid://bk2rqpin2idcc" path="res://ASSETS/placeables/floor.png" id="2_qg1d3"]
-[ext_resource type="Texture2D" uid="uid://dyfgahnrnw8fd" path="res://ASSETS/placeables/tower.png" id="3_w12sq"]
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_c2d63"]
-atlas = ExtResource("3_w12sq")
-region = Rect2(0, 0, 50, 70)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_m71v8"]
-atlas = ExtResource("3_w12sq")
-region = Rect2(50, 0, 50, 70)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_f73h8"]
-atlas = ExtResource("3_w12sq")
-region = Rect2(0, 70, 50, 70)
-
-[sub_resource type="SpriteFrames" id="SpriteFrames_iu2je"]
-animations = [{
-"frames": [{
-"duration": 1.0,
-"texture": ExtResource("2_qg1d3")
-}],
-"loop": true,
-"name": &"floorTEST",
-"speed": 5.0
-}, {
-"frames": [{
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_c2d63")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_m71v8")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_f73h8")
-}],
-"loop": true,
-"name": &"tower",
-"speed": 5.0
-}]
 
 [node name="GameBoard" type="Node2D"]
 script = ExtResource("1_gp7jp")
-
-[node name="PlacePreviewNOTINUSE" type="Sprite2D" parent="."]
-modulate = Color(1, 1, 1, 0.294118)
-z_index = 10
-position = Vector2(25, 35)
-region_enabled = true
-region_rect = Rect2(0, 70, 50, 70)
-
-[node name="PlacePreview" type="AnimatedSprite2D" parent="."]
-modulate = Color(1, 1, 1, 0.294118)
-z_index = 10
-position = Vector2(25, 35)
-sprite_frames = SubResource("SpriteFrames_iu2je")
-animation = &"floorTEST"
