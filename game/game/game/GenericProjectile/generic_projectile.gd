@@ -8,20 +8,22 @@ class_name GenericProjectile
 @export var direction : Vector2 = Vector2(1,0)
 
 var velocity
+@export var ignored_body = null
 
 func _ready() -> void:
 	rotation = direction.angle()
-	
 	$Anim.sprite_frames = settings.sprite_frames
 	$Anim.rotation = settings.sprite_rotation_offset
 	$CollisionShape2D.shape = settings.collision_shape
-	velocity = transform.x * settings.speed
 
 func _process(delta: float) -> void:
+	velocity = transform.x * settings.speed
 	position += velocity * delta
 	$Anim.play()
 
 func _on_body_entered(body: Node2D) -> void:
+	if body == ignored_body:
+		return
 	# TODO Add damage dealt here
 	suicide()
 

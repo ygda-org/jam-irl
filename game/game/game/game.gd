@@ -58,9 +58,11 @@ func debug_end_game():
 func update_bob_input(input: Vector2):
 	%Bob.input = input
 
-func summon_projectile(spawn_position : Vector2, direction : Vector2, proj_settings : ProjectileSettings):
+## ignored_body is optional
+func summon_projectile(spawn_position : Vector2, direction : Vector2, proj_settings : ProjectileSettings, ignored_body : Variant = null):
 	var projectile_instance = GENERIC_PROJECTILE.instantiate()
 	projectile_instance.settings = proj_settings
 	projectile_instance.direction = direction
 	projectile_instance.position = spawn_position
+	projectile_instance.ignored_body = ignored_body
 	$Arena.add_child(projectile_instance)

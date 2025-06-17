@@ -7,9 +7,9 @@ var projectile = preload("res://game/game/GenericProjectile/ProjectileSettingRes
 
 var bob_in_range = false
 
-
+@rpc("any_peer")
 func attack() -> void:
-	game.summon_projectile($FiringPosition.position, $FiringPosition.position.direction_to(bob.position), projectile)
+	game.summon_projectile($FiringPosition.global_position, $FiringPosition.global_position.direction_to(bob.position), projectile, self)
 
 func _on_range_body_entered(body: Node2D) -> void:
 	if body.name == "Bob":
@@ -24,5 +24,5 @@ func _on_range_body_exited(body: Node2D) -> void:
 
 func _on_cooldown_timeout() -> void:
 	if bob_in_range:
-		attack()
+		rpc("attack")
 		$Cooldown.start()

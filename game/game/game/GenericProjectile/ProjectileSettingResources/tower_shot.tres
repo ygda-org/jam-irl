@@ -1,4 +1,4 @@
-[gd_resource type="Resource" script_class="ProjectileSettings" load_steps=5 format=3 uid="uid://bk1qh5ygm30mj"]
+[gd_resource type="Resource" script_class="ProjectileSettings" load_steps=5 format=3 uid="uid://cmadjqttgwu6e"]
 
 [ext_resource type="Script" uid="uid://dsgcyaisuwbf5" path="res://game/game/GenericProjectile/projectile_settings.gd" id="1_2twmc"]
 [ext_resource type="Texture2D" uid="uid://b7irlyxwi45i0" path="res://icon.svg" id="2_s1h54"]
@@ -23,5 +23,5 @@ sprite_rotation_offset = 0.0
 sprite_position_offset = 0
 collision_shape = SubResource("RectangleShape2D_s1h54")
 damage_dealt = 2
-speed = 3
+speed = 50
 metadata/_custom_type_script = "uid://dsgcyaisuwbf5"
