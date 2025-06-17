@@ -2,8 +2,8 @@ extends Node2D
 
 var board = []
 
-const FLOOR = preload("res://game/alice_placeables/floor.tscn")
-const TOWER = preload("res://game/alice_placeables/tower.tscn")
+const FLOOR = preload("res://game/prefabs/alice_placeables/floor.tscn")
+const TOWER = preload("res://game/prefabs/alice_placeables/tower.tscn")
 const margin = 20
 
 var mouse_position: Vector2
