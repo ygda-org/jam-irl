@@ -52,7 +52,7 @@ func attack():
 		can_attack = false
 		%BobAttackCooldown.start(ATTACK_COOLDOWN)
 		%Anim.play("sword1")
-		var attacked_bodies: Array[Node2D] = %BobAttackArea.get_overlapping_bodies()
+		var attacked_bodies: Array[Node2D] = %BobAttackArea.get_overlapping_bodies() + %BobAttackArea.get_overlapping_areas()
 		for body in attacked_bodies:
 			if body.is_in_group("Damageable"):
 				body.damage()
