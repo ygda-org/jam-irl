@@ -1,0 +1,41 @@
+[gd_scene load_steps=6 format=3 uid="uid://ff8ybv3maa7x"]
+
+[ext_resource type="Texture2D" uid="uid://dagxvmxuw0ai5" path="res://ASSETS/placeables/child labor.png" id="1_6fi7d"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_4dufv"]
+atlas = ExtResource("1_6fi7d")
+region = Rect2(0, 0, 50, 50)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_dlvfl"]
+atlas = ExtResource("1_6fi7d")
+region = Rect2(50, 0, 50, 50)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_tlu0n"]
+atlas = ExtResource("1_6fi7d")
+region = Rect2(0, 50, 50, 50)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_klqmc"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_4dufv")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_dlvfl")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_tlu0n")
+}],
+"loop": true,
+"name": &"sweatshop",
+"speed": 5.0
+}]
+
+[node name="Tower" type="Node2D"]
+
+[node name="Anim" type="AnimatedSprite2D" parent="."]
+position = Vector2(25, 15)
+sprite_frames = SubResource("SpriteFrames_klqmc")
+animation = &"sweatshop"
+autoplay = "sweatshop"
+frame_progress = 0.949885
