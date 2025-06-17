@@ -14,6 +14,18 @@ func _ready() -> void:
 func _physics_process(delta: float) -> void:
 	if not NetworkManager.is_server():
 		return
+	
+
+	if input != Vector2.ZERO:
+		if input.x > 0:
+			%Anim.flip_h = true
+		elif input.x < 0:
+			%Anim.flip_h = false
+			
+		%Anim.play("run")
+		
+	else:
+		$Anim.play("idle")
 		
 	velocity = delta * SPEED * input
 	
