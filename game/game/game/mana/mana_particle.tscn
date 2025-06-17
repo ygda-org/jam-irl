@@ -1,0 +1,11 @@
+[gd_scene load_steps=3 format=3 uid="uid://clgi5l5inn31s"]
+
+[ext_resource type="Script" uid="uid://iukejuut2foo" path="res://game/game/mana/mana_particle.gd" id="1_yvl75"]
+[ext_resource type="Texture2D" uid="uid://b7irlyxwi45i0" path="res://icon.svg" id="2_olim1"]
+
+[node name="ManaParticle" type="Node2D"]
+script = ExtResource("1_yvl75")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+scale = Vector2(0.1, 0.1)
+texture = ExtResource("2_olim1")
