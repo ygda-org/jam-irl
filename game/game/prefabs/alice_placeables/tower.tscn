@@ -1,4 +1,4 @@
-[gd_scene load_steps=6 format=3 uid="uid://ci3rv6arq57ut"]
+[gd_scene load_steps=7 format=3 uid="uid://ci3rv6arq57ut"]
 
 [ext_resource type="Texture2D" uid="uid://dyfgahnrnw8fd" path="res://ASSETS/placeables/tower.png" id="1_2apcv"]
 
@@ -31,9 +31,18 @@ animations = [{
 "speed": 6.0
 }]
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_w0td8"]
+size = Vector2(50, 50)
+
 [node name="Tower" type="Node2D"]
 
 [node name="Anim" type="AnimatedSprite2D" parent="."]
 position = Vector2(25, 15)
 sprite_frames = SubResource("SpriteFrames_klqmc")
 autoplay = "default"
+
+[node name="StaticBody2D" type="StaticBody2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
+position = Vector2(25, 25)
+shape = SubResource("RectangleShape2D_w0td8")
