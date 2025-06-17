@@ -18,7 +18,7 @@ func create_2d_audio(position : Vector2, type : SoundEffectSettings.SOUND_EFFECT
 	audioplayer.pitch_scale = sound_effect_setting.pitch
 	audioplayer.finished.connect(audioplayer.queue_free)
 	audioplayer.play()
-	if NetworkInfo.is_server():
+	if NetworkManager.is_server():
 		GlobalLog.server_log("Playing: " + str(sound_effect_setting.label))
 	else:
 		GlobalLog.client_log("Playing: " + str(sound_effect_setting.label))
@@ -32,7 +32,7 @@ func create_audio(type : SoundEffectSettings.SOUND_EFFECT_LABEL):
 	audioplayer.pitch_scale = sound_effect_setting.pitch
 	audioplayer.finished.connect(audioplayer.queue_free)
 	audioplayer.play()
-	if NetworkInfo.is_server():
+	if NetworkManager.is_server():
 		GlobalLog.server_log("Playing: " + str(sound_effect_setting.label))
 	else:
 		GlobalLog.client_log("Playing: " + str(sound_effect_setting.label))

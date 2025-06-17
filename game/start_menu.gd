@@ -8,75 +8,85 @@ extends Node2D
 
 func _ready() -> void:
 	var args: = OS.get_cmdline_args()
+	_parse_args(args)
 	
 	if args.has("--server"): # If it's a server, begin
-		NetworkInfo.state = NetworkInfo.State.Server
+		NetworkManager.state = NetworkManager.State.Server
 		if args.has("--port"):
-			NetworkInfo.port = int(args[args.find("--port") + 1])
+			NetworkManager.port = int(args[args.find("--port") + 1])
 		
 		if args.has("--code"):
-			NetworkInfo.code = args[args.find("--code") + 1]
+			NetworkManager.code = args[args.find("--code") + 1]
 		
 		if args.has("--match-id"):
-			NetworkInfo.match_id = args[args.find("--match-id") + 1]
+			NetworkManager.match_id = args[args.find("--match-id") + 1]
 		
-		SceneSwitcher.goto_scene("res://game/game.tscn")
+		SceneSwitcher.goto_lobby()
 	else: # If it's a user, request an ID
-		NetworkInfo.state = NetworkInfo.State.Client
+		NetworkManager.state = NetworkManager.State.Client
 		
-		if NetworkInfo.user_id != "none": # If the client already has a userid, don't request a new one
+		if NetworkManager.user_id != "none": # If the client already has a userid, don't request a new one
 			return
 		
 		var json = await HttpWrapper.request(%AwaitableHTTP, "/user/", HTTPClient.METHOD_POST)
 		if json:
 			json = json as Dictionary
-			NetworkInfo.user_id = json["userId"]
-			GlobalLog.client_log("Retrieved userID %s from matchmaking server." % NetworkInfo.user_id)
+			NetworkManager.user_id = json["userId"]
+			GlobalLog.client_log("Retrieved userID %s from matchmaking server." % NetworkManager.user_id)
 		else:
 			GlobalLog.client_log("Failed to get userID from matchmaking server.")
 
-func _on_debug_client_pressed(role: String) -> void:
-	NetworkInfo.state = NetworkInfo.State.Client
-	NetworkInfo.address_with_port = address.text + ":" + port.text
-	NetworkInfo.code = code.text
-	if role == "Alice":
-		NetworkInfo.role = NetworkInfo.Role.Alice
-	elif role == "Bob":
-		NetworkInfo.role = NetworkInfo.Role.Bob
-	
-	SceneSwitcher.goto_scene("res://game/game.tscn")
+func _parse_args(args: PackedStringArray) -> void:
+	if args.has("--server"):
+		NetworkManager.state = NetworkManager.State.Server
+		if args.has("--port"):
+			NetworkManager.port = int(args[args.find("--port") + 1])
+		if args.has("--code"):
+			NetworkManager.code = args[args.find("--code") + 1]
+		if args.has("--match-id"):
+			NetworkManager.match_id = args[args.find("--match-id") + 1]
+	else:
+		NetworkManager.state = NetworkManager.State.Client
+		if args.has("--user-id"):
+			NetworkManager.user_id = args[args.find("--user-id") + 1]
+
+func _on_debug_client_pressed() -> void:
+	NetworkManager.state = NetworkManager.State.Client
+	NetworkManager.address_with_port = address.text + ":" + port.text
+	NetworkManager.code = code.text
+	SceneSwitcher.goto_lobby()
 
 func _on_debug_server_pressed() -> void:
-	NetworkInfo.state = NetworkInfo.State.Server
-	SceneSwitcher.goto_scene("res://game/game.tscn")
+	NetworkManager.state = NetworkManager.State.Server
+	SceneSwitcher.goto_lobby()
 
 func _on_create_match_pressed() -> void:
 	var res = await HttpWrapper.request(%AwaitableHTTP, "/match/create", HTTPClient.METHOD_POST, {
-		"userId": NetworkInfo.user_id,
+		"userId": NetworkManager.user_id,
 	})
 	if res:
 		res = res as Dictionary
 		var code = res["match"]["code"]
 		var gsiUrl = res["match"]["gsiUrl"]
 		GlobalLog.client_log("Created match with code %s and GSI URL %s" % [code, gsiUrl])
-		NetworkInfo.address_with_port = gsiUrl
-		NetworkInfo.code = code
-		SceneSwitcher.goto_scene("res://game/game.tscn")
+		NetworkManager.address_with_port = gsiUrl
+		NetworkManager.code = code
+		SceneSwitcher.goto_lobby()
 	else:
 		GlobalLog.client_log("Failed to create match.")
 
 func _on_join_match_pressed() -> void:
 	GlobalLog.client_log("Joining match...")
 	var res = await HttpWrapper.request(%AwaitableHTTP, "/match/join", HTTPClient.METHOD_POST, {
-		"userId": NetworkInfo.user_id,
+		"userId": NetworkManager.user_id,
 		"code": joinCode.text
 	})
 	if res:
 		res = res as Dictionary
 		var gsiUrl = res["match"]["gsiUrl"]
 		GlobalLog.client_log("Joined match with GSI URL %s" % gsiUrl)
-		NetworkInfo.code = joinCode.text
-		NetworkInfo.address_with_port = gsiUrl
-		SceneSwitcher.goto_scene("res://game/game.tscn")
+		NetworkManager.code = joinCode.text
+		NetworkManager.address_with_port = gsiUrl
+		SceneSwitcher.goto_lobby()
 	else:
 		GlobalLog.client_log("Failed to join match.")

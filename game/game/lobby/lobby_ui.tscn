@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://xuaexscyabkr"]
 
-[ext_resource type="Script" uid="uid://dqhwuktq4if3c" path="res://game/lobby_ui/lobby_ui.gd" id="1_c5e1p"]
+[ext_resource type="Script" uid="uid://dqhwuktq4if3c" path="res://game/lobby/lobby_ui.gd" id="1_c5e1p"]
 
 [node name="LobbyUI" type="CanvasLayer"]
 script = ExtResource("1_c5e1p")
@@ -37,6 +37,7 @@ offset_bottom = 78.0
 text = "Alice start"
 
 [node name="BobStart" type="Button" parent="Control"]
+layout_mode = 0
 offset_left = 29.0
 offset_top = 96.0
 offset_right = 223.0

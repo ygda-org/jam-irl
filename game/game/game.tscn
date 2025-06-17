@@ -1,34 +1,7 @@
-[gd_scene load_steps=4 format=3 uid="uid://3q5hbx8do2mj"]
+[gd_scene load_steps=2 format=3 uid="uid://cnh7fvr6s1oit"]
 
-[ext_resource type="Script" uid="uid://1wsrlba7lprx" path="res://game/game.gd" id="1_l1rk1"]
-[ext_resource type="PackedScene" uid="uid://xuaexscyabkr" path="res://game/lobby_ui/lobby_ui.tscn" id="2_vasa2"]
-[ext_resource type="Script" uid="uid://it2fdbjm2lvp" path="res://addons/awaitable_http_request/awaitable_http_request.gd" id="3_h7iqs"]
+[ext_resource type="PackedScene" uid="uid://qouqpq8qoo84" path="res://game/board.tscn" id="1_l1rk1"]
 
 [node name="Game" type="Node2D"]
-script = ExtResource("1_l1rk1")
 
-[node name="Camera2D" type="Camera2D" parent="."]
-unique_name_in_owner = true
-
-[node name="LobbyUI" parent="." instance=ExtResource("2_vasa2")]
-unique_name_in_owner = true
-
-[node name="DebugEndGame" type="Button" parent="."]
-offset_left = -441.0
-offset_top = 206.0
-offset_right = -265.0
-offset_bottom = 250.0
-text = "Debug End Game"
-
-[node name="AwaitableHTTP" type="HTTPRequest" parent="."]
-unique_name_in_owner = true
-script = ExtResource("3_h7iqs")
-
-[node name="DebugLabel" type="Label" parent="."]
-unique_name_in_owner = true
-offset_left = -439.0
-offset_top = -237.0
-offset_right = -136.0
-offset_bottom = -183.0
-
-[connection signal="pressed" from="DebugEndGame" to="." method="_on_debug_end_game_pressed"]
+[node name="GameBoard" parent="." instance=ExtResource("1_l1rk1")]

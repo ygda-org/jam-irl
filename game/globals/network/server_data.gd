@@ -2,11 +2,11 @@ extends Object
 class_name ServerData
 
 class ClientData:
-	var role: NetworkInfo.Role
+	var role: NetworkManager.Role
 	var is_verified: bool
 	
 	func ClientData():
-		role = NetworkInfo.Role.None
+		role = NetworkManager.Role.None
 		is_verified = false
 
 # peer id -> ClientData object, godot should really have a way of statically typing that
@@ -48,15 +48,15 @@ func get_other_id(id: int):
 	else:
 		return id_to_client_data.keys()[1]
 
-func start_game(id: int, role: NetworkInfo.Role) -> void:
+func update_client_ids(id: int, role: NetworkManager.Role) -> void:
 	if not peer_exists(id):
 		print("Tried to start a game with a peer id that wasn't connected!")
 		return
 	
-	if role == NetworkInfo.Role.Alice:
+	if role == NetworkManager.Role.Alice:
 		alice_id = id
 		bob_id = get_other_id(id)
-	elif role == NetworkInfo.Role.Bob:
+	elif role == NetworkManager.Role.Bob:
 		bob_id = id
 		alice_id = get_other_id(id)
 	

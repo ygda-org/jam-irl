@@ -9,7 +9,7 @@ var server_data: ServerData = null
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	if NetworkInfo.is_server():
+	if NetworkManager.is_server():
 		server_data = ServerDataObject.new()
 		connect_server()
 	else:
@@ -17,19 +17,19 @@ func _ready() -> void:
 
 ## Server functions
 func connect_server():
-	var res: Error = peer.create_server(NetworkInfo.port)
+	var res: Error = peer.create_server(NetworkManager.port)
 	if res != OK:
-		GlobalLog.server_log("Failed to start game instance on port " + str(NetworkInfo.port))
+		GlobalLog.server_log("Failed to start game instance on port " + str(NetworkManager.port))
 		get_tree().quit(1)
 		return 
 	else:
-		GlobalLog.server_log("Started game instance on port " + str(NetworkInfo.port))
+		GlobalLog.server_log("Started game instance on port " + str(NetworkManager.port))
 
 	multiplayer.multiplayer_peer = peer
 	multiplayer.peer_connected.connect(_new_player)
 	multiplayer.peer_disconnected.connect(_disconnect_player)
 	
-	%LobbyUI.get_debug_label().text = "Game Instance running on port " + str(NetworkInfo.port)
+	%LobbyUI.get_debug_label().text = "Game Instance running on port " + str(NetworkManager.port)
 
 func _new_player(id: int):
 	if not server_data.add_peer(id): # Server is full, 2 players are already present
@@ -56,7 +56,7 @@ func update_debug_client_list() -> void:
 
 @rpc("any_peer")
 func send_room_code(code: String):
-	if not NetworkInfo.is_server():
+	if not NetworkManager.is_server():
 		return
 	
 	var sender_id: int = multiplayer.get_remote_sender_id()
@@ -64,7 +64,7 @@ func send_room_code(code: String):
 		GlobalLog.server_log("Verified client tried verifying again.")
 		return
 	
-	if NetworkInfo.code == code:
+	if NetworkManager.code == code:
 		server_data.verify_peer(sender_id)
 		GlobalLog.server_log("Successfully verified peer with id of " + str(sender_id))
 		rpc_id(sender_id, "verify_verification")
@@ -77,7 +77,7 @@ func send_room_code(code: String):
 
 @rpc("any_peer")
 func debug_end_game():
-	if not NetworkInfo.is_server():
+	if not NetworkManager.is_server():
 		return
 	
 	GlobalLog.server_log("Ending game instance! Goodbye!")
@@ -87,7 +87,7 @@ func debug_end_game():
 
 ## Client Functions
 func connect_client():
-	var address: String = NetworkInfo.get_address_with_protocol()
+	var address: String = NetworkManager.get_address_with_protocol()
 	var res: Error = peer.create_client(address)
 	if res != OK:
 		SceneSwitcher.start_menu_with_error("Failed to connect client at address " + address)
@@ -113,20 +113,20 @@ func send_client_input(input : Variant):
 
 @rpc("authority")
 func request_room_code():
-	if NetworkInfo.is_server():
+	if NetworkManager.is_server():
 		return
 	
-	rpc("send_room_code", NetworkInfo.code)
+	rpc("send_room_code", NetworkManager.code)
 
 @rpc("authority")
 func verify_verification() -> void:
-	%LobbyUI.get_debug_label().text = "Verified at address " + NetworkInfo.get_address_with_protocol()
+	%LobbyUI.get_debug_label().text = "Verified at address " + NetworkManager.get_address_with_protocol()
 
 ###
 
 
 func _on_debug_end_game_pressed() -> void:
-	if NetworkInfo.is_server():
+	if NetworkManager.is_server():
 		GlobalLog.server_log("Ending game instance! Goodbye!")
 		get_tree().quit(0)
 	else:

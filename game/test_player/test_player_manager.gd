@@ -5,7 +5,7 @@ extends Node2D
 @onready var main_parent = find_parent("SyncGame")
 
 func _ready() -> void:
-	if NetworkInfo.is_server():
+	if NetworkManager.is_server():
 		GlobalLog.server_log("Server Player Manager Spawned-Error?")
 	else:
 		GlobalLog.client_log("Client Player Manager Spawned")

@@ -1,8 +1,8 @@
 [gd_scene load_steps=4 format=3 uid="uid://bjbm3vwf3sqld"]
 
 [ext_resource type="Script" uid="uid://b03gabtje2gm5" path="res://SYNC TESTING/sync_game.gd" id="1_b6b1m"]
-[ext_resource type="PackedScene" uid="uid://xuaexscyabkr" path="res://game/lobby_ui/lobby_ui.tscn" id="2_ysjcx"]
-[ext_resource type="PackedScene" uid="uid://fm7mk4artm50" path="res://SYNC TESTING/sync_bob.tscn" id="3_ysjcx"]
+[ext_resource type="PackedScene" uid="uid://xuaexscyabkr" path="res://game/lobby/lobby_ui.tscn" id="2_ysjcx"]
+[ext_resource type="PackedScene" path="res://SYNC TESTING/sync_bob.tscn" id="3_ysjcx"]
 
 [node name="SyncGame" type="Node2D"]
 script = ExtResource("1_b6b1m")
