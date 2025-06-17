@@ -1,8 +1,11 @@
-[gd_scene load_steps=4 format=3 uid="uid://qouqpq8qoo84"]
+[gd_scene load_steps=5 format=3 uid="uid://qouqpq8qoo84"]
 
 [ext_resource type="Script" uid="uid://oij26kb7jvx5" path="res://game/game/board.gd" id="1_gp7jp"]
 [ext_resource type="Texture2D" uid="uid://bk2rqpin2idcc" path="res://ASSETS/placeables/floor.png" id="2_m3ncr"]
 [ext_resource type="PackedScene" uid="uid://ckt2f8dbwhbdg" path="res://game/prefabs/alice_heart.tscn" id="3_a6n51"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_a6n51"]
+size = Vector2(7, 510)
 
 [node name="GameBoard" type="Node2D"]
 script = ExtResource("1_gp7jp")
@@ -24,3 +27,34 @@ position = Vector2(20, 520)
 
 [node name="alice_heart4" parent="." instance=ExtResource("3_a6n51")]
 position = Vector2(620, 520)
+
+[node name="wall1" type="StaticBody2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="wall1"]
+position = Vector2(17.5, 265)
+shape = SubResource("RectangleShape2D_a6n51")
+
+[node name="wall2" type="StaticBody2D" parent="."]
+position = Vector2(607, 0)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="wall2"]
+position = Vector2(17.5, 265)
+shape = SubResource("RectangleShape2D_a6n51")
+
+[node name="wall3" type="StaticBody2D" parent="."]
+position = Vector2(607, 0)
+rotation = 1.5708
+scale = Vector2(1, 1.25)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="wall3"]
+position = Vector2(15, 228)
+shape = SubResource("RectangleShape2D_a6n51")
+
+[node name="wall4" type="StaticBody2D" parent="."]
+position = Vector2(607, 520)
+rotation = 1.5708
+scale = Vector2(1, 1.25)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="wall4"]
+position = Vector2(15, 229.6)
+shape = SubResource("RectangleShape2D_a6n51")
