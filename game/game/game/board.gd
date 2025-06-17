@@ -17,6 +17,7 @@ var current_selected
 
 func _ready():
 	initializeBoard()
+	updateTile(4, 1, 1)
 	updateTile(1, 7, 2)
 	updateTile(1, 6, 2)
 	updateTile(1, 5, 2)
