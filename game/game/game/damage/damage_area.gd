@@ -1,5 +1,6 @@
 extends Area2D
 
+@export var affiliation = Affiliation.NEUTRAL
 @export var damage: int = 20
 @export var time_till_damage_again: float = 5
 
@@ -7,8 +8,14 @@ extends Area2D
 var can_damage: bool = true
 
 func _on_body_entered(body: Node2D) -> void:
-	if body.is_in_group("Damageable") && can_damage:
-		body.damage(damage)
+	if NetworkManager.is_client(): return
+	
+	var target = body.get_node("Target")
+	if target == null or not can_damage:
+		return
+	
+	if target.affiliation != affiliation:
+		target.damage(damage)
 		can_damage = false
 		damage_timer.start(time_till_damage_again)
 

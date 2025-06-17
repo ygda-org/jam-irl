@@ -1,7 +1,64 @@
-[gd_scene load_steps=3 format=3 uid="uid://di360h4q2r2we"]
+[gd_scene load_steps=12 format=3 uid="uid://di360h4q2r2we"]
 
 [ext_resource type="Script" uid="uid://ced3oeh5brbta" path="res://game/start/start_menu.gd" id="1_jwbto"]
 [ext_resource type="Script" uid="uid://it2fdbjm2lvp" path="res://addons/awaitable_http_request/awaitable_http_request.gd" id="2_ia0g5"]
+[ext_resource type="Texture2D" uid="uid://bpm02mhp6ntiy" path="res://ASSETS/UI/create match button.png" id="2_lweva"]
+[ext_resource type="Texture2D" uid="uid://c18rgt70ohqnr" path="res://ASSETS/UI/join button.png" id="3_fbv7x"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_qangb"]
+atlas = ExtResource("2_lweva")
+region = Rect2(0, 0, 96, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_dpsnm"]
+atlas = ExtResource("2_lweva")
+region = Rect2(0, 32, 96, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_gqpx0"]
+atlas = ExtResource("2_lweva")
+region = Rect2(0, 64, 96, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_rt08l"]
+atlas = ExtResource("3_fbv7x")
+region = Rect2(0, 0, 96, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_2qxes"]
+atlas = ExtResource("3_fbv7x")
+region = Rect2(0, 32, 96, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_bwqc6"]
+atlas = ExtResource("3_fbv7x")
+region = Rect2(0, 64, 96, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_a6sdr"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_qangb")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_dpsnm")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_gqpx0")
+}],
+"loop": true,
+"name": &"create",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_rt08l")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_2qxes")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_bwqc6")
+}],
+"loop": true,
+"name": &"join",
+"speed": 5.0
+}]
 
 [node name="Node2D" type="Node2D"]
 script = ExtResource("1_jwbto")
@@ -60,12 +117,20 @@ offset_right = 181.0
 offset_bottom = 277.0
 text = "Debug Server"
 
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+position = Vector2(172, 70)
+scale = Vector2(1.5, 1.5)
+sprite_frames = SubResource("SpriteFrames_a6sdr")
+animation = &"create"
+autoplay = "create"
+frame_progress = 0.0245557
+
 [node name="CreateMatch" type="Button" parent="."]
-offset_left = 77.0
-offset_top = 45.0
-offset_right = 265.0
-offset_bottom = 96.0
-text = "Create Match"
+offset_left = 100.0
+offset_top = 46.0
+offset_right = 244.0
+offset_bottom = 94.0
+flat = true
 
 [node name="Control" type="Panel" parent="."]
 offset_left = 66.0
@@ -82,14 +147,21 @@ offset_bottom = 52.0
 placeholder_text = "Code...
 "
 
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Control"]
+position = Vector2(106, 88)
+scale = Vector2(1.5, 1.5)
+sprite_frames = SubResource("SpriteFrames_a6sdr")
+animation = &"join"
+autoplay = "join"
+frame_progress = 0.650468
+
 [node name="JoinMatch" type="Button" parent="Control"]
 layout_mode = 0
-offset_left = 11.0
-offset_top = 63.0
-offset_right = 199.0
-offset_bottom = 114.0
-text = "Join Match
-"
+offset_left = 34.0
+offset_top = 64.0
+offset_right = 178.0
+offset_bottom = 112.0
+flat = true
 
 [node name="AwaitableHTTP" type="HTTPRequest" parent="."]
 unique_name_in_owner = true
