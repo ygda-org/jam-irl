@@ -1,6 +1,8 @@
 extends Node2D
 
 var input: Vector2 = Vector2(0, 0)	
+const BOB_FIREBALL = preload("res://game/game/GenericProjectile/ProjectileSettingResources/bob_fireball.tres")
+var summon_request = false
 
 func _on_input_tick_timeout() -> void:
 	if not NetworkManager.is_bob():
@@ -8,9 +10,23 @@ func _on_input_tick_timeout() -> void:
 	var old_input = input
 	input = Input.get_vector("Left", "Right", "Up", "Down")
 	
+	if not summon_request and Input.is_action_just_pressed("Shoot"):
+		summon_request = true
+	
+	if summon_request:# TODO Factor in timer to delay request and slow shooting speed
+		summon_request = false
+		rpc("request_projectile")
+		request_projectile()
+		pass
+	
 	if not old_input == input:
 		rpc_id(1, "send_input", to_bitmask(input))
 
+@rpc("any_peer")
+func request_projectile():
+	#GlobalLog.log("Projectile Requested")
+	var bob = $"../Arena/Bob"
+	get_parent().summon_projectile(bob.global_position, input, BOB_FIREBALL, bob)
 
 @rpc("any_peer")
 func send_input(input_bitmask: int):
