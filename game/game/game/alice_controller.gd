@@ -9,15 +9,21 @@ const structures = [FLOOR, TOWER]
 var mouse_position: Vector2
 var current_selected
 
-@onready var board = get_parent()
+@onready var board = get_parent().get_node("GameBoard")
 
 func _process(delta):
 	mouse_position = get_viewport().get_mouse_position()
 	if Input.is_action_just_released("LeftClick"):
 		placeTile()
-	get_node("PlacePreview").position = Vector2i(margin, margin) + Vector2i(5, -5) + Vector2i(mouse_position) - Vector2i(int(mouse_position.x - margin) % 50, int(mouse_position.y - margin) % 50)
+	if mouse_position.x < 620 and mouse_position.x > 20 and mouse_position.y < 520 and mouse_position.y > 20:
+		$PlacePreview.show()
+		$PlacePreview.position = Vector2i(margin, margin) + Vector2i(5, -5) + Vector2i(mouse_position) - Vector2i(int(mouse_position.x - margin) % 50, int(mouse_position.y - margin) % 50)
+	else:
+		$PlacePreview.hide()
 	
 func placeTile():
+	if current_selected == null:
+		return
 	var mouse_pos = mouse_position
 	mouse_pos = (mouse_pos - Vector2(margin, margin)) / 50
 	mouse_pos = Vector2i(mouse_pos)
