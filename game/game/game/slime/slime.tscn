@@ -1,4 +1,4 @@
-[gd_scene load_steps=38 format=3 uid="uid://cf5ab8q45yaqr"]
+[gd_scene load_steps=39 format=3 uid="uid://cf5ab8q45yaqr"]
 
 [ext_resource type="Script" uid="uid://el1asfi0gvhd" path="res://game/game/slime/slime.gd" id="1_w8pft"]
 [ext_resource type="Texture2D" uid="uid://3uj3qoclj0wy" path="res://ASSETS/sprites/slime/idle.png" id="1_y2vlo"]
@@ -242,15 +242,23 @@ animations = [{
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_1j4xl"]
 
+[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_w8pft"]
+properties/0/path = NodePath(".:position")
+properties/0/spawn = true
+properties/0/replication_mode = 2
+
 [node name="Slime" type="CharacterBody2D"]
 script = ExtResource("1_w8pft")
 
 [node name="AnimatedSprite" type="AnimatedSprite2D" parent="."]
 position = Vector2(0, -25)
 sprite_frames = SubResource("SpriteFrames_l0jed")
-animation = &"Idle"
+animation = &"Jump"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(0, -10)
 rotation = 1.5708
 shape = SubResource("CapsuleShape2D_1j4xl")
+
+[node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
+replication_config = SubResource("SceneReplicationConfig_w8pft")

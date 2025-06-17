@@ -6,7 +6,7 @@
 script = ExtResource("1_4j43n")
 
 [node name="InputTick" type="Timer" parent="."]
-wait_time = 0.05
+wait_time = 0.01
 autostart = true
 
 [connection signal="timeout" from="InputTick" to="." method="_on_input_tick_timeout"]
