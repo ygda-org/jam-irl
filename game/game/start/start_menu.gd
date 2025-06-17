@@ -51,16 +51,20 @@ func _parse_args(args: PackedStringArray) -> void:
 			NetworkManager.user_id = args[args.find("--user-id") + 1]
 
 func _on_debug_client_pressed() -> void:
-	NetworkManager.state = NetworkManager.State.Client
-	NetworkManager.address_with_port = address.text + ":" + port.text
-	NetworkManager.code = code.text
-	SceneSwitcher.goto_lobby()
+	_to_lobby(NetworkManager.State.Client, address.text + ":" + port.text, code.text)
 
 func _on_debug_server_pressed() -> void:
 	NetworkManager.state = NetworkManager.State.Server
 	SceneSwitcher.goto_lobby()
 
+func _to_lobby(state: NetworkManager.State, url: String, code: String) -> void:
+	NetworkManager.state = state
+	NetworkManager.address_with_port = url
+	NetworkManager.code = code
+	SceneSwitcher.goto_lobby()
+
 func _on_create_match_pressed() -> void:
+	GlobalLog.client_log("Sent match create request to MS. Waiting...")
 	var res = await HttpWrapper.request(%AwaitableHTTP, "/match/create", HTTPClient.METHOD_POST, {
 		"userId": NetworkManager.user_id,
 	})
@@ -69,9 +73,7 @@ func _on_create_match_pressed() -> void:
 		var code = res["match"]["code"]
 		var gsiUrl = res["match"]["gsiUrl"]
 		GlobalLog.client_log("Created match with code %s and GSI URL %s" % [code, gsiUrl])
-		NetworkManager.address_with_port = gsiUrl
-		NetworkManager.code = code
-		SceneSwitcher.goto_lobby()
+		_to_lobby(NetworkManager.State.Client, gsiUrl, code)
 	else:
 		GlobalLog.client_log("Failed to create match.")
 
@@ -85,8 +87,6 @@ func _on_join_match_pressed() -> void:
 		res = res as Dictionary
 		var gsiUrl = res["match"]["gsiUrl"]
 		GlobalLog.client_log("Joined match with GSI URL %s" % gsiUrl)
-		NetworkManager.code = joinCode.text
-		NetworkManager.address_with_port = gsiUrl
-		SceneSwitcher.goto_lobby()
+		_to_lobby(NetworkManager.State.Client, gsiUrl, joinCode.text)
 	else:
 		GlobalLog.client_log("Failed to join match.")

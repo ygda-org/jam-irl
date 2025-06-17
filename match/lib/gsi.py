@@ -1,9 +1,10 @@
-
 import docker
 import re
 import os
 from typing import List
 import json
+import time
+import asyncio
 
 docker_client = docker.from_env()
 
@@ -33,21 +34,51 @@ def get_available_ports(exclude: List[int] = []) -> List[int]:
             l.append(i)
     return l
 
+async def wait_for_container(container_name: str, max_retries: int = 5, retry_delay: float = 1.0) -> bool:
+    """Wait for container to be running and healthy"""
+    for r in range(max_retries):
+        print(f"retry {r}")
+        try:
+            container = docker_client.containers.get(container_name)
+            if container.status == "running":
+                # Check if the container is actually ready by checking its logs
+                logs = container.logs().decode('utf-8')
+                print(logs)
+                if "Started game instance" in logs:  # Adjust this based on your actual log message
+                    return True
+        except Exception as e:
+            print("Exception in retry", e)
+            pass
+        await asyncio.sleep(retry_delay)
+    return False
+
 async def start_gsi_on_port(port: int, code: str, match_id: str) -> str:
     """Start a new GIS container and return its websocket URL"""
     container_name = f"gis-{port}"
     
-    # Start the container with port forwarding and code
-    container = docker_client.containers.run(
-        os.getenv("GIS_IMAGE"),  # Use the image built from the Dockerfile
-        name=container_name,
-        detach=True,
-        ports={'9999': port},
-        command=["./project.x86_64", "--server", "--headless", "--code", code, "--match-id", match_id]
-    )
-    
-    # Return the websocket URL
-    return f"ws://localhost:{port}"
+    try:
+        # Start the container with port forwarding and code
+        container = docker_client.containers.run(
+            os.getenv("GIS_IMAGE"),  # Use the image built from the Dockerfile
+            name=container_name,
+            detach=True,
+            ports={'9999': port},
+            command=["./project.x86_64", "--server", "--headless", "--code", code, "--match-id", match_id]
+        )
+        
+        status = await wait_for_container(container_name)
+        if not status:
+            raise Exception("Container started but did not start game instance")
+
+        # Return the websocket URL
+        return f"ws://localhost:{port}"
+    except Exception as e:
+        # Clean up on any error
+        try:
+            await kill_container(container_name)
+        except:
+            pass
+        raise e
 
 async def start_gsi(code: str, match_id: str) -> str:
     ports = get_available_ports()
@@ -57,11 +88,14 @@ async def start_gsi(code: str, match_id: str) -> str:
             return res
         except Exception as e:
             print(e)
-            continue
+            # continue
     
     raise Exception("No available ports")
 
 async def kill_gsi(port: int):
-    container = docker_client.containers.get(f"gis-{port}")
+    await kill_container(f"gis-{port}")
+
+async def kill_container(container_name: str):
+    container = docker_client.containers.get(container_name)
     container.stop()
     container.remove(force=True)
