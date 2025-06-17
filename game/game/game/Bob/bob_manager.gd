@@ -9,12 +9,36 @@ func _on_input_tick_timeout() -> void:
 	input = Input.get_vector("Left", "Right", "Up", "Down")
 	
 	if not old_input == input:
-		rpc_id(1, "send_input", input)
+		rpc_id(1, "send_input", to_bitmask(input))
 
 
 @rpc("any_peer")
-func send_input(input: Vector2):
+func send_input(input_bitmask: int):
 	if not NetworkManager.is_server():
 		return
 	
-	get_parent().update_bob_input(input)
+	get_parent().update_bob_input(from_bitmask(input_bitmask))
+
+func to_bitmask(inp: Vector2) -> int: # Only send an integer for smaller packets
+	var mask := 0
+	if inp.x < -0.1:
+		mask |= 1       # Left
+	if inp.x > 0.1:
+		mask |= 2       # Right
+	if inp.y < -0.1:
+		mask |= 4       # Up
+	if inp.y > 0.1:
+		mask |= 8       # Down
+	return mask
+
+func from_bitmask(mask: int) -> Vector2: # Parse bitmask
+	var inp := Vector2.ZERO
+	if mask & 1:
+		inp.x -= 1
+	if mask & 2:
+		inp.x += 1
+	if mask & 4:
+		inp.y -= 1
+	if mask & 8:
+		inp.y += 1
+	return inp.normalized()
