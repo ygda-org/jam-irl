@@ -2,6 +2,7 @@ extends StaticBody2D
 
 var health = 100
 const max_health = 100
+@onready var _alice = get_tree().root.get_node("Game").get_node("AliceController")
 
 func _ready():
 	pass
@@ -17,8 +18,18 @@ func health_check():
 	else:
 		$Anim.play("healthy")
 
+func alice():
+	if _alice == null:
+		_alice = get_tree().root.get_node("Game").get_node("AliceController")
+	return _alice
+
 func _on_target_on_death() -> void:
-	GlobalLog.server_log(str(self) + " has died!")
+	rpc("__on_target_on_death")
+	__on_target_on_death()
+
+@rpc("authority")
+func __on_target_on_death():
+	alice().dec_health(1)
 	suicide()
 
 func suicide():

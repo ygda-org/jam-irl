@@ -44,7 +44,7 @@ position = Vector2(25, 15)
 sprite_frames = SubResource("SpriteFrames_klqmc")
 animation = &"sweatshop"
 autoplay = "sweatshop"
-frame_progress = 0.938307
+frame_progress = 0.320478
 
 [node name="Target" parent="." instance=ExtResource("2_4dufv")]
 maxHealth = 50

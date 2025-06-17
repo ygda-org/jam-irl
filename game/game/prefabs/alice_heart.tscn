@@ -123,8 +123,9 @@ script = ExtResource("1_0ofpv")
 
 [node name="Anim" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_ihhrn")
-animation = &"healthy"
+animation = &"turbo_dead"
 autoplay = "healthy"
+frame_progress = 0.107128
 
 [node name="Target" parent="." instance=ExtResource("6_cbthp")]
 affiliation = 1
