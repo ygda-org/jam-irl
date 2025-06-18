@@ -1,4 +1,4 @@
-[gd_scene load_steps=59 format=3 uid="uid://cf5ab8q45yaqr"]
+[gd_scene load_steps=60 format=3 uid="uid://cf5ab8q45yaqr"]
 
 [ext_resource type="Script" uid="uid://el1asfi0gvhd" path="res://game/game/slime/slime.gd" id="1_w8pft"]
 [ext_resource type="Texture2D" uid="uid://caugac54jxbkm" path="res://ASSETS/sprites/slime/idle.png" id="1_y2vlo"]
@@ -8,6 +8,7 @@
 [ext_resource type="Texture2D" uid="uid://c26tlum7sb0sy" path="res://ASSETS/sprites/slime/spawn.png" id="3_r6ugr"]
 [ext_resource type="PackedScene" uid="uid://t1llkwtqjrew" path="res://game/game/z_index_manager.tscn" id="5_4c8a6"]
 [ext_resource type="PackedScene" uid="uid://d11uab4tmr325" path="res://game/game/damage/target.tscn" id="6_doswg"]
+[ext_resource type="PackedScene" uid="uid://dwosftn1w1b0p" path="res://game/game/mana/mana_giver.tscn" id="9_pgdth"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_wxyuf"]
 atlas = ExtResource("2_rnv5r")
@@ -404,6 +405,9 @@ replication_config = SubResource("SceneReplicationConfig_w8pft")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="AttackArea"]
 position = Vector2(0, -9)
 shape = SubResource("CircleShape2D_4c8a6")
+
+[node name="ManaGiver" parent="." instance=ExtResource("9_pgdth")]
+mana_to_give = 5
 
 [connection signal="animation_finished" from="Anim" to="." method="_on_anim_animation_finished"]
 [connection signal="onDamage" from="Target" to="." method="_on_target_on_damage"]

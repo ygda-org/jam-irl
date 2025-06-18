@@ -9,10 +9,11 @@ var jumpTime: float = 6./12.;
 @onready var board = get_parent().get_node("GameBoard")
 @onready var attack_area: Area2D = $AttackArea
 
-@export var is_spawning: bool = true
-@export var is_jumping: bool = false
-@export var can_jump: bool = false
-@export var jump_target = null
+var is_spawning: bool = true
+var is_jumping: bool = false
+var can_jump: bool = false
+var jump_target = null
+var is_dead = false
 
 func _ready() -> void:
 	target = get_parent().get_node("Bob")
@@ -40,6 +41,7 @@ func _physics_process(delta: float) -> void:
 
 
 func start_jump() -> void:
+	if is_dead or is_jumping or not can_jump or is_spawning: return
 	GlobalLog.server_log("SLIME: " + str(self) + " is jumping to " + str(jump_target))
 	$Anim.play("Jump")
 	is_jumping = true
@@ -71,6 +73,7 @@ func _on_anim_animation_finished() -> void:
 
 func _on_target_on_death() -> void:
 	GlobalLog.server_log(str(self) + " has died!")
+	is_dead = true
 	suicide()
 
 func suicide():

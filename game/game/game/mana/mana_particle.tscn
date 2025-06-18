@@ -1,7 +1,9 @@
-[gd_scene load_steps=4 format=3 uid="uid://clgi5l5inn31s"]
+[gd_scene load_steps=5 format=3 uid="uid://clgi5l5inn31s"]
 
 [ext_resource type="Script" uid="uid://iukejuut2foo" path="res://game/game/mana/mana_particle.gd" id="1_yvl75"]
-[ext_resource type="Texture2D" uid="uid://b7irlyxwi45i0" path="res://icon.svg" id="2_olim1"]
+[ext_resource type="Texture2D" uid="uid://cptucr3p0b4xi" path="res://ASSETS/sprites/mana.png" id="2_yvl75"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_olim1"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_yvl75"]
 radius = 8.0
@@ -10,17 +12,13 @@ radius = 8.0
 script = ExtResource("1_yvl75")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-scale = Vector2(0.1, 0.1)
-texture = ExtResource("2_olim1")
+material = SubResource("ShaderMaterial_olim1")
+texture = ExtResource("2_yvl75")
 
-[node name="Area2D" type="Area2D" parent="."]
+[node name="CollectArea" type="Area2D" parent="."]
 z_index = 11
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="CollectArea"]
 shape = SubResource("CircleShape2D_yvl75")
 
-[node name="SpreadTime" type="Timer" parent="."]
-one_shot = true
-
-[connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]
-[connection signal="timeout" from="SpreadTime" to="." method="_on_spread_time_timeout"]
+[connection signal="body_entered" from="CollectArea" to="." method="_on_area_2d_body_entered"]

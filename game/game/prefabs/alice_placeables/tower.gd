@@ -31,8 +31,6 @@ func _on_cooldown_timeout() -> void:
 
 func _on_target_on_death() -> void:
 	GlobalLog.server_log(str(self) + " has died!")
-	spawn_mana()
-	rpc("spawn_mana")
 	suicide()
 
 func suicide():
@@ -45,10 +43,6 @@ func _suicide():
 
 func _on_target_on_damage(damage: int) -> void:
 	GlobalLog.server_log(str(self) + " has taken " + str(damage) + " damage!")
-
-@rpc("authority")
-func spawn_mana():
-	$ManaGiver.give()
 
 func _to_string() -> String:
 	return "TOWER: " + str(global_position)

@@ -6,7 +6,7 @@
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_onqc1"]
 shader = ExtResource("1_n55cy")
-shader_parameter/node_size = Vector2(605, 518)
+shader_parameter/node_size = Vector2(348, 225)
 shader_parameter/outline_color = Color(1, 0.99, 0.81, 1)
 shader_parameter/bg_color = Color(0.961, 0.961, 0.863, 0)
 shader_parameter/thickness = 40.0
