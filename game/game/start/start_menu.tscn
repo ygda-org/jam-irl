@@ -166,6 +166,7 @@ offset_right = 261.0
 offset_bottom = 192.0
 
 [node name="CreateMatch" type="Button" parent="Control2"]
+layout_mode = 0
 offset_left = 5.0
 offset_top = -76.0
 offset_right = 149.0
