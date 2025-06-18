@@ -38,12 +38,14 @@ func suicide():
 
 @rpc("authority")
 func _suicide():
+	MusicManager.create_audio(SoundEffectSettings.SOUND_EFFECT_LABEL.SFX_HEARTDESTROY)
 	queue_free()
 
 func _on_target_on_damage(damage: int) -> void:
 	health = $Target.health
 	health_check()
 	GlobalLog.server_log(str(self) + " has taken " + str(damage) + " damage!")
+	MusicManager.create_audio(SoundEffectSettings.SOUND_EFFECT_LABEL.SFX_HEARTHIT)
 
 func _to_string() -> String:
 	return "HEART: " + str(global_position)
