@@ -1,7 +1,7 @@
 [gd_scene load_steps=3 format=3 uid="uid://cl3jojguqqmsh"]
 
 [ext_resource type="Script" uid="uid://dm6ifrpckdhch" path="res://game/victory/victory_screen.gd" id="1_tpjfp"]
-[ext_resource type="PackedScene" uid="uid://dh3jbvgr066gq" path="res://game/prefabs/title.tscn" id="2_73cws"]
+[ext_resource type="PackedScene" path="res://game/prefabs/title.tscn" id="2_73cws"]
 
 [node name="VictoryScreen" type="Node2D"]
 script = ExtResource("1_tpjfp")

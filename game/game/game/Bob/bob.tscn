@@ -735,7 +735,7 @@ properties/3/spawn = true
 properties/3/replication_mode = 2
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_q6un5"]
-size = Vector2(100.5, 36)
+size = Vector2(100.5, 66)
 
 [node name="Bob" type="CharacterBody2D"]
 script = ExtResource("1_5xu5e")
@@ -765,7 +765,7 @@ replication_config = SubResource("SceneReplicationConfig_w2qpk")
 unique_name_in_owner = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="BobAttackArea"]
-position = Vector2(1, -12)
+position = Vector2(1, -22)
 shape = SubResource("RectangleShape2D_q6un5")
 
 [node name="BobAttackCooldown" type="Timer" parent="."]
