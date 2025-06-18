@@ -5,10 +5,11 @@ const TOWER = preload("res://game/prefabs/alice_placeables/tower.tscn") # 1
 const WALLH = preload("res://game/prefabs/alice_placeables/wallh.tscn") # 2
 const WALLV = preload("res://game/prefabs/alice_placeables/wallv.tscn") # 3
 const SWEATSHOP = preload("res://game/prefabs/alice_placeables/sweatshop.tscn") # 4
+const SLIME = preload("res://game/game/slime/slime.tscn") # 5
 const margin = 20
 
-const structures = [FLOOR, TOWER, WALLH, WALLV, SWEATSHOP]
-const costs = [0,7,3,3,5]
+const structures = [FLOOR, TOWER, WALLH, WALLV, SWEATSHOP, SLIME]
+const costs = [0,4,3,3,5,6]
 
 var mouse_position: Vector2
 var current_selected
@@ -73,13 +74,13 @@ func _on_wall_pressed() -> void:
 		current_selected = 2
 	#get_node("PlacePreview").texture = load("res://ASSETS/placeables/tower.png")
 
-func _on_floortest_pressed() -> void:
+func _on_floortest_pressed() -> void: # this is the one for slimes now
 	$Panel/Selection.show()
-	$PlacePreview.play("floorTEST")
+	$PlacePreview.play("goopy guy")
 	$Panel/Selection.position = $Panel/Floortest.position + Vector2(4,4)
-	dec_health(1)
+	#dec_health(1)
 	#get_node("PlacePreview").texture = load("res://ASSETS/placeables/floor.png")
-	current_selected = 0
+	current_selected = 5
 
 func dec_health(delta=1) -> void:
 	GlobalLog.log("Alice hit")
