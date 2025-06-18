@@ -1,6 +1,6 @@
-[gd_scene load_steps=3 format=3 uid="uid://bpi8gkbjhagio"]
+[gd_scene load_steps=3 format=3 uid="uid://dncbk03v2fica"]
 
-[ext_resource type="Script" path="res://game/start/tutorial.gd" id="1_5tael"]
+[ext_resource type="Script" uid="uid://6krwrpvq20jk" path="res://game/start/tutorial.gd" id="1_5tael"]
 [ext_resource type="PackedScene" path="res://game/prefabs/title.tscn" id="1_qetlh"]
 
 [node name="Tutorial" type="Node"]
