@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://b3252mowlflm5"
-path="res://.godot/imported/bobswordappear.png-d11fc8e6100ec3d20b94e619985fd222.ctex"
+uid="uid://c1h8g4iswp62n"
+path="res://.godot/imported/bobALL.png-8141ab97bdbbb07aa007f42ecb65a954.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://ASSETS/bobswordappear.png"
-dest_files=["res://.godot/imported/bobswordappear.png-d11fc8e6100ec3d20b94e619985fd222.ctex"]
+source_file="res://ASSETS/bobALL.png"
+dest_files=["res://.godot/imported/bobALL.png-8141ab97bdbbb07aa007f42ecb65a954.ctex"]
 
 [params]
 
