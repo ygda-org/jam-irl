@@ -61,7 +61,7 @@ animations = [{
 "speed": 5.0
 }]
 
-[node name="Node2D" type="Node2D"]
+[node name="StartScreen" type="Node2D"]
 script = ExtResource("1_jwbto")
 
 [node name="Camera2D" type="Camera2D" parent="."]
