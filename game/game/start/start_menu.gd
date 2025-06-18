@@ -90,3 +90,7 @@ func _on_join_match_pressed() -> void:
 		_to_lobby(NetworkManager.State.Client, gsiUrl, joinCode.text)
 	else:
 		GlobalLog.client_log("Failed to join match.")
+
+
+func _on_button_pressed() -> void:
+	SceneSwitcher.goto_scene("res://game/start/tutorial.tscn")
