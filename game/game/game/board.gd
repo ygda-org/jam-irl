@@ -28,8 +28,13 @@ func initializeBoard() -> void:
 			add_child(board[r][c])
 			board[r][c].z_index = 0
 
-@rpc("any_peer")
 func updateTile(newTileId: int, r, c) -> void:
+	if NetworkManager.server_assert(): return
+	rpc("_updateTile", newTileId, r, c)
+	_updateTile(newTileId, r, c)
+
+@rpc("authority")
+func _updateTile(newTileId: int, r, c) -> void:
 	if (r >= 10 or c >= 12 or newTileId == null):
 		return
 	var newTile = structures[newTileId].instantiate()

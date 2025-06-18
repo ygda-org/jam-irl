@@ -43,6 +43,22 @@ func is_server() -> bool:
 func is_client() -> bool:
 	return state == State.Client
 
+func server_assert() -> bool:
+	if NetworkManager.is_server():
+		return false
+	else:
+		print_debug("TRACE: server_assert() called from client")
+		print_stack()
+		return true
+
+func client_assert() -> bool:
+	if NetworkManager.is_client():
+		return false
+	else:
+		print_debug("TRACE: client_assert() called from server")
+		print_stack()
+		return true
+
 func is_alice() -> bool:
 	return role == Role.Alice
 

@@ -2,7 +2,12 @@ extends StaticBody2D
 
 @export var production_rate: int = 1
 @export var production_delay: float = 3.0
-@onready var alice = get_tree().root.get_node("Game").get_node("AliceController")
+var _alice: Node = null
+
+func alice():
+	if _alice == null:
+		_alice = get_tree().root.get_node("Game").get_node("AliceController")
+	return _alice
 
 func _ready():
 	var timer = Timer.new()
@@ -12,11 +17,19 @@ func _ready():
 	timer.start()
 
 func _on_timer_timeout():
-	if alice == null:
-		alice = get_tree().root.get_node("Game").get_node("AliceController")
+	if NetworkManager.is_client(): return
 
+	GlobalLog.log("PRODUCTION: " + str(production_rate))
 	# TODO: production animation
-	alice.change_money(+production_rate)
+	alice().change_money(+production_rate)
+
+	rpc("_on_sweatshop_produced")
+
+@rpc("authority")
+func _on_sweatshop_produced():
+	# TODO: ui callback for when the sweatshop produces something
+	pass
+
 
 func _on_target_on_death() -> void:
 	GlobalLog.server_log(str(self) + " has died!")

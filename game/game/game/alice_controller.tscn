@@ -213,6 +213,11 @@ region = Rect2(0, 50, 30, 50)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_6lebb"]
 animations = [{
+"frames": [],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}, {
 "frames": [{
 "duration": 1.0,
 "texture": ExtResource("2_u2o8n")
@@ -308,9 +313,6 @@ properties/2/replication_mode = 2
 properties/3/path = NodePath("HealthBar/H4:animation")
 properties/3/spawn = true
 properties/3/replication_mode = 2
-properties/4/path = NodePath("HealthBar/Money:text")
-properties/4/spawn = true
-properties/4/replication_mode = 2
 
 [node name="AliceController" type="Node2D"]
 script = ExtResource("1_02yvw")
@@ -417,7 +419,6 @@ modulate = Color(1, 1, 1, 0.294118)
 z_index = 10
 position = Vector2(25, 35)
 sprite_frames = SubResource("SpriteFrames_6lebb")
-animation = &"goopy guy"
 
 [node name="MoneyTimer" type="Timer" parent="."]
 wait_time = 0.2

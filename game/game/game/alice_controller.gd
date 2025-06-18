@@ -19,10 +19,14 @@ var current_rotation = 0 # 0 or 1, o is horizontal 1 is vertical
 @onready var game = get_parent()
 
 var health = 4
-var money = 10
+@export var money_start = 8
+@export var money = 0;
 
 func _ready():
 	$Panel/Selection.hide()
+
+	if NetworkManager.is_server():
+		change_money(money_start)
 
 func _process(delta):
 	if not NetworkManager.is_alice():
@@ -42,19 +46,25 @@ func _process(delta):
 		$PlacePreview.hide()
 
 func placeTile():
+	if NetworkManager.client_assert(): return
+
 	if current_selected == null or not (mouse_position.x < 620 and mouse_position.x > 20 and mouse_position.y < 520 and mouse_position.y > 20):
 		return
 	var mouse_pos = mouse_position
 	mouse_pos = (mouse_pos - Vector2(margin, margin)) / 50
 	mouse_pos = Vector2i(mouse_pos)
 	if money - costs[current_selected] >= 0:
-		board.rpc("updateTile", current_selected, mouse_pos.y, mouse_pos.x)
-		board.updateTile(current_selected, mouse_pos.y, mouse_pos.x)
-		change_money(-costs[current_selected])
+		rpc("_placeTile", current_selected, mouse_pos.y, mouse_pos.x)
 	else:
 		$PlacePreview.modulate = "dd00004b"
 		$PlaceFailTimer.start()
-	
+
+@rpc("any_peer")
+func _placeTile(current_selected, r, c):
+	if not NetworkManager.is_server(): return
+	GlobalLog.server_log("placeTile: " + str(current_selected) + " (" + str(r) + ", " + str(c) + ")")
+	board.updateTile(current_selected, r, c)
+	change_money(-costs[current_selected])
 
 func _on_tower_pressed() -> void:
 	$Panel/Selection.show()
@@ -93,7 +103,15 @@ func dec_health(delta=1) -> void:
 	$HealthBar.get_child(health).play("turbo_dead")
 
 func change_money(change) -> void:
-	money += change + 1
+	if NetworkManager.server_assert(): return
+
+	GlobalLog.server_log("change_money: " + str(money) + " (" + str(change) + ")")
+	rpc("_change_money", change)
+	_change_money(change)
+
+@rpc("authority")
+func _change_money(change):
+	money += change
 	if money < 0:
 		money = 0
 	$HealthBar/Money.text = "$"+str(money)
