@@ -17,13 +17,6 @@ var current_selected
 
 func _ready():
 	initializeBoard()
-	updateTile(1, 7, 2)
-	updateTile(1, 6, 2)
-	updateTile(1, 5, 2)
-	updateTile(1, 4, 5)
-	updateTile(1, 0, 0)
-	updateTile(1, 0, 2)
-	updateTile(1, 0, 4)
 
 func initializeBoard() -> void:
 	for r in range(10):

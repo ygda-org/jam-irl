@@ -92,7 +92,7 @@ func dec_health(delta=1) -> void:
 	$HealthBar.get_child(health).play("turbo_dead")
 
 func change_money(change) -> void:
-	money += change
+	money += change + 1
 	if money < 0:
 		money = 0
 	$HealthBar/Money.text = "$"+str(money)
