@@ -7,7 +7,7 @@
 [ext_resource type="Texture2D" uid="uid://b7pdnaq0iangd" path="res://ASSETS/sprites/slime/SlimeHurt.png" id="3_pgdth"]
 [ext_resource type="Texture2D" uid="uid://c26tlum7sb0sy" path="res://ASSETS/sprites/slime/spawn.png" id="3_r6ugr"]
 [ext_resource type="PackedScene" uid="uid://t1llkwtqjrew" path="res://game/game/z_index_manager.tscn" id="5_4c8a6"]
-[ext_resource type="PackedScene" path="res://game/game/damage/target.tscn" id="6_doswg"]
+[ext_resource type="PackedScene" uid="uid://d11uab4tmr325" path="res://game/game/damage/target.tscn" id="6_doswg"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_wxyuf"]
 atlas = ExtResource("2_rnv5r")
@@ -223,7 +223,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_ep77y")
 }],
-"loop": true,
+"loop": false,
 "name": &"Death",
 "speed": 12.0
 }, {
@@ -246,7 +246,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_lauqb")
 }],
-"loop": true,
+"loop": false,
 "name": &"Hurt",
 "speed": 12.0
 }, {
@@ -383,7 +383,7 @@ damage = 12
 [node name="Anim" type="AnimatedSprite2D" parent="."]
 position = Vector2(0, -25)
 sprite_frames = SubResource("SpriteFrames_l0jed")
-animation = &"Hurt"
+animation = &"Spawn"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(0, -10)

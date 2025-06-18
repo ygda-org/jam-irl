@@ -11,7 +11,7 @@ func _ready() -> void:
 	health = maxHealth
 
 func damage(damage: int):
-	if not NetworkManager.is_server(): return
+	if NetworkManager.is_client(): return
 	
 	health -= damage
 	onDamage.emit(damage)

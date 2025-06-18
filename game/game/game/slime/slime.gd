@@ -26,6 +26,8 @@ func _ready() -> void:
 	$Anim.play("Spawn")
 
 func _physics_process(delta: float) -> void:
+	if NetworkManager.is_client(): return
+	
 	if can_jump:
 		var dir = target.position - position
 		var dist = dir.length()
@@ -33,12 +35,12 @@ func _physics_process(delta: float) -> void:
 		jump_target = position + dir * min(dist, maxJumpDistance)
 		start_jump()
 	
-	if NetworkManager.is_server():
-		if is_jumping:
-			position += (jump_target - position) * delta / jumpTime
+	if is_jumping:
+		position += (jump_target - position) * delta / jumpTime
 
 
 func start_jump() -> void:
+	GlobalLog.server_log("SLIME: " + str(self) + " is jumping to " + str(jump_target))
 	$Anim.play("Jump")
 	is_jumping = true
 	can_jump = false
@@ -77,15 +79,16 @@ func suicide():
 
 @rpc("authority")
 func _suicide():
+	$Anim.stop()
 	$Anim.play("Death")
-	can_jump = false
 	await $Anim.animation_finished
-	can_jump = true
 	queue_free()
 
 func _on_target_on_damage(damage: int) -> void:
-	rpc("__on_target_on_damage", damage)
-	__on_target_on_damage(damage)
+	# only hurt if you are alive
+	if get_node("Target").health > 0:
+		rpc("__on_target_on_damage", damage)
+		__on_target_on_damage(damage)
 
 @rpc("authority")
 func __on_target_on_damage(damage: int) -> void:
