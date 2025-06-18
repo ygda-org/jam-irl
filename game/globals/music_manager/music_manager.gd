@@ -8,6 +8,8 @@ var general_music_playing = false
 
 var prev_scene_name = ""
 
+var rng = RandomNumberGenerator.new()
+
 func _ready() -> void:
 	for setting : SoundEffectSettings in sound_effect_settings:
 		sound_effect_dict[setting.label] = setting
@@ -18,12 +20,19 @@ func _process(delta: float) -> void:
 		clear_all_audio()
 		general_music_playing = false
 	if general_music_playing: return
+	
 	if current_scene.name == "StartScreen" or current_scene.name == "Lobby":
 		general_music_playing = true
 		create_audio(SoundEffectSettings.SOUND_EFFECT_LABEL.LOBBYJAM)
-	if current_scene.name == "Game" and not general_music_playing:
+	if current_scene.name == "Game":
 		general_music_playing = true
-		create_audio(SoundEffectSettings.SOUND_EFFECT_LABEL.BATTLE_A)
+		var randF = rng.randf()
+		if randF < 0.5:
+			create_audio(SoundEffectSettings.SOUND_EFFECT_LABEL.BATTLE_A)
+		else:
+			create_audio(SoundEffectSettings.SOUND_EFFECT_LABEL.BATTLE_MEDIEVAL)
+	if current_scene.name == "VictoryScreen":
+		create_audio(SoundEffectSettings.SOUND_EFFECT_LABEL.VICTORY)
 	
 	prev_scene_name = current_scene.name
 
