@@ -1,8 +1,10 @@
-[gd_scene load_steps=2 format=3 uid="uid://dncbk03v2fica"]
+[gd_scene load_steps=3 format=3 uid="uid://dncbk03v2fica"]
 
+[ext_resource type="Script" uid="uid://6krwrpvq20jk" path="res://game/start/tutorial.gd" id="1_5tael"]
 [ext_resource type="PackedScene" path="res://game/prefabs/title.tscn" id="1_qetlh"]
 
 [node name="Tutorial" type="Node"]
+script = ExtResource("1_5tael")
 
 [node name="Title" parent="." instance=ExtResource("1_qetlh")]
 offset_left = 0.0
@@ -23,3 +25,12 @@ offset_left = 217.0
 offset_right = 259.0
 offset_bottom = 23.0
 text = "Bob"
+
+[node name="Button" type="Button" parent="."]
+offset_left = -63.0
+offset_top = 207.0
+offset_right = 55.0
+offset_bottom = 239.0
+text = "Start Menu"
+
+[connection signal="pressed" from="Button" to="." method="_on_button_pressed"]
