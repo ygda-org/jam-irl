@@ -3,6 +3,7 @@ extends CharacterBody2D
 const SPEED: int = 10000
 const ATTACK: int = 20
 const ATTACK_COOLDOWN: float = 0.75
+const ATTACK_WINDDOWN: float = 1.5
 
 var can_attack: bool = true
 
@@ -11,6 +12,9 @@ var input: Vector2 = Vector2(0, 0)
 @onready var bob_ui = get_node("../../BobUI")
 
 var mana: int = 100
+
+var queued_next_attack = 0
+var prev_attack = 0
 
 func _ready() -> void:
 	if not NetworkManager.is_server(): # Disable collisions if it's a client.
@@ -22,6 +26,7 @@ func _physics_process(delta: float) -> void:
 	
 	
 	if can_attack:
+		velocity = delta * SPEED * input
 		if input != Vector2.ZERO:
 			if input.x > 0:
 				%Anim.flip_h = true
@@ -32,8 +37,8 @@ func _physics_process(delta: float) -> void:
 			
 		else:
 			$Anim.play("idle")
-		
-	velocity = delta * SPEED * input
+	else:
+		velocity = Vector2.ZERO
 	
 	move_and_slide()
 
@@ -53,19 +58,24 @@ func _on_target_on_damage(damage: int) -> void:
 	rpc("__on_target_on_damage", damage)
 
 @rpc("any_peer")
-func attack():
+func attack(current = 1):
 	if can_attack:
-		$Anim.flip_h = not $Anim.flip_h
+		prev_attack = current
+		$Anim.flip_h = not $Anim.flip_h if current == 1 else $Anim.flip_h
 		can_attack = false
-		%BobAttackCooldown.start(ATTACK_COOLDOWN)
-		%Anim.play("sword1")
-		var attacked_bodies: Array = %BobAttackArea.get_overlapping_bodies() + %BobAttackArea.get_overlapping_areas()
+		if current == 3:
+			$BobWinddown.start(ATTACK_WINDDOWN)
+		else:
+			%BobAttackCooldown.start(ATTACK_COOLDOWN)
+		%Anim.play("sword" + str(current))
+		var attacked_bodies: Array = (%"BobAttackArea" if current == 1 else $BobAttackArea2 if current == 2 else $BobAttackArea3).get_overlapping_bodies() + %BobAttackArea.get_overlapping_areas()
 		
 		for body: Node2D in attacked_bodies:
 			var target = body.get_node("Target")
 			if target and target.affiliation != Affiliation.Type.PLAYER:
 				target.damage(ATTACK)
-		
+	else:
+		queued_next_attack = prev_attack + 1
 
 @rpc("authority")
 func __on_target_on_damage(damage: int) -> void:
@@ -76,4 +86,12 @@ func _to_string() -> String:
 
 
 func _on_bob_attack_cooldown_timeout() -> void:
+	can_attack = true
+	if queued_next_attack >= 1 and queued_next_attack <= 3 and queued_next_attack != prev_attack:
+		attack(queued_next_attack)
+
+
+func _on_bob_winddown_timeout():
+	queued_next_attack = 0
+	prev_attack = 0
 	can_attack = true
