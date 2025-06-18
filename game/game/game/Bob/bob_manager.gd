@@ -29,6 +29,7 @@ func _on_input_tick_timeout() -> void:
 func request_projectile(direction : Vector2):
 	#GlobalLog.log("Projectile Requested")
 	var bob = $"../Arena/Bob"
+	MusicManager.create_audio(SoundEffectSettings.SOUND_EFFECT_LABEL.SFX_ARROWSHOOT)
 	get_parent().summon_projectile(bob.global_position, direction, BOB_FIREBALL, bob)
 
 @rpc("any_peer")
