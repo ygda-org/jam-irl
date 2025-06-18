@@ -750,7 +750,7 @@ frame_progress = 0.376741
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 unique_name_in_owner = true
-position = Vector2(0, 9)
+position = Vector2(1, -6)
 shape = SubResource("RectangleShape2D_23x7o")
 
 [node name="Target" parent="." instance=ExtResource("9_middi")]
@@ -765,7 +765,7 @@ replication_config = SubResource("SceneReplicationConfig_w2qpk")
 unique_name_in_owner = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="BobAttackArea"]
-position = Vector2(-3.25, -26)
+position = Vector2(1, -12)
 shape = SubResource("RectangleShape2D_q6un5")
 
 [node name="BobAttackCooldown" type="Timer" parent="."]
