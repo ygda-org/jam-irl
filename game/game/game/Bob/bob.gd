@@ -40,6 +40,10 @@ func _physics_process(delta: float) -> void:
 func health() -> int:
 	return $Target.health
 
+func update_mana(delta: int) -> void:
+	mana += delta
+	bob_ui.update_mana_bar(mana)
+
 func _on_target_on_death() -> void:
 	GlobalLog.server_log("Bob has died!")
 	game.win(NetworkManager.Role.Alice)

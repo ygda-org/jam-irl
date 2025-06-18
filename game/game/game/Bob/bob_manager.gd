@@ -36,7 +36,8 @@ func request_projectile(direction : Vector2):
 	var bob = $"../Arena/Bob"
 	if bob.mana < bullet_cost:
 		return
-	bob.mana = bob.mana - bullet_cost
+	
+	bob.update_mana(-bullet_cost)
 	MusicManager.create_audio(SoundEffectSettings.SOUND_EFFECT_LABEL.SFX_ARROWSHOOT)
 	get_parent().summon_projectile(bob.global_position, direction, BOB_FIREBALL, bob)
 

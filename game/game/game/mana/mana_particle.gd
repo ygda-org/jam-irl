@@ -36,5 +36,5 @@ func _on_spread_time_timeout() -> void:
 	spreading = false
 
 func collect():
-	bob.mana = bob.mana + 1
+	bob.update_mana(1)
 	queue_free()
