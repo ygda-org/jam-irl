@@ -1,0 +1,27 @@
+[gd_scene load_steps=5 format=3 uid="uid://bpuvhtgrkp2mo"]
+
+[ext_resource type="Shader" uid="uid://ci4jcbprng6kv" path="res://game/prefabs/boil/outline.gdshader" id="1_n55cy"]
+[ext_resource type="Texture2D" uid="uid://b7irlyxwi45i0" path="res://icon.svg" id="2_hf5gq"]
+[ext_resource type="Script" uid="uid://dsfnjkwjmpxt8" path="res://game/prefabs/boil/boil_outline.gd" id="3_jgpp6"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_onqc1"]
+shader = ExtResource("1_n55cy")
+shader_parameter/node_size = Vector2(839, 445)
+shader_parameter/outline_color = Color(1, 0.992157, 0.815686, 1)
+shader_parameter/thickness = 40.0
+shader_parameter/radius = 40.0
+shader_parameter/pixelSize = 12.0
+shader_parameter/softness = 10.0
+shader_parameter/fps = 6.0
+shader_parameter/speed = 50.0
+shader_parameter/amplitude = 5.0
+shader_parameter/freq = 0.05
+
+[node name="BoilOutline" type="TextureRect"]
+material = SubResource("ShaderMaterial_onqc1")
+offset_left = 39.0
+offset_top = 21.0
+offset_right = 878.0
+offset_bottom = 466.0
+texture = ExtResource("2_hf5gq")
+script = ExtResource("3_jgpp6")
