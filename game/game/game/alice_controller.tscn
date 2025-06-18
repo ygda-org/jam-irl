@@ -1,4 +1,4 @@
-[gd_scene load_steps=42 format=3 uid="uid://bdevl74cx1y01"]
+[gd_scene load_steps=49 format=3 uid="uid://bdevl74cx1y01"]
 
 [ext_resource type="Script" uid="uid://c76tnbw2ekk3y" path="res://game/game/alice_controller.gd" id="1_02yvw"]
 [ext_resource type="Texture2D" uid="uid://yleeok8446bj" path="res://ASSETS/UI/alice tower button.png" id="2_pawpw"]
@@ -9,10 +9,13 @@
 [ext_resource type="Texture2D" uid="uid://c2qjqyaer1qax" path="res://ASSETS/UI/alice wall button.png" id="3_v2ip4"]
 [ext_resource type="Texture2D" uid="uid://dtl2wjjkwidm4" path="res://ASSETS/UI/alice i choose you.png" id="4_21g1f"]
 [ext_resource type="Texture2D" uid="uid://oanoiel2xjm6" path="res://ASSETS/heart/heart turbo cancer.png" id="4_32c7f"]
+[ext_resource type="Texture2D" uid="uid://bgu8yoyfhr1y7" path="res://ASSETS/UI/alice spawn button.png" id="4_e5yrj"]
 [ext_resource type="Texture2D" uid="uid://0s8er7plxuh0" path="res://ASSETS/heart/heart broken.png" id="5_cpxrb"]
+[ext_resource type="Texture2D" uid="uid://chsm4a05q12c5" path="res://ASSETS/UI/MONEYMONEYMONEY.png" id="5_n1g32"]
 [ext_resource type="Texture2D" uid="uid://dagxvmxuw0ai5" path="res://ASSETS/placeables/child labor.png" id="7_cpxrb"]
 [ext_resource type="Texture2D" uid="uid://dcc84qxfx1rnn" path="res://ASSETS/placeables/wall_h.png" id="8_32c7f"]
 [ext_resource type="Texture2D" uid="uid://fxyylq031bix" path="res://ASSETS/placeables/wall-v.png" id="9_cpxrb"]
+[ext_resource type="Texture2D" uid="uid://caugac54jxbkm" path="res://ASSETS/sprites/slime/idle.png" id="11_e5yrj"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_ch0le"]
 atlas = ExtResource("2_r5w2a")
@@ -127,6 +130,22 @@ font_color = Color(1, 1, 0, 1)
 outline_size = 6
 outline_color = Color(0, 0.563816, 0, 1)
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_4c8a6"]
+atlas = ExtResource("11_e5yrj")
+region = Rect2(0, 0, 30, 50)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_doswg"]
+atlas = ExtResource("11_e5yrj")
+region = Rect2(30, 0, 30, 50)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_v3v46"]
+atlas = ExtResource("11_e5yrj")
+region = Rect2(60, 0, 30, 50)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_wrei1"]
+atlas = ExtResource("11_e5yrj")
+region = Rect2(0, 50, 30, 50)
+
 [sub_resource type="AtlasTexture" id="AtlasTexture_u8ss5"]
 atlas = ExtResource("7_cpxrb")
 region = Rect2(0, 0, 50, 50)
@@ -183,6 +202,23 @@ animations = [{
 }],
 "loop": true,
 "name": &"floorTEST",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_4c8a6")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_doswg")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_v3v46")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_wrei1")
+}],
+"loop": true,
+"name": &"goopy guy",
 "speed": 5.0
 }, {
 "frames": [{
@@ -288,20 +324,21 @@ icon = ExtResource("3_v2ip4")
 
 [node name="Floortest" type="Button" parent="Panel"]
 layout_mode = 0
-offset_left = 169.0
-offset_top = 125.0
-offset_right = 269.0
-offset_bottom = 175.0
-text = "Floor (test)"
+offset_left = 166.0
+offset_top = 105.0
+offset_right = 272.0
+offset_bottom = 188.0
+text = "$6"
+icon = ExtResource("4_e5yrj")
 
 [node name="Sweatshop" type="Button" parent="Panel"]
 layout_mode = 0
-offset_left = 19.0
-offset_top = 125.0
-offset_right = 144.0
-offset_bottom = 175.0
-text = "Sweatshop ($5)
-"
+offset_left = 21.0
+offset_top = 104.0
+offset_right = 129.0
+offset_bottom = 187.0
+text = "$5"
+icon = ExtResource("5_n1g32")
 
 [node name="Selection" type="TextureRect" parent="Panel"]
 layout_mode = 0
@@ -354,7 +391,7 @@ modulate = Color(1, 1, 1, 0.294118)
 z_index = 10
 position = Vector2(25, 35)
 sprite_frames = SubResource("SpriteFrames_6lebb")
-animation = &"floorTEST"
+animation = &"goopy guy"
 
 [node name="MoneyTimer" type="Timer" parent="."]
 wait_time = 0.2

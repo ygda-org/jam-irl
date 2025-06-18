@@ -17,6 +17,10 @@ var jumpTime: float = 6./12.;
 func _ready() -> void:
 	target = get_parent().get_node("Bob")
 	if target == null:
+		target = get_parent().get_parent().get_node("Bob")
+		board = get_parent()
+	#	target = 
+	if target == null:
 		push_error("Bob not found in scene!")
 	
 	$Anim.play("Spawn")
