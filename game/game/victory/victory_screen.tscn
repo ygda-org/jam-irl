@@ -1,0 +1,33 @@
+[gd_scene load_steps=3 format=3 uid="uid://cl3jojguqqmsh"]
+
+[ext_resource type="Script" uid="uid://dm6ifrpckdhch" path="res://game/victory/victory_screen.gd" id="1_tpjfp"]
+[ext_resource type="PackedScene" uid="uid://dh3jbvgr066gq" path="res://game/prefabs/title.tscn" id="2_73cws"]
+
+[node name="VictoryScreen" type="Node2D"]
+script = ExtResource("1_tpjfp")
+
+[node name="Title" parent="." instance=ExtResource("2_73cws")]
+offset_left = 0.0
+offset_top = 0.0
+offset_right = 0.0
+offset_bottom = 0.0
+size_flags_horizontal = 4
+size_flags_vertical = 4
+
+[node name="Label" type="Label" parent="."]
+offset_left = -32.0
+offset_top = 25.0
+offset_right = 10.0
+offset_bottom = 48.0
+text = "Wins!"
+
+[node name="Home" type="Button" parent="."]
+offset_left = -61.0
+offset_top = 131.0
+offset_right = 58.0
+offset_bottom = 162.0
+text = "Back To Home"
+
+[node name="Camera2D" type="Camera2D" parent="."]
+
+[connection signal="pressed" from="Home" to="." method="_on_home_pressed"]

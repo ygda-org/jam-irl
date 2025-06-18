@@ -1,7 +1,8 @@
-[gd_scene load_steps=11 format=3 uid="uid://xuaexscyabkr"]
+[gd_scene load_steps=12 format=3 uid="uid://xuaexscyabkr"]
 
 [ext_resource type="Script" uid="uid://dqhwuktq4if3c" path="res://game/lobby/lobby_ui.gd" id="1_c5e1p"]
 [ext_resource type="Texture2D" uid="uid://bbohnp1m8xf17" path="res://ASSETS/UI/alice button.png" id="2_oecd8"]
+[ext_resource type="PackedScene" uid="uid://dh3jbvgr066gq" path="res://game/prefabs/title.tscn" id="2_s3qpd"]
 [ext_resource type="Texture2D" uid="uid://bujs21f11yisb" path="res://ASSETS/UI/bob button.png" id="3_s3qpd"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_36d3c"]
@@ -79,11 +80,13 @@ offset_right = 170.0
 offset_bottom = 134.0
 text = "No clients connected"
 
+[node name="Title" parent="." instance=ExtResource("2_s3qpd")]
+
 [node name="Control" type="Panel" parent="."]
 offset_left = 379.0
-offset_top = 194.0
+offset_top = 272.0
 offset_right = 638.0
-offset_bottom = 371.0
+offset_bottom = 449.0
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Control"]
 position = Vector2(129, 56)

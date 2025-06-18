@@ -19,7 +19,7 @@ func goto_start():
 	goto_scene("res://game/start/start_menu.tscn")
 
 func goto_victory_screen(winner: NetworkManager.Role):
-	goto_scene("res://game/game/victory_screen.tscn")
+	goto_scene("res://game/victory/victory_screen.tscn")
 
 func _deferred_goto_scene(path):
 	current_scene.free()

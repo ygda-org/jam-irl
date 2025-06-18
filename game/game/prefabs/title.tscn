@@ -1,0 +1,47 @@
+[gd_scene load_steps=7 format=3 uid="uid://dh3jbvgr066gq"]
+
+[ext_resource type="Texture2D" uid="uid://dhxwr6cj66q77" path="res://ASSETS/sprites/title.png" id="1_rgfqc"]
+[ext_resource type="Script" uid="uid://nhmmefq4tw1n" path="res://game/prefabs/title.gd" id="1_xpjay"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_xpjay"]
+atlas = ExtResource("1_rgfqc")
+region = Rect2(0, 0, 960, 540)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_gehke"]
+atlas = ExtResource("1_rgfqc")
+region = Rect2(0, 540, 960, 540)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_8ktli"]
+atlas = ExtResource("1_rgfqc")
+region = Rect2(0, 1080, 960, 540)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_gs284"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_xpjay")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_gehke")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_8ktli")
+}],
+"loop": true,
+"name": &"Idle",
+"speed": 5.0
+}]
+
+[node name="Title" type="Control"]
+layout_mode = 3
+anchors_preset = 0
+offset_left = 480.0
+offset_top = 270.0
+offset_right = 480.0
+offset_bottom = 270.0
+script = ExtResource("1_xpjay")
+
+[node name="Anim" type="AnimatedSprite2D" parent="."]
+z_index = -10
+sprite_frames = SubResource("SpriteFrames_gs284")
+animation = &"Idle"

@@ -19,7 +19,6 @@ var current_rotation = 0 # 0 or 1, o is horizontal 1 is vertical
 
 var health = 4
 var money = 20
-var number_of_children_worked_to_the_bone = 0
 
 func _ready():
 	$Panel/Selection.hide()
@@ -101,14 +100,9 @@ func change_money(change) -> void:
 func _on_sweatshop_pressed() -> void:
 	$Panel/Selection.show()
 	$Panel/Selection.position = $Panel/Sweatshop.position + Vector2(4, 4)
-	number_of_children_worked_to_the_bone += 1
 	$PlacePreview.play("sweatshop")
 	
 	current_selected = 4
-
-func _on_money_timer_timeout() -> void:
-	change_money(number_of_children_worked_to_the_bone)
-
 
 func _on_place_fail_timer_timeout() -> void:
 	$PlacePreview.modulate = "ffffff4b"
