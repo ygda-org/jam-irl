@@ -51,6 +51,7 @@ func _on_target_on_damage(damage: int) -> void:
 @rpc("any_peer")
 func attack():
 	if can_attack:
+		$Anim.flip_h = not $Anim.flip_h
 		can_attack = false
 		%BobAttackCooldown.start(ATTACK_COOLDOWN)
 		%Anim.play("sword1")
