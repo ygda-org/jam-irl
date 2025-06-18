@@ -1,7 +1,8 @@
 shader_type canvas_item;
 
 uniform vec2 node_size;
-uniform vec3 outline_color: source_color = vec3(1.0, 0.0, 0.0);
+uniform vec3 outline_color: source_color = vec3(1.0, 0.99, 0.81);
+uniform vec4 bg_color: source_color = vec4(.961, .961, .863, 0.);
 
 uniform float thickness = 40.;
 uniform float radius = 40.0;
@@ -70,7 +71,9 @@ void fragment() {
 	float out_rect = box(pos, out_size/2., radius)/softness;
 	float mid_rect = clamp(in_rect, 0., 1.) - clamp(out_rect, 0., 1.);
 
+
+	vec4 bg = vec4(bg_color.rgb, bg_color.a*(1.-clamp(out_rect, 0., 1.)));
 	outline = mid_rect;
 
-	COLOR = vec4(outline_color, outline);
+	COLOR = mix(bg, vec4(outline_color, outline), outline);
 }

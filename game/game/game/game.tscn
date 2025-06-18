@@ -45,7 +45,7 @@ _spawnable_scenes = PackedStringArray("uid://bbvmg7acguuaf")
 spawn_path = NodePath("..")
 
 [node name="BobUI" parent="." node_paths=PackedStringArray("bob") instance=ExtResource("6_efj5v")]
-position = Vector2(703, 315)
+position = Vector2(612, 326)
 bob = NodePath("../Arena/Bob")
 
 [node name="Arena" type="Node2D" parent="."]
