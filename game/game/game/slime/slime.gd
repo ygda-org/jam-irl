@@ -84,7 +84,7 @@ func _suicide():
 	queue_free()
 
 func _on_target_on_damage(damage: int) -> void:
-	rpc("__on_target_on_damage")
+	rpc("__on_target_on_damage", damage)
 	__on_target_on_damage(damage)
 
 @rpc("authority")

@@ -23,6 +23,7 @@ func _on_range_body_exited(body: Node2D) -> void:
 
 func _on_cooldown_timeout() -> void:
 	if bob_in_range:
+		GlobalLog.log("Tower is attempting summon")
 		rpc("attack")
 		attack()
 		$Cooldown.start()
