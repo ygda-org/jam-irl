@@ -2,7 +2,7 @@
 
 [ext_resource type="Texture2D" uid="uid://dagxvmxuw0ai5" path="res://ASSETS/placeables/child labor.png" id="1_6fi7d"]
 [ext_resource type="Script" uid="uid://4hb705twgil8" path="res://game/prefabs/alice_placeables/sweatshop.gd" id="1_dlvfl"]
-[ext_resource type="PackedScene" path="res://game/game/damage/target.tscn" id="2_4dufv"]
+[ext_resource type="PackedScene" uid="uid://d11uab4tmr325" path="res://game/game/damage/target.tscn" id="2_4dufv"]
 [ext_resource type="PackedScene" uid="uid://dwosftn1w1b0p" path="res://game/game/mana/mana_giver.tscn" id="4_tlu0n"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_4dufv"]

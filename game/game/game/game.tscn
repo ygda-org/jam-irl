@@ -5,7 +5,7 @@
 [ext_resource type="Script" uid="uid://it2fdbjm2lvp" path="res://addons/awaitable_http_request/awaitable_http_request.gd" id="3_7dndb"]
 [ext_resource type="PackedScene" uid="uid://cf5ab8q45yaqr" path="res://game/game/slime/slime.tscn" id="3_m7sxm"]
 [ext_resource type="PackedScene" uid="uid://dnfl7m5gxhq71" path="res://game/game/Bob/bob.tscn" id="4_mafgb"]
-[ext_resource type="PackedScene" path="res://game/game/Bob/bob_ui.tscn" id="6_efj5v"]
+[ext_resource type="PackedScene" uid="uid://owddahw4u27" path="res://game/game/Bob/bob_ui.tscn" id="6_efj5v"]
 
 [node name="Game" type="Node2D" node_paths=PackedStringArray("bob_reference")]
 script = ExtResource("1_41k3g")
@@ -14,11 +14,20 @@ bob_reference = NodePath("Arena/Bob")
 [node name="DebugLabel" type="Label" parent="."]
 unique_name_in_owner = true
 z_index = 10
-offset_left = 16.0
-offset_top = 16.0
-offset_right = 531.0
-offset_bottom = 45.0
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = 434.0
+offset_top = 9.0
+offset_right = 949.0
+offset_bottom = 38.0
+grow_horizontal = 0
+grow_vertical = 2
+theme_override_colors/font_color = Color(1, 1, 1, 0.537255)
 text = "Debug Label"
+horizontal_alignment = 2
 
 [node name="DebugEndGame" type="Button" parent="."]
 offset_left = 772.0
@@ -36,7 +45,7 @@ _spawnable_scenes = PackedStringArray("uid://bbvmg7acguuaf")
 spawn_path = NodePath("..")
 
 [node name="BobUI" parent="." node_paths=PackedStringArray("bob") instance=ExtResource("6_efj5v")]
-position = Vector2(704, 340)
+position = Vector2(704, 315)
 bob = NodePath("../Arena/Bob")
 
 [node name="Arena" type="Node2D" parent="."]
