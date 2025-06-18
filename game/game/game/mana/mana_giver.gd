@@ -1,7 +1,7 @@
 extends Node2D
 
 const mana_particle = preload("res://game/game/mana/mana_particle.tscn")
-@export var mana_to_give = 8
+@export var mana_to_give = 30
 var mana = []
 var rng = RandomNumberGenerator.new()
 
