@@ -1,5 +1,5 @@
 # Towercide
-A fast-paced multiplayer platformer where you battle against other players in real-time! Jump, attack, and outmaneuver your opponents in this action-packed game.
+A fast-paced 2-player versus game where you battle against another player in real-time! Attack, defend, and outmaneuver your opponents in this fast-paced, action-packed game.
 
 <div style="display: flex; justify-content: space-between;">
     <img src="promo/game.png" width="49%" alt="Game Screenshot">
