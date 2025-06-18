@@ -1,7 +1,8 @@
-[gd_scene load_steps=8 format=3 uid="uid://7vbfmxiobjvp"]
+[gd_scene load_steps=9 format=3 uid="uid://7vbfmxiobjvp"]
 
 [ext_resource type="PackedScene" path="res://game/game/damage/target.tscn" id="2_ofid5"]
 [ext_resource type="Texture2D" uid="uid://fxyylq031bix" path="res://ASSETS/placeables/wall-v.png" id="2_uc78d"]
+[ext_resource type="PackedScene" uid="uid://dwosftn1w1b0p" path="res://game/game/mana/mana_giver.tscn" id="3_uc78d"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_lj30e"]
 atlas = ExtResource("2_uc78d")
@@ -49,3 +50,5 @@ shape = SubResource("RectangleShape2D_r6lxf")
 
 [node name="Target" parent="." instance=ExtResource("2_ofid5")]
 affiliation = 1
+
+[node name="ManaGiver" parent="." instance=ExtResource("3_uc78d")]

@@ -20,6 +20,8 @@ func _on_timer_timeout():
 
 func _on_target_on_death() -> void:
 	GlobalLog.server_log(str(self) + " has died!")
+	spawn_mana()
+	rpc("spawn_mana")
 	suicide()
 
 func suicide():
@@ -35,3 +37,7 @@ func _on_target_on_damage(damage: int) -> void:
 
 func _to_string() -> String:
 	return "SWEATSHOP: " + str(global_position)
+
+@rpc("authority")
+func spawn_mana():
+	$ManaGiver.give()

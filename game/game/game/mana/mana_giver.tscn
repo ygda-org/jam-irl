@@ -2,9 +2,5 @@
 
 [ext_resource type="Script" uid="uid://dnuaw6vvpqqeo" path="res://game/game/mana/mana_giver.gd" id="1_ugsli"]
 
-[node name="ManaGiver" type="Node2D"]
+[node name="ManaGiver" type="Marker2D"]
 script = ExtResource("1_ugsli")
-
-[node name="TimeToSpread" type="Timer" parent="."]
-
-[node name="testing" type="Camera2D" parent="."]
