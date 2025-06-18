@@ -65,6 +65,7 @@ func _to_lobby(state: NetworkManager.State, url: String, code: String) -> void:
 
 func _on_create_match_pressed() -> void:
 	GlobalLog.client_log("Sent match create request to MS. Waiting...")
+	$CreateMenu.get_node("Label").text = "Creating match..."
 	var res = await HttpWrapper.request(%AwaitableHTTP, "/match/create", HTTPClient.METHOD_POST, {
 		"userId": NetworkManager.user_id,
 	})
@@ -73,8 +74,10 @@ func _on_create_match_pressed() -> void:
 		var code = res["match"]["code"]
 		var gsiUrl = res["match"]["gsiUrl"]
 		GlobalLog.client_log("Created match with code %s and GSI URL %s" % [code, gsiUrl])
+		$CreateMenu.get_node("Label").text = "Match created!"
 		_to_lobby(NetworkManager.State.Client, gsiUrl, code)
 	else:
+		$CreateMenu.get_node("Label").text = "Failed to create."
 		GlobalLog.client_log("Failed to create match.")
 
 func _on_join_match_pressed() -> void:

@@ -4,6 +4,8 @@ func _ready() -> void:
 	if not NetworkManager.is_server():
 		%DebugClientListLabel.queue_free()
 
+	$Menu.get_node("Code").text = "Code: " + str(NetworkManager.code)
+
 func get_debug_label() -> Label:
 	return %DebugLabel
 
