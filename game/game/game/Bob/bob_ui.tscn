@@ -1,10 +1,27 @@
-[gd_scene load_steps=6 format=3 uid="uid://owddahw4u27"]
+[gd_scene load_steps=9 format=3 uid="uid://owddahw4u27"]
 
 [ext_resource type="Script" uid="uid://boiu1lufauslq" path="res://game/game/Bob/bob_ui.gd" id="1_objtk"]
+[ext_resource type="PackedScene" uid="uid://bpuvhtgrkp2mo" path="res://game/prefabs/boil/boil_outline.tscn" id="2_nlvis"]
+[ext_resource type="Shader" uid="uid://ci4jcbprng6kv" path="res://game/prefabs/boil/outline.gdshader" id="3_wsgwb"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_l076m"]
+shader = ExtResource("3_wsgwb")
+shader_parameter/node_size = Vector2(330, 128)
+shader_parameter/outline_color = Color(0.992157, 0.941176, 0.835294, 1)
+shader_parameter/bg_color = Color(0.486275, 0.282353, 0.0156863, 0)
+shader_parameter/thickness = 10.0
+shader_parameter/radius = 20.0
+shader_parameter/pixelSize = 3.0
+shader_parameter/softness = 0.0
+shader_parameter/fps = 6.0
+shader_parameter/frameCount = 4.0
+shader_parameter/speed = 20.0
+shader_parameter/amplitude = 2.0
+shader_parameter/freq = 0.05
 
 [sub_resource type="Gradient" id="Gradient_tki6g"]
-offsets = PackedFloat32Array(0)
-colors = PackedColorArray(0, 0, 0, 1)
+offsets = PackedFloat32Array(0.0176056)
+colors = PackedColorArray(0.623306, 0.368169, 0.0238317, 1)
 
 [sub_resource type="GradientTexture2D" id="GradientTexture2D_objtk"]
 gradient = SubResource("Gradient_tki6g")
@@ -19,14 +36,21 @@ gradient = SubResource("Gradient_ukwbk")
 [node name="BobUI" type="Node2D"]
 script = ExtResource("1_objtk")
 
+[node name="BoilOutline" parent="." instance=ExtResource("2_nlvis")]
+material = SubResource("ShaderMaterial_l076m")
+offset_left = 18.0
+offset_top = 23.0
+offset_right = 348.0
+offset_bottom = 151.0
+
 [node name="Health" type="Node2D" parent="."]
-position = Vector2(0, 33)
+position = Vector2(96, 33)
 
 [node name="HealthBar" type="TextureProgressBar" parent="Health"]
 offset_top = 17.0
 offset_right = 64.0
 offset_bottom = 81.0
-scale = Vector2(3.75, 0.5)
+scale = Vector2(3.55, 0.502108)
 value = 50.0
 texture_under = SubResource("GradientTexture2D_objtk")
 texture_progress = SubResource("GradientTexture2D_nlvis")
@@ -37,16 +61,18 @@ offset_left = -62.0
 offset_top = 19.0
 offset_right = -6.0
 offset_bottom = 42.0
+theme_override_colors/font_color = Color(0.968627, 0.596078, 0.141176, 1)
 text = "Health"
 
 [node name="Node2D" type="Node2D" parent="."]
-position = Vector2(18, 86)
+position = Vector2(113, 86)
 
 [node name="Label" type="Label" parent="Node2D"]
 offset_left = -73.0
 offset_top = 18.0
 offset_right = -25.0
 offset_bottom = 41.0
+theme_override_colors/font_color = Color(0.968627, 0.596078, 0.141176, 1)
 text = "Mana"
 
 [node name="ManaBar" type="TextureProgressBar" parent="Node2D"]
@@ -54,7 +80,7 @@ offset_left = -18.0
 offset_top = 15.0
 offset_right = 46.0
 offset_bottom = 79.0
-scale = Vector2(3.75, 0.5)
+scale = Vector2(3.59, 0.5)
 value = 50.0
 texture_under = SubResource("GradientTexture2D_objtk")
 texture_progress = SubResource("GradientTexture2D_nlvis")

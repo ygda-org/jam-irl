@@ -1,7 +1,8 @@
 shader_type canvas_item;
 
 uniform vec2 node_size;
-uniform vec3 outline_color: source_color = vec3(1.0, 0.0, 0.0);
+uniform vec3 outline_color: source_color = vec3(1.0, 0.99, 0.81);
+uniform vec4 bg_color: source_color = vec4(.961, .961, .863, 0.);
 
 uniform float thickness = 40.;
 uniform float radius = 40.0;
@@ -9,6 +10,7 @@ uniform float pixelSize = 12.0;
 uniform float softness = 10.0;
 
 uniform float fps = 6.0;
+uniform float frameCount = 4;
 uniform float speed = 50.0;
 uniform float amplitude = 5.0;     // how strong the wobble is
 uniform float freq = 0.05;   // how many wiggles per unit
@@ -51,7 +53,7 @@ float circle(vec2 pos, float r) {
 void fragment() {
 	float outline = 0.;
 
-	float t = floor(TIME*fps)*speed;
+	float t = mod(floor(TIME*fps), frameCount)*speed;
 	vec2 uv = vec2(UV.x, 1.-UV.y);
 	vec2 pos = (UV - 0.5) * node_size;
 
@@ -61,7 +63,7 @@ void fragment() {
     wpos.x += sin((wpos.y + t) * freq) * amplitude;
     wpos.y += cos((wpos.x + t) * freq) * amplitude;	// pos.y
 	pos = wpos;
-	
+
     // pos = floor(pos / pixelSize) * pixelSize;
 	float offset = thickness/2.+amplitude+softness;
 	vec2 out_size = node_size - vec2(offset);
@@ -70,7 +72,9 @@ void fragment() {
 	float out_rect = box(pos, out_size/2., radius)/softness;
 	float mid_rect = clamp(in_rect, 0., 1.) - clamp(out_rect, 0., 1.);
 
+
+	vec4 bg = vec4(bg_color.rgb, bg_color.a*(1.-clamp(out_rect, 0., 1.)));
 	outline = mid_rect;
 
-	COLOR = vec4(outline_color, outline);
+	COLOR = mix(bg, vec4(outline_color, outline), outline);
 }

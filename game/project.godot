@@ -23,6 +23,7 @@ GlobalLog="*res://globals/global_log.gd"
 HttpWrapper="*res://globals/network/http_wrapper.gd"
 MusicManager="*res://globals/music_manager/music_manager.tscn"
 GameManager="*res://globals/game_manager.gd"
+Settings="*res://globals/settings.gd"
 
 [display]
 

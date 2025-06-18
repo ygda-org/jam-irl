@@ -1,9 +1,26 @@
-[gd_scene load_steps=12 format=3 uid="uid://xuaexscyabkr"]
+[gd_scene load_steps=15 format=3 uid="uid://xuaexscyabkr"]
 
 [ext_resource type="Script" uid="uid://dqhwuktq4if3c" path="res://game/lobby/lobby_ui.gd" id="1_c5e1p"]
 [ext_resource type="Texture2D" uid="uid://bbohnp1m8xf17" path="res://ASSETS/UI/alice button.png" id="2_oecd8"]
 [ext_resource type="PackedScene" uid="uid://dh3jbvgr066gq" path="res://game/prefabs/title.tscn" id="2_s3qpd"]
 [ext_resource type="Texture2D" uid="uid://bujs21f11yisb" path="res://ASSETS/UI/bob button.png" id="3_s3qpd"]
+[ext_resource type="PackedScene" uid="uid://bpuvhtgrkp2mo" path="res://game/prefabs/boil/boil_outline.tscn" id="5_ksoky"]
+[ext_resource type="Shader" uid="uid://ci4jcbprng6kv" path="res://game/prefabs/boil/outline.gdshader" id="6_icgbd"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_k4ihf"]
+shader = ExtResource("6_icgbd")
+shader_parameter/node_size = Vector2(260, 214)
+shader_parameter/outline_color = Color(0.968627, 0.596078, 0.141176, 1)
+shader_parameter/bg_color = Color(0.471914, 0.273748, 0.0131317, 1)
+shader_parameter/thickness = 12.0
+shader_parameter/radius = 10.0
+shader_parameter/pixelSize = 5.0
+shader_parameter/softness = 0.5
+shader_parameter/fps = 6.0
+shader_parameter/frameCount = 4.0
+shader_parameter/speed = 50.0
+shader_parameter/amplitude = 2.5
+shader_parameter/freq = 0.05
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_36d3c"]
 atlas = ExtResource("2_oecd8")
@@ -82,11 +99,22 @@ text = "No clients connected"
 
 [node name="Title" parent="." instance=ExtResource("2_s3qpd")]
 
-[node name="Menu" type="Panel" parent="."]
+[node name="Menu" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
 offset_left = 379.0
 offset_top = 248.0
 offset_right = 639.0
 offset_bottom = 462.0
+
+[node name="BoilOutline" parent="Menu" instance=ExtResource("5_ksoky")]
+material = SubResource("ShaderMaterial_k4ihf")
+layout_mode = 0
+offset_left = 0.0
+offset_top = 0.0
+offset_right = 260.0
+offset_bottom = 214.0
+parentSize = true
 
 [node name="AliceStart" type="Button" parent="Menu"]
 layout_mode = 0
@@ -126,9 +154,9 @@ anchors_preset = 5
 anchor_left = 0.5
 anchor_right = 0.5
 offset_left = -34.0
-offset_top = 18.0
+offset_top = 27.0
 offset_right = 34.0
-offset_bottom = 57.0
+offset_bottom = 66.0
 grow_horizontal = 2
 theme_override_font_sizes/font_size = 28
 text = "Code"

@@ -1,10 +1,27 @@
-[gd_scene load_steps=13 format=3 uid="uid://di360h4q2r2we"]
+[gd_scene load_steps=16 format=3 uid="uid://di360h4q2r2we"]
 
 [ext_resource type="Script" uid="uid://ced3oeh5brbta" path="res://game/start/start_menu.gd" id="1_jwbto"]
 [ext_resource type="PackedScene" uid="uid://dh3jbvgr066gq" path="res://game/prefabs/title.tscn" id="2_fbv7x"]
 [ext_resource type="Script" uid="uid://it2fdbjm2lvp" path="res://addons/awaitable_http_request/awaitable_http_request.gd" id="2_ia0g5"]
 [ext_resource type="Texture2D" uid="uid://bpm02mhp6ntiy" path="res://ASSETS/UI/create match button.png" id="2_lweva"]
 [ext_resource type="Texture2D" uid="uid://c18rgt70ohqnr" path="res://ASSETS/UI/join button.png" id="3_fbv7x"]
+[ext_resource type="PackedScene" uid="uid://bpuvhtgrkp2mo" path="res://game/prefabs/boil/boil_outline.tscn" id="3_qangb"]
+[ext_resource type="Shader" uid="uid://ci4jcbprng6kv" path="res://game/prefabs/boil/outline.gdshader" id="4_dpsnm"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_gqpx0"]
+shader = ExtResource("4_dpsnm")
+shader_parameter/node_size = Vector2(203, 128)
+shader_parameter/outline_color = Color(0.968627, 0.596078, 0.141176, 1)
+shader_parameter/bg_color = Color(0.471914, 0.273748, 0.0131317, 1)
+shader_parameter/thickness = 12.0
+shader_parameter/radius = 10.0
+shader_parameter/pixelSize = 5.0
+shader_parameter/softness = 0.5
+shader_parameter/fps = 6.0
+shader_parameter/frameCount = 4.0
+shader_parameter/speed = 50.0
+shader_parameter/amplitude = 2.5
+shader_parameter/freq = 0.05
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_qangb"]
 atlas = ExtResource("2_lweva")
@@ -72,83 +89,133 @@ offset_top = 0.0
 offset_right = 0.0
 offset_bottom = 0.0
 
-[node name="Debug Menu" type="Panel" parent="."]
-offset_left = -267.0
-offset_top = -54.0
-offset_right = -78.0
-offset_bottom = 234.0
+[node name="Debug Menu" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_left = -269.0
+offset_top = -69.0
+offset_right = -34.0
+offset_bottom = 245.0
 size_flags_horizontal = 4
 size_flags_vertical = 4
 
+[node name="BoilOutline" parent="Debug Menu" instance=ExtResource("3_qangb")]
+material = SubResource("ShaderMaterial_gqpx0")
+layout_mode = 1
+offset_left = -1.0
+offset_top = -1.0
+offset_right = 234.0
+offset_bottom = 313.0
+parentSize = true
+
 [node name="Address" type="TextEdit" parent="Debug Menu"]
-layout_mode = 0
-offset_left = 8.0
-offset_top = 9.0
-offset_right = 183.0
-offset_bottom = 51.0
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -87.5
+offset_top = 42.0
+offset_right = 87.5
+offset_bottom = 84.0
+grow_horizontal = 2
 text = "localhost"
 placeholder_text = "Address..."
 
 [node name="Port" type="TextEdit" parent="Debug Menu"]
-layout_mode = 0
-offset_left = 8.0
-offset_top = 63.0
-offset_right = 183.0
-offset_bottom = 105.0
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -84.5
+offset_top = 90.0
+offset_right = 90.5
+offset_bottom = 132.0
+grow_horizontal = 2
 text = "9999"
 placeholder_text = "Port..."
 
 [node name="Code" type="TextEdit" parent="Debug Menu"]
-layout_mode = 0
-offset_left = 7.0
-offset_top = 117.0
-offset_right = 182.0
-offset_bottom = 159.0
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -84.5
+offset_top = 138.0
+offset_right = 90.5
+offset_bottom = 180.0
+grow_horizontal = 2
 text = "default"
 placeholder_text = "Code...
 "
 
 [node name="DebugClient" type="Button" parent="Debug Menu"]
-layout_mode = 0
-offset_left = 11.0
-offset_top = 180.0
-offset_right = 180.0
-offset_bottom = 221.0
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -84.5
+offset_top = 194.0
+offset_right = 90.5
+offset_bottom = 235.0
+grow_horizontal = 2
 text = "Debug Client"
 
 [node name="Debug Server" type="Button" parent="Debug Menu"]
-layout_mode = 0
-offset_left = 8.0
-offset_top = 236.0
-offset_right = 181.0
-offset_bottom = 277.0
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -84.5
+offset_top = 241.0
+offset_right = 90.5
+offset_bottom = 282.0
+grow_horizontal = 2
 text = "Debug Server"
 
-[node name="JoinMenu" type="Panel" parent="."]
-offset_left = 68.0
-offset_top = -17.0
-offset_right = 285.0
-offset_bottom = 112.0
+[node name="JoinMenu" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_left = 75.0
+offset_top = -44.0
+offset_right = 276.0
+offset_bottom = 110.0
+
+[node name="BoilOutline" parent="JoinMenu" instance=ExtResource("3_qangb")]
+material = SubResource("ShaderMaterial_gqpx0")
+layout_mode = 0
+offset_left = 0.0
+offset_top = 0.0
+offset_right = 201.0
+offset_bottom = 154.0
+parentSize = true
 
 [node name="Code" type="TextEdit" parent="JoinMenu"]
-layout_mode = 0
-offset_left = 11.0
-offset_top = 10.0
-offset_right = 199.0
-offset_bottom = 52.0
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -71.5
+offset_top = 30.0
+offset_right = 72.5
+offset_bottom = 72.0
+grow_horizontal = 2
 placeholder_text = "Code...
 "
 
 [node name="JoinMatch" type="Button" parent="JoinMenu"]
-layout_mode = 0
-offset_left = 34.0
-offset_top = 64.0
-offset_right = 178.0
-offset_bottom = 112.0
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -71.5
+offset_top = 79.0
+offset_right = 72.5
+offset_bottom = 127.0
+grow_horizontal = 2
 flat = true
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="JoinMenu/JoinMatch"]
-position = Vector2(72, 24)
+position = Vector2(72.5, 23)
 scale = Vector2(1.5, 1.5)
 sprite_frames = SubResource("SpriteFrames_a6sdr")
 animation = &"join"
@@ -159,18 +226,32 @@ frame_progress = 0.650468
 unique_name_in_owner = true
 script = ExtResource("2_ia0g5")
 
-[node name="CreateMenu" type="Panel" parent="."]
-offset_left = 95.0
+[node name="CreateMenu" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_left = 82.0
 offset_top = 122.0
-offset_right = 261.0
-offset_bottom = 192.0
+offset_right = 282.0
+offset_bottom = 232.0
+
+[node name="BoilOutline" parent="CreateMenu" instance=ExtResource("3_qangb")]
+material = SubResource("ShaderMaterial_gqpx0")
+layout_mode = 0
+offset_left = 0.0
+offset_top = 0.0
+offset_right = 203.0
+offset_bottom = 128.0
 
 [node name="CreateMatch" type="Button" parent="CreateMenu"]
-layout_mode = 0
-offset_left = 11.0
-offset_top = 10.0
-offset_right = 155.0
-offset_bottom = 58.0
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -70.0
+offset_top = 35.0
+offset_right = 74.0
+offset_bottom = 83.0
+grow_horizontal = 2
 flat = true
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="CreateMenu/CreateMatch"]
@@ -183,17 +264,14 @@ frame_progress = 0.0245557
 
 [node name="Label" type="Label" parent="CreateMenu"]
 layout_mode = 1
-anchors_preset = 7
+anchors_preset = 5
 anchor_left = 0.5
-anchor_top = 1.0
 anchor_right = 0.5
-anchor_bottom = 1.0
-offset_left = -66.0
-offset_top = 5.0
-offset_right = 66.0
-offset_bottom = 28.0
+offset_left = -61.5
+offset_top = 83.0
+offset_right = 70.5
+offset_bottom = 106.0
 grow_horizontal = 2
-grow_vertical = 0
 
 [node name="Button" type="Button" parent="."]
 offset_left = 361.0

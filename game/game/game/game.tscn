@@ -1,15 +1,48 @@
-[gd_scene load_steps=7 format=3 uid="uid://cnh7fvr6s1oit"]
+[gd_scene load_steps=10 format=3 uid="uid://cnh7fvr6s1oit"]
 
 [ext_resource type="Script" uid="uid://cmgub88gm7itj" path="res://game/game/game.gd" id="1_41k3g"]
 [ext_resource type="PackedScene" uid="uid://qouqpq8qoo84" path="res://game/game/board.tscn" id="1_g4fio"]
+[ext_resource type="PackedScene" uid="uid://bpuvhtgrkp2mo" path="res://game/prefabs/boil/boil_outline.tscn" id="2_wmtbk"]
 [ext_resource type="Script" uid="uid://it2fdbjm2lvp" path="res://addons/awaitable_http_request/awaitable_http_request.gd" id="3_7dndb"]
 [ext_resource type="PackedScene" uid="uid://cf5ab8q45yaqr" path="res://game/game/slime/slime.tscn" id="3_m7sxm"]
+[ext_resource type="Shader" uid="uid://ci4jcbprng6kv" path="res://game/prefabs/boil/outline.gdshader" id="3_uoos0"]
 [ext_resource type="PackedScene" uid="uid://dnfl7m5gxhq71" path="res://game/game/Bob/bob.tscn" id="4_mafgb"]
 [ext_resource type="PackedScene" uid="uid://owddahw4u27" path="res://game/game/Bob/bob_ui.tscn" id="6_efj5v"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_5jf7x"]
+shader = ExtResource("3_uoos0")
+shader_parameter/node_size = Vector2(628, 537)
+shader_parameter/outline_color = Color(1, 0.99, 0.81, 1)
+shader_parameter/bg_color = Color(0.961, 0.961, 0.863, 0)
+shader_parameter/thickness = 10.0
+shader_parameter/radius = 15.0
+shader_parameter/pixelSize = 3.0
+shader_parameter/softness = 0.0
+shader_parameter/fps = 6.0
+shader_parameter/frameCount = 4.0
+shader_parameter/speed = 50.0
+shader_parameter/amplitude = 4.0
+shader_parameter/freq = 0.01
 
 [node name="Game" type="Node2D" node_paths=PackedStringArray("bob_reference")]
 script = ExtResource("1_41k3g")
 bob_reference = NodePath("Arena/Bob")
+
+[node name="ColorRect" type="ColorRect" parent="."]
+z_index = -100
+offset_left = -101.0
+offset_top = -91.0
+offset_right = 1101.0
+offset_bottom = 648.0
+color = Color(0.192157, 0.223529, 0.231373, 1)
+
+[node name="BoilOutline" parent="." instance=ExtResource("2_wmtbk")]
+z_index = 100
+material = SubResource("ShaderMaterial_5jf7x")
+offset_left = 4.0
+offset_top = -2.0
+offset_right = 632.0
+offset_bottom = 535.0
 
 [node name="DebugLabel" type="Label" parent="."]
 unique_name_in_owner = true
@@ -45,7 +78,7 @@ _spawnable_scenes = PackedStringArray("uid://bbvmg7acguuaf")
 spawn_path = NodePath("..")
 
 [node name="BobUI" parent="." node_paths=PackedStringArray("bob") instance=ExtResource("6_efj5v")]
-position = Vector2(703, 315)
+position = Vector2(612, 326)
 bob = NodePath("../Arena/Bob")
 
 [node name="Arena" type="Node2D" parent="."]

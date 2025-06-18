@@ -1,10 +1,12 @@
-[gd_scene load_steps=49 format=3 uid="uid://wfe7bn7vocag"]
+[gd_scene load_steps=52 format=3 uid="uid://wfe7bn7vocag"]
 
 [ext_resource type="Script" uid="uid://c76tnbw2ekk3y" path="res://game/game/alice_controller.gd" id="1_02yvw"]
+[ext_resource type="PackedScene" uid="uid://bpuvhtgrkp2mo" path="res://game/prefabs/boil/boil_outline.tscn" id="2_0lvlx"]
 [ext_resource type="Texture2D" uid="uid://yleeok8446bj" path="res://ASSETS/UI/alice tower button.png" id="2_pawpw"]
 [ext_resource type="Texture2D" uid="uid://hpyyr7xv66ui" path="res://ASSETS/heart/heart_healthy (no bacon or candy).png" id="2_r5w2a"]
 [ext_resource type="Texture2D" uid="uid://bk2rqpin2idcc" path="res://ASSETS/placeables/floor.png" id="2_u2o8n"]
 [ext_resource type="Texture2D" uid="uid://dyfgahnrnw8fd" path="res://ASSETS/placeables/tower.png" id="3_gesbw"]
+[ext_resource type="Shader" uid="uid://ci4jcbprng6kv" path="res://game/prefabs/boil/outline.gdshader" id="3_iok48"]
 [ext_resource type="Texture2D" uid="uid://dk5j5pdct4rtl" path="res://ASSETS/heart/heart_hurt.png" id="3_q06jk"]
 [ext_resource type="Texture2D" uid="uid://c2qjqyaer1qax" path="res://ASSETS/UI/alice wall button.png" id="3_v2ip4"]
 [ext_resource type="Texture2D" uid="uid://dtl2wjjkwidm4" path="res://ASSETS/UI/alice i choose you.png" id="4_21g1f"]
@@ -16,6 +18,21 @@
 [ext_resource type="Texture2D" uid="uid://dcc84qxfx1rnn" path="res://ASSETS/placeables/wall_h.png" id="8_32c7f"]
 [ext_resource type="Texture2D" uid="uid://fxyylq031bix" path="res://ASSETS/placeables/wall-v.png" id="9_cpxrb"]
 [ext_resource type="Texture2D" uid="uid://caugac54jxbkm" path="res://ASSETS/sprites/slime/idle.png" id="11_e5yrj"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_trmaa"]
+shader = ExtResource("3_iok48")
+shader_parameter/node_size = Vector2(342, 322)
+shader_parameter/outline_color = Color(0.992157, 0.941176, 0.835294, 1)
+shader_parameter/bg_color = Color(0, 0.14902, 0.45098, 0)
+shader_parameter/thickness = 10.0
+shader_parameter/radius = 20.0
+shader_parameter/pixelSize = 3.0
+shader_parameter/softness = 0.0
+shader_parameter/fps = 6.0
+shader_parameter/frameCount = 4.0
+shader_parameter/speed = 20.0
+shader_parameter/amplitude = 3.0
+shader_parameter/freq = 0.05
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_ch0le"]
 atlas = ExtResource("2_r5w2a")
@@ -126,9 +143,9 @@ animations = [{
 
 [sub_resource type="LabelSettings" id="LabelSettings_32c7f"]
 font_size = 28
-font_color = Color(1, 1, 0, 1)
+font_color = Color(0.97, 0.942517, 0.1455, 1)
 outline_size = 6
-outline_color = Color(0, 0.563816, 0, 1)
+outline_color = Color(0.471914, 0.273748, 0.0131317, 1)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_4c8a6"]
 atlas = ExtResource("11_e5yrj")
@@ -298,7 +315,16 @@ properties/4/replication_mode = 2
 [node name="AliceController" type="Node2D"]
 script = ExtResource("1_02yvw")
 
-[node name="Panel" type="Panel" parent="."]
+[node name="BoilOutline" parent="." instance=ExtResource("2_0lvlx")]
+material = SubResource("ShaderMaterial_trmaa")
+offset_left = 617.0
+offset_top = 12.0
+offset_right = 959.0
+offset_bottom = 334.0
+
+[node name="Panel" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
 offset_left = 639.0
 offset_top = 126.0
 offset_right = 939.0
