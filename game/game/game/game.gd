@@ -30,10 +30,8 @@ func _update_debug_label():
 		%DebugLabel.text += "Bob"
 	elif NetworkManager.is_server():
 		%DebugLabel.text += "Server"
-	if NetworkManager.verified:
-		%DebugLabel.text += " | Verified"
 	
-	%DebugLabel.text += " | URL: " + NetworkManager.get_address_with_protocol() + " [" + str(NetworkManager.code) + "]"
+	%DebugLabel.text += " | " + NetworkManager.get_address_with_protocol() + " [" + str(NetworkManager.code) + "]"
 
 
 func _on_debug_end_game_pressed() -> void:

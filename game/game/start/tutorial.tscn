@@ -1,6 +1,6 @@
-[gd_scene load_steps=3 format=3 uid="uid://dncbk03v2fica"]
+[gd_scene load_steps=3 format=3 uid="uid://bpi8gkbjhagio"]
 
-[ext_resource type="Script" uid="uid://6krwrpvq20jk" path="res://game/start/tutorial.gd" id="1_5tael"]
+[ext_resource type="Script" path="res://game/start/tutorial.gd" id="1_5tael"]
 [ext_resource type="PackedScene" path="res://game/prefabs/title.tscn" id="1_qetlh"]
 
 [node name="Tutorial" type="Node"]
@@ -38,11 +38,12 @@ offset_left = 161.0
 offset_top = 84.0
 offset_right = 309.0
 offset_bottom = 159.0
-text = "WASD = Movement
-Z = Sword hit
-E = Ranged Attack"
+text = "WASD or Arrow Keys = Movement
+Z, J, or Space = Sword hit
+E, period, or K = Ranged Attack"
 
 [node name="Label" type="Label" parent="Label"]
+layout_mode = 0
 offset_left = -535.0
 offset_right = -276.0
 offset_bottom = 75.0
