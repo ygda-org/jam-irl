@@ -1,14 +1,19 @@
 extends Node2D
 
-var input: Vector2 = Vector2(0, 0)	
+var input: Vector2 = Vector2(0, 0)
+var old_dir = Vector2(1, 0)
 const BOB_FIREBALL = preload("res://game/game/GenericProjectile/ProjectileSettingResources/bob_fireball.tres")
 var summon_request = false
+
+const bullet_cost = 7
 
 func _on_input_tick_timeout() -> void:
 	if not NetworkManager.is_bob():
 		return
 	var old_input = input
 	input = Input.get_vector("Left", "Right", "Up", "Down")
+	if input != Vector2.ZERO:
+		old_dir = input
 	
 	if not summon_request and Input.is_action_just_pressed("Shoot"):
 		summon_request = true
@@ -18,8 +23,8 @@ func _on_input_tick_timeout() -> void:
 	
 	if summon_request:# TODO Factor in timer to delay request and slow shooting speed
 		summon_request = false
-		rpc("request_projectile", input)
-		request_projectile(input)
+		rpc("request_projectile", old_dir)
+		request_projectile(old_dir)
 		pass
 	
 	if not old_input == input:
@@ -29,6 +34,9 @@ func _on_input_tick_timeout() -> void:
 func request_projectile(direction : Vector2):
 	#GlobalLog.log("Projectile Requested")
 	var bob = $"../Arena/Bob"
+	if bob.mana < bullet_cost:
+		return
+	bob.mana = bob.mana - bullet_cost
 	MusicManager.create_audio(SoundEffectSettings.SOUND_EFFECT_LABEL.SFX_ARROWSHOOT)
 	get_parent().summon_projectile(bob.global_position, direction, BOB_FIREBALL, bob)
 

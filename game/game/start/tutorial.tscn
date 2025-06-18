@@ -1,0 +1,25 @@
+[gd_scene load_steps=2 format=3 uid="uid://dncbk03v2fica"]
+
+[ext_resource type="PackedScene" path="res://game/prefabs/title.tscn" id="1_qetlh"]
+
+[node name="Tutorial" type="Node"]
+
+[node name="Title" parent="." instance=ExtResource("1_qetlh")]
+offset_left = 0.0
+offset_top = 0.0
+offset_right = 0.0
+offset_bottom = 0.0
+
+[node name="Camera2D" type="Camera2D" parent="."]
+
+[node name="Alice" type="Label" parent="."]
+offset_left = -293.0
+offset_right = -251.0
+offset_bottom = 23.0
+text = "Alice"
+
+[node name="Bob" type="Label" parent="."]
+offset_left = 217.0
+offset_right = 259.0
+offset_bottom = 23.0
+text = "Bob"
