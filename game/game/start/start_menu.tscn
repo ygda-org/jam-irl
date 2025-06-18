@@ -1,7 +1,7 @@
 [gd_scene load_steps=13 format=3 uid="uid://di360h4q2r2we"]
 
 [ext_resource type="Script" uid="uid://ced3oeh5brbta" path="res://game/start/start_menu.gd" id="1_jwbto"]
-[ext_resource type="PackedScene" uid="uid://dh3jbvgr066gq" path="res://game/prefabs/title.tscn" id="2_fbv7x"]
+[ext_resource type="PackedScene" path="res://game/prefabs/title.tscn" id="2_fbv7x"]
 [ext_resource type="Script" uid="uid://it2fdbjm2lvp" path="res://addons/awaitable_http_request/awaitable_http_request.gd" id="2_ia0g5"]
 [ext_resource type="Texture2D" uid="uid://bpm02mhp6ntiy" path="res://ASSETS/UI/create match button.png" id="2_lweva"]
 [ext_resource type="Texture2D" uid="uid://c18rgt70ohqnr" path="res://ASSETS/UI/join button.png" id="3_fbv7x"]
@@ -166,6 +166,7 @@ offset_right = 261.0
 offset_bottom = 192.0
 
 [node name="CreateMatch" type="Button" parent="Control2"]
+layout_mode = 0
 offset_left = 5.0
 offset_top = -76.0
 offset_right = 149.0

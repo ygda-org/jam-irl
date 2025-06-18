@@ -8,7 +8,7 @@ const SWEATSHOP = preload("res://game/prefabs/alice_placeables/sweatshop.tscn") 
 const margin = 20
 
 const structures = [FLOOR, TOWER, WALLH, WALLV, SWEATSHOP]
-const costs = [0,4,1,1,5]
+const costs = [0,7,3,3,5]
 
 var mouse_position: Vector2
 var current_selected
@@ -18,7 +18,7 @@ var current_rotation = 0 # 0 or 1, o is horizontal 1 is vertical
 @onready var game = get_parent()
 
 var health = 4
-var money = 20
+var money = 10
 
 func _ready():
 	$Panel/Selection.hide()
@@ -30,7 +30,7 @@ func _process(delta):
 	mouse_position = get_viewport().get_mouse_position()
 	if Input.is_action_just_released("LeftClick"):
 		placeTile()
-	if Input.is_action_just_pressed("RightClick"): 
+	if Input.is_action_just_pressed("RightClick"):
 		current_rotation = (current_rotation + 1) % 2
 		if current_selected == 2 or current_selected == 3:
 			_on_wall_pressed()
