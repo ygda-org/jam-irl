@@ -4,7 +4,7 @@ extends Node2D
 @onready var code: TextEdit = $"Debug Menu/Code"
 @onready var port: TextEdit = $"Debug Menu/Port"
 
-@onready var joinCode: TextEdit = $Control/Code
+@onready var joinCode: TextEdit = $JoinMenu/Code
 
 func _ready() -> void:
 	var args: = OS.get_cmdline_args()

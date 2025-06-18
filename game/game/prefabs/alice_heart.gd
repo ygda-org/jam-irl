@@ -2,7 +2,7 @@ extends StaticBody2D
 
 var health = 100
 const max_health = 100
-@onready var _alice = get_tree().root.get_node("Game").get_node("AliceController")
+@onready var _alice = get_tree().root.get_node("Game").find_child("AliceController")
 
 func _ready():
 	pass

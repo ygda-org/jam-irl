@@ -71,7 +71,9 @@ func attack(current = 1):
 		var attacked_bodies: Array = (%"BobAttackArea" if current == 1 else $BobAttackArea2 if current == 2 else $BobAttackArea3).get_overlapping_bodies() + %BobAttackArea.get_overlapping_areas()
 		
 		for body: Node2D in attacked_bodies:
-			var target = body.get_node("Target")
+			if "AttackArea" in body.name:
+				continue
+			var target = body.find_child("Target")
 			if target and target.affiliation != Affiliation.Type.PLAYER:
 				target.damage(ATTACK)
 	else:

@@ -53,10 +53,7 @@ func create_2d_audio(position : Vector2, type : SoundEffectSettings.SOUND_EFFECT
 	audioplayer.finished.connect(audioplayer.queue_free)
 	audioplayer.name = str(sound_effect_setting.label)
 	audioplayer.play()
-	if NetworkManager.is_server():
-		GlobalLog.server_log("Playing: " + str(sound_effect_setting.label))
-	else:
-		GlobalLog.client_log("Playing: " + str(sound_effect_setting.label))
+	#GlobalLog.log("Playing: " + str(sound_effect_setting.label))
 
 @rpc("any_peer")
 func create_audio(type : SoundEffectSettings.SOUND_EFFECT_LABEL):
@@ -70,10 +67,7 @@ func create_audio(type : SoundEffectSettings.SOUND_EFFECT_LABEL):
 	audioplayer.name = str(sound_effect_setting.label)
 	audioplayer.finished.connect(_on_audio_finished.bind(audioplayer))
 	audioplayer.play()
-	if NetworkManager.is_server():
-		GlobalLog.server_log("Playing: " + str(sound_effect_setting.label))
-	else:
-		GlobalLog.client_log("Playing: " + str(sound_effect_setting.label))
+	#GlobalLog.log("Playing: " + str(sound_effect_setting.label))
 
 func clear_all_audio():
 	for child in get_children():
