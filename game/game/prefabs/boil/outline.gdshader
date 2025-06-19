@@ -14,6 +14,19 @@ uniform float frameCount = 4;
 uniform float speed = 50.0;
 uniform float amplitude = 5.0;     // how strong the wobble is
 uniform float freq = 0.05;   // how many wiggles per unit
+uniform float noiseStrength = 0.;
+
+float hash(vec2 p) {
+    return fract(sin(dot(p, vec2(127.1, 311.7))) * 43758.5453);
+}
+
+float noise(vec2 p) {
+    vec2 i = floor(p);
+    vec2 f = fract(p);
+    f = f * f * (3.0 - 2.0 * f);
+    return mix(mix(hash(i), hash(i + vec2(1.0, 0.0)), f.x),
+               mix(hash(i + vec2(0.0, 1.0)), hash(i + vec2(1.0, 1.0)), f.x), f.y);
+}
 
 float minvec2(vec2 v) {
     return min(v.x, v.y);
@@ -60,8 +73,9 @@ void fragment() {
     pos = floor(pos / pixelSize) * pixelSize;
 
     vec2 wpos = pos;
-    wpos.x += sin((wpos.y + t) * freq) * amplitude;
-    wpos.y += cos((wpos.x + t) * freq) * amplitude;	// pos.y
+    float noise_val = noise(pos * 0.1 + t * 0.01);
+    wpos.x += sin((wpos.y + t) * freq) * amplitude * (0.5 + noise_val * noiseStrength)*2.f;
+    wpos.y += cos((wpos.x + t) * freq) * amplitude * (0.5 + noise_val * noiseStrength)*2.f;
 	pos = wpos;
 
     // pos = floor(pos / pixelSize) * pixelSize;
