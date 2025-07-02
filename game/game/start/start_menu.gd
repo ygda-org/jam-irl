@@ -3,7 +3,7 @@ extends Node2D
 @onready var address: TextEdit = $"Debug Menu/Address"
 @onready var code: TextEdit = $"Debug Menu/Code"
 @onready var port: TextEdit = $"Debug Menu/Port"
-
+@onready var matchmaking_address: TextEdit = $"Debug Menu/MatchmakingAddress"
 @onready var joinCode: TextEdit = $JoinMenu/Code
 
 func _ready() -> void:
@@ -52,6 +52,7 @@ func _to_lobby(state: NetworkManager.State, url: String, code: String) -> void:
 	NetworkManager.state = state
 	NetworkManager.address_with_port = url
 	NetworkManager.code = code
+	NetworkManager.match_making_address = "http://" + matchmaking_address.text
 	SceneSwitcher.goto_lobby()
 
 func _on_create_match_pressed() -> void:

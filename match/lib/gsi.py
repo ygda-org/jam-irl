@@ -20,7 +20,7 @@ def get_used_ports() -> List[int]:
 
 def get_available_ports(exclude: List[int] = []) -> List[int]:
     """Find an available port for a new GIS container"""
-    start, end = 10000, 10100
+    start, end = int(os.getenv("GIS_PORT_RANGE_START")), int(os.getenv("GIS_PORT_RANGE_END"))
     d = {i: True for i in range(start, end)}
     used_ports = get_used_ports()
     for p in used_ports:
@@ -71,7 +71,7 @@ async def start_gsi_on_port(port: int, code: str, match_id: str) -> str:
             raise Exception("Container started but did not start game instance")
 
         # Return the websocket URL
-        return f"ws://localhost:{port}"
+        return f"ws://{os.getenv('GIS_CLUSTER_IP')}:{port}"
     except Exception as e:
         # Clean up on any error
         try:

@@ -18,6 +18,7 @@ shader_parameter/frameCount = 4.0
 shader_parameter/speed = 50.0
 shader_parameter/amplitude = 5.0
 shader_parameter/freq = 0.05
+shader_parameter/noiseStrength = 0.0
 
 [node name="BoilOutline" type="TextureRect"]
 z_index = -10

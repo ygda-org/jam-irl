@@ -5,6 +5,7 @@ from dotenv import load_dotenv
 from api import router
 from lib.db import prisma
 from lib.error_middleware import ErrorLoggingMiddleware
+import os
 
 # Load environment variables
 load_dotenv()
@@ -41,4 +42,4 @@ async def shutdown():
     await prisma.disconnect()
 
 if __name__ == "__main__":
-    uvicorn.run(app, host="0.0.0.0", port=8000) 
+    uvicorn.run(app, host="0.0.0.0", port=int(os.getenv("MS_PORT"))) 

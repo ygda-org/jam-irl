@@ -23,6 +23,7 @@ shader_parameter/frameCount = 4.0
 shader_parameter/speed = 50.0
 shader_parameter/amplitude = 4.0
 shader_parameter/freq = 0.01
+shader_parameter/noiseStrength = 0.0
 
 [node name="Game" type="Node2D" node_paths=PackedStringArray("bob_reference")]
 script = ExtResource("1_41k3g")
