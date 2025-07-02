@@ -3,7 +3,7 @@ from pydantic import BaseModel
 import random
 import string
 from lib.db import prisma
-from lib.gsi import start_gsi, kill_gsi
+from lib.gsi import start_gsi, kill_gsi, get_logs
 
 router = APIRouter()
 
@@ -180,4 +180,6 @@ async def get_match(match_id: str):
     if not match:
         raise HTTPException(status_code=404, detail="Match not found")
 
-    return {"match": match}
+    logs = await get_logs(int(match.gsiUrl.split(":")[2]))
+
+    return {"match": match, "logs": logs}

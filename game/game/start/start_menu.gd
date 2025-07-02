@@ -13,16 +13,25 @@ func _ready() -> void:
 	if NetworkManager.is_server():
 		SceneSwitcher.goto_lobby()
 	else: # If it's a user, request an ID
-		if NetworkManager.user_id != "none": # If the client already has a userid, don't request a new one
-			return
-		
-		var json = await HttpWrapper.request(%AwaitableHTTP, "/user/", HTTPClient.METHOD_POST)
-		if json:
-			json = json as Dictionary
-			NetworkManager.user_id = json["userId"]
-			GlobalLog.client_log("Retrieved userID %s from matchmaking server." % NetworkManager.user_id)
-		else:
-			GlobalLog.client_log("Failed to get userID from matchmaking server.")
+		await get_user_id()
+
+func update_matchmaking_address() -> void:
+	NetworkManager.match_making_address = "http://" + matchmaking_address.text
+
+func get_user_id() -> void:
+	if NetworkManager.user_id != "none": # If the client already has a userid, don't request a new one
+		return
+
+	update_matchmaking_address()
+	
+	var json = await HttpWrapper.request(%AwaitableHTTP, "/user/", HTTPClient.METHOD_POST)
+	if json:
+		json = json as Dictionary
+		NetworkManager.user_id = json["userId"]
+		GlobalLog.client_log("Retrieved userID %s from matchmaking server." % NetworkManager.user_id)
+	else:
+		GlobalLog.client_log("Failed to get userID from matchmaking server.")
+
 
 func _parse_args(args: PackedStringArray) -> void:
 	if args.has("--server"):
@@ -49,13 +58,17 @@ func _on_debug_server_pressed() -> void:
 	SceneSwitcher.goto_lobby()
 
 func _to_lobby(state: NetworkManager.State, url: String, code: String) -> void:
+	await get_user_id()
+
 	NetworkManager.state = state
 	NetworkManager.address_with_port = url
 	NetworkManager.code = code
-	NetworkManager.match_making_address = "http://" + matchmaking_address.text
+	update_matchmaking_address()
 	SceneSwitcher.goto_lobby()
 
 func _on_create_match_pressed() -> void:
+	await get_user_id()
+
 	GlobalLog.client_log("Sent match create request to MS. Waiting...")
 	$CreateMenu.get_node("Label").text = "Creating match..."
 	var res = await HttpWrapper.request(%AwaitableHTTP, "/match/create", HTTPClient.METHOD_POST, {
@@ -73,6 +86,8 @@ func _on_create_match_pressed() -> void:
 		GlobalLog.client_log("Failed to create match.")
 
 func _on_join_match_pressed() -> void:
+	await get_user_id()
+
 	GlobalLog.client_log("Joining match...")
 	var res = await HttpWrapper.request(%AwaitableHTTP, "/match/join", HTTPClient.METHOD_POST, {
 		"userId": NetworkManager.user_id,
