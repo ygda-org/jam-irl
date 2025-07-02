@@ -180,6 +180,15 @@ async def get_match(match_id: str):
     if not match:
         raise HTTPException(status_code=404, detail="Match not found")
 
-    logs = await get_logs(int(match.gsiUrl.split(":")[2]))
+    # Get logs with error handling
+    logs = "No logs available"
+    try:
+        if match.gsiUrl:
+            port = int(match.gsiUrl.split(":")[2])
+            logs = await get_logs(port)
+    except (ValueError, IndexError) as e:
+        logs = f"Error parsing GSI URL: {str(e)}"
+    except Exception as e:
+        logs = f"Error retrieving logs: {str(e)}"
 
     return {"match": match, "logs": logs}

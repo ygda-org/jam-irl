@@ -1,4 +1,5 @@
 import docker
+import docker.errors
 import re
 import os
 from typing import List
@@ -93,8 +94,13 @@ async def start_gsi(code: str, match_id: str) -> str:
     raise Exception("No available ports")
 
 async def get_logs(port: int) -> str:
-    container = docker_client.containers.get(f"gis-{port}")
-    return container.logs().decode('utf-8')
+    try:
+        container = docker_client.containers.get(f"gis-{port}")
+        return container.logs().decode('utf-8')
+    except docker.errors.NotFound:
+        return f"Container gis-{port} not found"
+    except Exception as e:
+        return f"Error getting logs: {str(e)}"
 
 async def kill_gsi(port: int):
     await kill_container(f"gis-{port}")
