@@ -10,7 +10,7 @@ var can_damage: bool = true
 func _on_body_entered(body: Node2D) -> void:
 	if NetworkManager.is_client(): return
 	
-	var target = body.get_node("Target")
+	var target = body.get_node_or_null("Target")
 	if target == null or not can_damage:
 		return
 	
