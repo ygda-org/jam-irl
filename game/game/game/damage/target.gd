@@ -18,6 +18,6 @@ func damage(damage: int):
 	
 	if health <= 0:
 		onDeath.emit()
-		var mana_giver = get_parent().get_node("ManaGiver")
+		var mana_giver = get_parent().get_node_or_null("ManaGiver")
 		if mana_giver:
 			mana_giver.give()
